@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="messages.en.xlf">
+        <body>
+            <trans-unit id="1">
+                <source>label.contact</source>
+                <target>Contact</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>label.send</source>
+                <target>I send</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>label.mandatory_field</source>
+                <target>* Mandatory field</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>label.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>label.message</source>
+                <target>Message</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>label.name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>label.subject</source>
+                <target>Subject</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>placeholder.email</source>
+                <target>My email</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>placeholder.message</source>
+                <target>My message</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>placeholder.name</source>
+                <target>My name</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>placeholder.subject</source>
+                <target>The subject</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>text.contact_info</source>
+                <target><![CDATA[I use this form to contact <strong>%site%</strong>. A copy of the message will be sent to the email Address I provide.]]></target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>text.message_sent</source>
+                <target>My message has been well sent!</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>text.mail_following_sent</source>
+                <target><![CDATA[The following message has been sent by <strong>%senderName%</strong> with the email address <a href="mailto:%senderEmail%">%senderEmail%</a> on %sendTime% from <strong>%site%</strong>.]]></target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>label.message_sent</source>
+                <target>Message sent</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>text.email_sent_by</source>
+                <target><![CDATA[This email was sent to you by <strong>%site%</strong>.]]></target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>label.hello</source>
+                <target>Hello</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>text.thanks_confidence</source>
+                <target><![CDATA[Thank you for your confidence!
+                        We remain at your disposal for any request.]]></target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>text.no_spam</source>
+                <target><![CDATA[We Advise you to save our email Address "%email%" in your Address book so that our emails are not classified as spam.]]></target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>text.regards_team</source>
+                <target><![CDATA[Regards,
+                        The %site% Team]]></target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

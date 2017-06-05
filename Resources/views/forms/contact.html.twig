@@ -1,0 +1,25 @@
+{% extends "@c975LContactForm/layout.html.twig" %}
+
+{% block contactform_content %}
+    <div>
+        <p class="text-center">
+            {{ 'text.contact_info'|trans({'%site%': site})|raw }}
+        </p>
+
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+
+            <div class="form-group">
+                <button type="submit" name="submit" title="{{ 'label.send'|trans }}" class="btn btn-lg btn-primary btn-block">
+                    <span class="glyphicon glyphicon-send"></span> {{ 'label.send'|trans }}
+                </button>
+            </div>
+        {{ form_end(form) }}
+
+        <p class="text-muted">
+            <em>
+                {{ 'label.mandatory_field'|trans }}
+            </em>
+        </p>
+    </div>
+{% endblock %}

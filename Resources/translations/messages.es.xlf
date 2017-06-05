@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="es" datatype="plaintext" original="messages.en.xlf">
+        <body>
+            <trans-unit id="1">
+                <source>label.contact</source>
+                <target>Contacto</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>label.send</source>
+                <target>Envío</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>label.mandatory_field</source>
+                <target>* Campo obligatorio</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                <source>label.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>label.message</source>
+                <target>Mensaje</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>label.name</source>
+                <target>Nombre</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>label.subject</source>
+                <target>Tema</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>placeholder.email</source>
+                <target>Mi email</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>placeholder.message</source>
+                <target>Mi mensaje</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>placeholder.name</source>
+                <target>Mi nombre</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>placeholder.subject</source>
+                <target>El tema</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>text.contact_info</source>
+                <target><![CDATA[Yo uso este formulario para contactar con <strong>%site%</strong>. Una copia del mensaje se enviará a la dirección de correo electrónico que proporciono.]]></target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>text.message_sent</source>
+                <target><![CDATA[¡Mi mensaje ha sido enviado así!]]></target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>text.mail_following_sent</source>
+                <target><![CDATA[El siguiente mensaje ha sido enviado por <strong>%senderName%</strong> con la dirección de correo electrónico <a href="mailto:%senderEmail%">%senderEmail%</a> en %sendTime% de <strong>%site%</strong>.]]></target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>label.message_sent</source>
+                <target>Mensaje enviado</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>text.email_sent_by</source>
+                <target><![CDATA[Este correo electrónico fue enviado por <strong>%site%</strong>.]]></target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>label.hello</source>
+                <target>Hola</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>text.thanks_confidence</source>
+                <target><![CDATA[¡Gracias por su confianza!
+                        Quedamos a su disposición para cualquier petición.]]></target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>text.no_spam</source>
+                <target><![CDATA[Le recomendamos que guarde nuestra dirección de correo electrónico "%email%" en su libreta de direcciones para que nuestros mensajes de correo electrónico no están clasificados spam.]]></target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>text.regards_team</source>
+                <target><![CDATA[Saludos,
+                        El equipo de %site%]]></target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

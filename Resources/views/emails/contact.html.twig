@@ -1,0 +1,25 @@
+{% extends "@c975LContactForm/emails/layout.html.twig" %}
+
+{% block contactform_content %}
+    <p>
+        {% trans with {
+            '%senderName%': form.name,
+            '%senderEmail%': form.email,
+            '%sendTime%': 'now'|localizeddate('medium', 'medium', locale),
+            '%site%': site
+            } from 'messages' %}
+            text.mail_following_sent
+        {% endtrans %}
+    </p>
+
+    <p>
+        <strong>
+            {{ 'label.message_sent'|trans }}
+        </strong>
+    </p>
+    <hr />
+
+    <blockquote>
+        {{ form.message|nl2br|raw }}
+    </blockquote>
+{% endblock %}
