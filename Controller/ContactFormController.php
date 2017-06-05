@@ -92,7 +92,7 @@ class ContactFormController extends Controller
                 );
             $email = new Email();
             $email->setDataFromArray($emailData);
-dump($email);die;
+
             //Persists Email in DB
             if ($this->getParameter('c975_l_contact_form.database') === true) {
                 $em = $this->getDoctrine()->getManager();
