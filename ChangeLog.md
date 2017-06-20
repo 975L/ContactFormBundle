@@ -1,5 +1,9 @@
 # Changelog
 
+v1.2.1
+------
+- Add of translation domain to ContactFormType.php (20/06/2017)
+
 v1.2
 ----
 - Add of validators.XX.xlf (20/06/2017)

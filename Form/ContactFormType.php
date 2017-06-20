@@ -60,13 +60,7 @@ class ContactFormType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'c975L\ContactFormBundle\Entity\ContactForm',
             'intention'  => 'contactForm',
+            'translation_domain' => 'contactForm',
         ));
     }
-
-
-    public function getName()
-    {
-        return 'contactForm';
-    }
-
 }
