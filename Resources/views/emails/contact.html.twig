@@ -1,4 +1,5 @@
 {% extends "@c975LContactForm/emails/layout.html.twig" %}
+{% trans_default_domain 'contactForm' %}
 
 {% block contactform_content %}
     <p>
@@ -7,7 +8,7 @@
             '%senderEmail%': form.email,
             '%sendTime%': 'now'|localizeddate('medium', 'medium', locale),
             '%site%': site
-            } from 'messages' %}
+            } from 'contactForm' %}
             text.mail_following_sent
         {% endtrans %}
     </p>

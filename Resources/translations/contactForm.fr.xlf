@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" target-language="en" datatype="plaintext" original="messages.en.xlf">
+    <file source-language="en" target-language="fr" datatype="plaintext" original="contactForm.en.xlf">
         <body>
             <trans-unit id="1">
                 <source>label.contact</source>
@@ -8,11 +8,11 @@
             </trans-unit>
             <trans-unit id="2">
                 <source>label.send</source>
-                <target>I send</target>
+                <target>J'envoie</target>
             </trans-unit>
             <trans-unit id="3">
                 <source>label.mandatory_field</source>
-                <target>* Mandatory field</target>
+                <target>* Champ requis</target>
             </trans-unit>
             <trans-unit id="4">
                 <source>label.email</source>
@@ -24,65 +24,65 @@
             </trans-unit>
             <trans-unit id="6">
                 <source>label.name</source>
-                <target>Name</target>
+                <target>Nom</target>
             </trans-unit>
             <trans-unit id="7">
                 <source>label.subject</source>
-                <target>Subject</target>
+                <target>Sujet</target>
             </trans-unit>
             <trans-unit id="8">
                 <source>placeholder.email</source>
-                <target>My email</target>
+                <target>Mon email</target>
             </trans-unit>
             <trans-unit id="9">
                 <source>placeholder.message</source>
-                <target>My message</target>
+                <target>Mon message</target>
             </trans-unit>
             <trans-unit id="10">
                 <source>placeholder.name</source>
-                <target>My name</target>
+                <target>Mon nom</target>
             </trans-unit>
             <trans-unit id="11">
                 <source>placeholder.subject</source>
-                <target>The subject</target>
+                <target>Le sujet</target>
             </trans-unit>
             <trans-unit id="12">
                 <source>text.contact_info</source>
-                <target><![CDATA[I use this form to contact <strong>%site%</strong>. A copy of the message will be sent to the email Address I provide.]]></target>
+                <target><![CDATA[J'utilise ce formulaire pour contacter <strong>%site%</strong>. Une copie du message sera envoyée à l'adresse email que je fournis.]]></target>
             </trans-unit>
             <trans-unit id="13">
                 <source>text.message_sent</source>
-                <target>My message has been well sent!</target>
+                <target><![CDATA[Mon message a bien été envoyé !]]></target>
             </trans-unit>
             <trans-unit id="14">
                 <source>text.mail_following_sent</source>
-                <target><![CDATA[The following message has been sent by <strong>%senderName%</strong> with the email address <a href="mailto:%senderEmail%">%senderEmail%</a> on %sendTime% from <strong>%site%</strong>.]]></target>
+                <target><![CDATA[Le message ci-dessous a été envoyé par <strong>%senderName%</strong> avec l'adresse email <a href="mailto:%senderEmail%">%senderEmail%</a> le %sendTime% depuis <strong>%site%</strong>.]]></target>
             </trans-unit>
             <trans-unit id="15">
                 <source>label.message_sent</source>
-                <target>Message sent</target>
+                <target>Message envoyé</target>
             </trans-unit>
             <trans-unit id="16">
                 <source>text.email_sent_by</source>
-                <target><![CDATA[This email was sent to you by <strong>%site%</strong>.]]></target>
+                <target><![CDATA[Cet email vous a été envoyé par <strong>%site%</strong>.]]></target>
             </trans-unit>
             <trans-unit id="17">
                 <source>label.hello</source>
-                <target>Hello</target>
+                <target>Bonjour</target>
             </trans-unit>
             <trans-unit id="18">
                 <source>text.thanks_confidence</source>
-                <target><![CDATA[Thank you for your confidence!
-                        We remain at your disposal for any request.]]></target>
+                <target><![CDATA[Merci pour votre confiance !
+                        Nous restons à votre disposition pour la moindre demande.]]></target>
             </trans-unit>
             <trans-unit id="19">
                 <source>text.no_spam</source>
-                <target><![CDATA[We Advise you to save our email Address "%email%" in your Address book so that our emails are not classified as spam.]]></target>
+                <target><![CDATA[Nous conseillons d'enregistrer notre adresse email "%email%" dans votre carnet d'adresses afin que nos emails ne soient pas classés spam.]]></target>
             </trans-unit>
             <trans-unit id="20">
                 <source>text.regards_team</source>
-                <target><![CDATA[Regards,
-                        The %site% Team]]></target>
+                <target><![CDATA[Cordialement,
+                        L'équipe %site%]]></target>
             </trans-unit>
         </body>
     </file>

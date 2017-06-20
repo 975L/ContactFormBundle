@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="validators.en.xlf">
+    <body>
+      <trans-unit id="1">
+        <source>email.not_valid</source>
+        <target>The email is not valid</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>message.max_length</source>
+        <target>My message cannot be longer than {{ limit }} characters</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>message.min_length</source>
+        <target>My message must be at least {{ limit }} characters long</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>name.max_length</source>
+        <target>My name cannot be longer than {{ limit }} characters</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>name.min_length</source>
+        <target>My name must be at least {{ limit }} characters long</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>subject.max_length</source>
+        <target>The subject cannot be longer than {{ limit }} characters</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>subject.min_length</source>
+        <target>The subject must be at least {{ limit }} characters long</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

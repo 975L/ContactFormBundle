@@ -104,7 +104,7 @@ class ContactFormController extends Controller
             $email->send();
 
             //Creates flash
-            $flash = $translator->trans('text.message_sent');
+            $flash = $translator->trans('text.message_sent', array(), 'contactForm');
             $session->getFlashBag()->add('success', $flash);
 
             //Redirects to url if defined

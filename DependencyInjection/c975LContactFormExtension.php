@@ -22,7 +22,7 @@ class c975LContactFormExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $processedConfig = $this->processConfiguration( $configuration, $configs );
+        $processedConfig = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('c975_l_contact_form.site', $processedConfig['site']);
         $container->setParameter('c975_l_contact_form.sentTo', $processedConfig['sentTo']);
