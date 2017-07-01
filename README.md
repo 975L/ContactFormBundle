@@ -8,6 +8,8 @@ ContactFormBundle does the following:
 - Sends the email via [c975LEmailBundle](https://github.com/975L/EmailBundle) as `c975LEmailBundle` provides the possibility to save emails in a database, there is an option to NOT do so via this Bundle,
 - Sends a copy to the email provided.
 
+[ContactForm Bundle dedicated web page](https://975l.com/en/pages/contact-form-bundle).
+
 Bundle installation
 ===================
 
@@ -80,6 +82,7 @@ Then, enable the routes by adding them to the `app/config/routing.yml` file of y
 c975_l_contact_form:
     resource: "@c975LContactFormBundle/Controller/"
     type:     annotation
+    #Multilingual website use: prefix: /{_locale}
     prefix:   /
 ```
 
@@ -97,6 +100,6 @@ You may also want to override the template used for building the email sent, sim
 Step 6: How to use
 ------------------
 
-The Route name is `contact` so you can add link in Twig via ̀`{{ path('contact') }}`.
+The Route name is `contactform_display` so you can add link in Twig via ̀`{{ path('contactform_display') }}`.
 
-The url path is `/contact`, so simply acces to `http://example.com/contact` to display the form.
+The url path is `/contact` (`/{_locale}/contact`), so simply access to `http://example.com/contact` to display the form or `http://example.com/en/contact`.

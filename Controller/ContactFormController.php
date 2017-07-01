@@ -26,10 +26,10 @@ class ContactFormController extends Controller
 {
     /**
      * @Route("/contact",
-     *      name="contact")
+     *      name="contactform_display")
      * @Method({"GET", "HEAD", "POST"})
      */
-    public function contactAction(Request $request)
+    public function displayAction(Request $request)
     {
         //Gets subject if passed by url parameter "s"
         $subject = $request->query->get('s') !== null ? $request->query->get('s') : null;

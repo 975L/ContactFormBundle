@@ -1,5 +1,10 @@
 # Changelog
 
+v1.3
+----
+- Change route naming to contactform_display (01/07/2017)
+- Add information about multilingual website
+
 v1.2.1
 ------
 - Add of translation domain to ContactFormType.php (20/06/2017)
