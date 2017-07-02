@@ -6,7 +6,8 @@ ContactFormBundle does the following:
 - Display a form to contact a website,
 - Pre-fills data if user is logged in,
 - Sends the email via [c975LEmailBundle](https://github.com/975L/EmailBundle) as `c975LEmailBundle` provides the possibility to save emails in a database, there is an option to NOT do so via this Bundle,
-- Sends a copy to the email provided.
+- Sends a copy to the email provided,
+- Allows the possibility to send email to other user, related to your app specification, i.e. contact another user without giving its email. this is achieved by overriding part of the Controller (see below)
 
 [ContactForm Bundle dedicated web page](https://975l.com/en/pages/contact-form-bundle).
 
@@ -67,7 +68,7 @@ Then, in the `app/config.yml` file of your project, define `site` as the name of
 c975_l_contact_form:
     site: 'example.com'
     sentTo: 'contact@example.com'
-    database: false
+    database: false #true
 ```
 
 Step 4: Enable the Routes
@@ -97,9 +98,99 @@ In the overridding file, just add `{% block contactform_content %}{% endblock %}
 
 You may also want to override the template used for building the email sent, simply add a folder `emails` in the preceeding structure and simply keep `{% block contactform_content %}{% endblock %}` to have the content.
 
-Step 6: How to use
-------------------
+How to use
+----------
 
 The Route name is `contactform_display` so you can add link in Twig via ̀`{{ path('contactform_display') }}`.
 
 The url path is `/contact` (`/{_locale}/contact`), so simply access to `http://example.com/contact` to display the form or `http://example.com/en/contact`.
+
+You can set the subject by using the url parameter `s` i.e. `http://example.com/contact?s=Subject`, the field will be readonly in the form, **but, of course it can be changed via the url**. The value is sanitized and given (as `subject`) to the form in order to be able to change title and/or info text based on this value, i.e.
+
+```twig
+{% if 'Subject' in subject %}
+    {# Do some stuff #}
+{% endif %}
+```
+Override Controller to set specific email data
+----------------------------------------------
+
+It is possible to set specific email data (body, subject, etc.) based on the `subject` value. For this, the function `testSubject()` from the Controller must be overriden by doing the following:
+
+In your `src` folder, create the structure `ContactFormBundle/Controller` and set the follwing code
+
+In `/src/ContactFormBundle/ContactFormBundle.php`
+```php
+<?php
+
+namespace ContactFormBundle;
+
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+class ContactFormBundle extends Bundle
+{
+    public function getParent()
+    {
+        return 'c975LContactFormBundle';
+    }
+}
+```
+
+In `/src/ContactFormBundle/Controller/ContactFormController.php`
+```php
+<?php
+
+namespace AppBundle\Controller;
+
+use c975L\ContactFormBundle\Controller\ContactFormController as BaseController;
+
+class ContactFormController extends BaseController
+{
+    public function testSubject($subject, $formData)
+    {
+        //Any condition to fulfill
+        if (1 == 2) {
+            //Defines data for email
+            $bodyEmail = 'AnyTemplate.html.twig';
+            $bodyData = array(
+                'AnyDataNeededByTemplate Or empty array',
+                );
+            //The following array, with keys, MUST be returend by the function to hydrate email
+            $emailData = array(
+                'subject' => 'subjectEmail',
+                'sentTo' => 'sentToEmail',
+                'sentCc' => 'sentCcEmail',
+                'replyTo' => 'replyToEmail',
+                'body' => $this->renderView($bodyEmail, $bodyData),
+                );
+
+            return $emailData;
+        }
+
+        //No subject found
+        return false;
+    }
+```
+
+Then, enable the bundle by adding it to the list of registered bundles in the `app/AppKernel.php` file of your project:
+
+```php
+<?php
+// app/AppKernel.php
+
+// ...
+class AppKernel extends Kernel
+{
+    public function registerBundles()
+    {
+        $bundles = [
+            // ...
+            new ContactFormBundle\ContactFormBundle(),
+        ];
+
+        // ...
+    }
+
+    // ...
+}
+```

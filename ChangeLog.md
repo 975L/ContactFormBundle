@@ -1,5 +1,12 @@
 # Changelog
 
+v1.4
+----
+- Add explanations about setting the subject via the url (02/07/2017)
+- Add sanitizing on subject set via url parameter `s`
+- Set the default text explanation above the form as a Twig variable, in order to be able to change it depending on the subject value
+- Add possibility to choose email data (body, subject etc.) from Controller, related to subject + explanations to override function from own Controller
+
 v1.3
 ----
 - Change route naming to contactform_display (01/07/2017)

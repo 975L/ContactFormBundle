@@ -22,7 +22,7 @@ class ContactFormType extends AbstractType
     //Builds the form
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $subjectReadonly = $options['data']->getSubject() !== null ? true : false;
+        $subjectReadonly = $options['data']->getSubject() !== '' ? true : false;
 
         $builder
             ->add('name', TextType::class, array(

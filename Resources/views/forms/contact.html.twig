@@ -1,10 +1,16 @@
 {% extends "@c975LContactForm/layout.html.twig" %}
 {% trans_default_domain 'contactForm' %}
 
+{% set infoText = 'text.contact_info'|trans({'%site%': site}) %}
+{# Override data depending on subject value #}
+{#% if 'Subject' in subject %#}
+    {#% set infoText = 'Another text' %#}
+{#% endif %#}
+
 {% block contactform_content %}
     <div>
         <p class="text-center">
-            {{ 'text.contact_info'|trans({'%site%': site})|raw }}
+            {{ infoText|raw }}
         </p>
 
         {{ form_start(form) }}

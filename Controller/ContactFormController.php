@@ -13,7 +13,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -32,7 +31,7 @@ class ContactFormController extends Controller
     public function displayAction(Request $request)
     {
         //Gets subject if passed by url parameter "s"
-        $subject = $request->query->get('s') !== null ? $request->query->get('s') : null;
+        $subject = filter_var($request->query->get('s'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
         //Defines the referer to redirect to after submission
         $session = $request->getSession();
@@ -41,20 +40,20 @@ class ContactFormController extends Controller
         //Gets email and name if user is logged
         $user = $this->getUser();
         if ($user !== null) {
-            $email = $user->getEmail();
+            $userEmail = $user->getEmail();
             $name = $user->getFirstname();
             $name .= $name != '' ? ' ' : '';
             $name .= $user->getLastname();
         }
         else {
-            $email = null;
+            $userEmail = null;
             $name = null;
         }
 
         //Defines contact
         $contactData = array(
             'name' => $name,
-            'email' => $email,
+            'email' => $userEmail,
             'subject' => $subject,
             );
         $contact = new ContactForm();
@@ -68,29 +67,43 @@ class ContactFormController extends Controller
             //Gets the translator
             $translator = $this->get('translator');
 
-            //Defines data for email
+            //Gets the data
             $formData = $form->getData();
-            $bodyEmail = '@c975LContactForm/emails/contact.html.twig';
-            $bodyData = array(
-                'locale' => $request->getLocale(),
-                'form' => $formData,
-                'site' => $this->getParameter('c975_l_contact_form.site'),
-                'email' => $this->getParameter('c975_l_contact_form.sentTo'),
-                );
 
-            //Creates the email
-            $body = $this->renderView($bodyEmail, $bodyData);
+            //Prepares email
+            $email = new Email();
             $emailData = array(
                 'mailer' => $this->get('mailer'),
-                'subject' => $formData->getSubject(),
                 'sentFrom' => $this->getParameter('c975_l_contact_form.sentTo'),
-                'sentTo' => $this->getParameter('c975_l_contact_form.sentTo'),
-                'sentCc' => $formData->getEmail(),
-                'replyTo' => $formData->getEmail(),
-                'body' => $body,
                 'ip' => $request->getClientIp(),
                 );
-            $email = new Email();
+            $email->setDataFromArray($emailData);
+
+            //The function testSubject() has to be overriden, in your own Controller, if needed, to return specific email content, see function below
+            $emailData = $this->testSubject($subject, $formData);
+
+            //Defines data for generic email if testSubject didn't returned correct array
+            if (!is_array($emailData) ||
+                !array_key_exists('subject', $emailData) ||
+                !array_key_exists('sentTo', $emailData) ||
+                !array_key_exists('body', $emailData)) {
+                $bodyEmail = '@c975LContactForm/emails/contact.html.twig';
+                $bodyData = array(
+                    'locale' => $request->getLocale(),
+                    'form' => $formData,
+                    'site' => $this->getParameter('c975_l_contact_form.site'),
+                    'email' => $this->getParameter('c975_l_contact_form.sentTo'),
+                    );
+                $emailData = array(
+                    'subject' => $formData->getSubject(),
+                    'sentTo' => $this->getParameter('c975_l_contact_form.sentTo'),
+                    'sentCc' => $formData->getEmail(),
+                    'replyTo' => $formData->getEmail(),
+                    'body' => $this->renderView($bodyEmail, $bodyData),
+                    );
+            }
+
+            //Adds data to email
             $email->setDataFromArray($emailData);
 
             //Persists Email in DB
@@ -118,6 +131,36 @@ class ContactFormController extends Controller
         return $this->render('@c975LContactForm/forms/contact.html.twig', array(
             'form' => $form->createView(),
             'site' => $this->getParameter('c975_l_contact_form.site'),
+            'subject' => $subject,
             ));
+    }
+
+
+    //Test the value of $subject in order to return specific email data related to it
+    //This function has to be overriden, in your own Controller, if needed, see README.md
+    //$formData can be used if needed
+    public function testSubject($subject, $formData)
+    {
+        //Any condition to fulfill
+        if (1 == 2) {
+            //Defines data for email
+            $bodyEmail = 'AnyTemplate.html.twig';
+            $bodyData = array(
+                'AnyDataNeededByTemplate Or empty array',
+                );
+            //The following array, with keys, MUST be returend by the function to hydrate email
+            $emailData = array(
+                'subject' => 'subjectEmail',
+                'sentTo' => 'sentToEmail',
+                'sentCc' => 'sentCcEmail',
+                'replyTo' => 'replyToEmail',
+                'body' => $this->renderView($bodyEmail, $bodyData),
+                );
+
+            return $emailData;
+        }
+
+        //No subject found
+        return false;
     }
 }
