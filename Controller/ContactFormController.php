@@ -121,7 +121,7 @@ class ContactFormController extends Controller
     //Test the value of $subject in order to return specific email data related to it
     //This function has to be overriden, in your own Controller, if needed, see README.md
     //$formData can be used if needed
-    public function testSubject($subject, $formData)
+    public function testSubject(Request $request, $subject, $formData)
     {
         //Any condition to fulfill
         if (1 == 2) {

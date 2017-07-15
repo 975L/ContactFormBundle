@@ -1,5 +1,9 @@
 # Changelog
 
+v1.5.1
+------
+- Add of Request in `testSubject` Controller's method (15/07/2017)
+
 v1.5
 ----
 - Update of README.md (04/07/2017)
