@@ -14,7 +14,6 @@
                 <source>label.mandatory_field</source>
                 <target>* Campo obligatorio</target>
             </trans-unit>
-
             <trans-unit id="4">
                 <source>label.email</source>
                 <target>Email</target>

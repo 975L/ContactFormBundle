@@ -19,7 +19,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Form\ContactFormType;
-use c975L\EmailBundle\Entity\Email;
 
 class ContactFormController extends Controller
 {
@@ -70,15 +69,6 @@ class ContactFormController extends Controller
             //Gets the data
             $formData = $form->getData();
 
-            //Prepares email
-            $email = new Email();
-            $emailData = array(
-                'mailer' => $this->get('mailer'),
-                'sentFrom' => $this->getParameter('c975_l_contact_form.sentTo'),
-                'ip' => $request->getClientIp(),
-                );
-            $email->setDataFromArray($emailData);
-
             //The function testSubject() has to be overriden, in your own Controller, if needed, to return specific email content, see function below
             $emailData = $this->testSubject($subject, $formData);
 
@@ -96,25 +86,17 @@ class ContactFormController extends Controller
                     );
                 $emailData = array(
                     'subject' => $formData->getSubject(),
+                    'sentFrom' => $this->getParameter('c975_l_contact_form.sentTo'),
                     'sentTo' => $this->getParameter('c975_l_contact_form.sentTo'),
                     'sentCc' => $formData->getEmail(),
                     'replyTo' => $formData->getEmail(),
                     'body' => $this->renderView($bodyEmail, $bodyData),
+                    'ip' => $request->getClientIp(),
                     );
             }
-
-            //Adds data to email
-            $email->setDataFromArray($emailData);
-
-            //Persists Email in DB
-            if ($this->getParameter('c975_l_contact_form.database') === true) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($email);
-                $em->flush();
-            }
-
             //Sends email
-            $email->send();
+            $emailService = $this->get(\c975L\EmailBundle\Service\EmailService::class);
+            $emailService->send($emailData, $this->getParameter('c975_l_contact_form.database'));
 
             //Creates flash
             $flash = $translator->trans('text.message_sent', array(), 'contactForm');

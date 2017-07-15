@@ -19,7 +19,6 @@ Step 1: Download the Bundle
 Add the following to your `composer.json > require section`
 ```
 "require": {
-    ...
     "c975L/contactform-bundle": "1.*"
 },
 ```
@@ -31,44 +30,69 @@ $ composer update
 
 This command requires you to have Composer installed globally, as explained in the [installation chapter](https://getcomposer.org/doc/00-intro.md) of the Composer documentation.
 
-Step 2: Enable the Bundle
--------------------------
+Step 2: Enable the Bundles
+--------------------------
 
 Then, enable the bundle by adding it to the list of registered bundles in the `app/AppKernel.php` file of your project:
 
 ```php
 <?php
-// app/AppKernel.php
-
-// ...
 class AppKernel extends Kernel
 {
     public function registerBundles()
     {
         $bundles = [
             // ...
+            new c975L\EmailBundle\c975LEmailBundle(),
             new c975L\ContactFormBundle\c975LContactFormBundle(),
         ];
-
-        // ...
     }
-
-    // ...
 }
 ```
 
-Step 3: Configure the Bundle
-----------------------------
+Step 3: Configure the Bundles
+-----------------------------
 
 Then, in the `app/config.yml` file of your project, define `site` as the name of the website that will appear on the form, `sentTo` as the email address that will receive the email, `database` as `true|false` if you wish to save the emails in a database MySql, see [c975LEmailBundle](https://github.com/975L/EmailBundle) to setup the corresponding table.
 
 ```yml
-#app/config/config.yml
+#Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+    auth_mode:  login
+    port:       587
 
+#Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+#EmailBundle
+c975_l_email:
+    sentFrom: 'contact@example.com'
+
+#ContactFormBundle
 c975_l_contact_form:
+    #The site name that will appear on the contact form
     site: 'example.com'
+    #The email address that will receive the email sent by the contact form
     sentTo: 'contact@example.com'
-    database: false #true
+    #If you want to save the email sent to the databse linked to c975L/EmailBundle
+    database: true #false(default)
 ```
 
 Step 4: Enable the Routes
@@ -77,9 +101,6 @@ Step 4: Enable the Routes
 Then, enable the routes by adding them to the `app/config/routing.yml` file of your project:
 
 ```yml
-#app/config/routing.yml
-
-...
 c975_l_contact_form:
     resource: "@c975LContactFormBundle/Controller/"
     type:     annotation
@@ -90,11 +111,24 @@ c975_l_contact_form:
 Step 5: Override templates
 --------------------------
 
-It is strongly recommend to use the [Override Templates from Third-Party Bundles feature](http://symfony.com/doc/current/templating/overriding.html) to integrate fully with your site.
+It is strongly recommended to use the [Override Templates from Third-Party Bundles feature](http://symfony.com/doc/current/templating/overriding.html) to integrate fully with your site.
 
 For this, simply, create the following structure `app/Resources/c975LContactFormBundle/views/` in your app and then duplicate the file `layout.html.twig` in it, to override the existing Bundle file.
 
-In the overridding file, just add `{% block contactform_content %}{% endblock %}` where you want the form to appear.
+In `layout.html.twig`, it will mainly consist to extend your layout and define specific variables, i.e. :
+```twig
+{% extends 'layout.html.twig' %}
+
+{# Defines specific variables #}
+{% set title = 'Contact' %}
+
+{% block content %}
+    <div class="container">
+        {% block contactform_content %}
+        {% endblock %}
+    </div>
+{% endblock %}
+```
 
 You may also want to override the template used for building the email sent, simply add a folder `emails` in the preceeding structure and simply keep `{% block contactform_content %}{% endblock %}` to have the content.
 
