@@ -4,7 +4,6 @@ v1.5
 ----
 - Update of README.md (04/07/2017)
 - Update of c975L/EmailBundle, send email as service (15/07/2017)
-- Add databaseEmail as config value to save or not the email sent to deleted user in database linked to c975L/EmailBundle
 
 v1.4
 ----
