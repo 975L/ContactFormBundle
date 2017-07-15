@@ -70,7 +70,7 @@ class ContactFormController extends Controller
             $formData = $form->getData();
 
             //The function testSubject() has to be overriden, in your own Controller, if needed, to return specific email content, see function below
-            $emailData = $this->testSubject($subject, $formData);
+            $emailData = $this->testSubject($request, $subject, $formData);
 
             //Defines data for generic email if testSubject didn't returned correct array
             if (!is_array($emailData) ||
