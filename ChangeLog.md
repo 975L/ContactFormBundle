@@ -1,5 +1,10 @@
 # Changelog
 
+v1.5.3
+------
+- Run PHP CS-Fixer (18/07/2017)
+- Remove of .travis.yml as tests have to be defined before
+
 v1.5.2
 ------
 - Add of `$request` in call of `testSubject()` method (15/07/2017)

@@ -43,8 +43,7 @@ class ContactFormController extends Controller
             $name = $user->getFirstname();
             $name .= $name != '' ? ' ' : '';
             $name .= $user->getLastname();
-        }
-        else {
+        } else {
             $userEmail = null;
             $name = null;
         }
