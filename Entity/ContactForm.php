@@ -27,7 +27,7 @@ class ContactForm
      * @Assert\NotBlank()
      * @Assert\Length(
      *      min = 2,
-     *      max = 50,
+     *      max = 128,
      *      minMessage = "name.min_length",
      *      maxMessage = "name.max_length"
      * )
@@ -49,7 +49,7 @@ class ContactForm
      * @Assert\NotBlank()
      * @Assert\Length(
      *      min = 2,
-     *      max = 50,
+     *      max = 256,
      *      minMessage = "subject.min_length",
      *      maxMessage = "subject.max_length"
      * )

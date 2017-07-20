@@ -1,5 +1,10 @@
 # Changelog
 
+v1.5.4
+------
+- Change to 256 the max size of the subject (20/07/2017)
+- Change to 128 the max size of the name
+
 v1.5.3
 ------
 - Run PHP CS-Fixer (18/07/2017)
