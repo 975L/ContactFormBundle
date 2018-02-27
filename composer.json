@@ -19,14 +19,19 @@
     ],
     "require": {
         "php": ">=5.5.9",
-        "symfony/framework-bundle": "3.*",
-        "sensio/framework-extra-bundle": "3.*",
-        "symfony/assetic-bundle": "2.*",
-        "c975l/email-bundle": "1.*"
+        "symfony/framework-bundle": "^3",
+        "sensio/framework-extra-bundle": "^3",
+        "c975l/email-bundle": "^1",
+        "c975l/includelibrary-bundle": "^1"
     },
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": { "c975L\\ContactFormBundle\\": ""
         }
+    },
+    "support": {
+        "email": "contact@975l.com",
+        "source": "https://github.com/975L/ContactFormBundle",
+        "issues": "https://github.com/975L/ContactFormBundle/issues"
     }
 }

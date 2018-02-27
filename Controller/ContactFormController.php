@@ -49,13 +49,13 @@ class ContactFormController extends Controller
         }
 
         //Defines contact
-        $contactData = array(
-            'name' => $name,
-            'email' => $userEmail,
-            'subject' => $subject,
-            );
         $contact = new ContactForm();
-        $contact->setDataFromArray($contactData);
+        $contact
+            ->setName($name)
+            ->setEmail($userEmail)
+            -setSubject($subject)
+            )
+            ;
 
         //Defines form
         $form = $this->createForm(ContactFormType::class, $contact);

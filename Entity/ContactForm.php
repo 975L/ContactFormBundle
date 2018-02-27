@@ -57,14 +57,6 @@ class ContactForm
     protected $subject;
 
 
-    public function setDataFromArray($data)
-    {
-        foreach ($data as $key => $value) {
-            $function = 'set' . ucfirst($key);
-            $this->$function($value);
-        }
-    }
-
 
     /**
      * Set name

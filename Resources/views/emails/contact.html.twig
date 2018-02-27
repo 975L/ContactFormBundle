@@ -1,7 +1,8 @@
-{% extends "@c975LContactForm/emails/layout.html.twig" %}
+{% extends "@c975LEmail/emails/layout.html.twig" %}
 {% trans_default_domain 'contactForm' %}
 
 {% block contactform_content %}
+{# Explanation #}
     <p>
         {% trans with {
             '%senderName%': form.name,
@@ -12,14 +13,13 @@
             text.mail_following_sent
         {% endtrans %}
     </p>
-
+{# Message sent #}
     <p>
         <strong>
             {{ 'label.message_sent'|trans }}
         </strong>
     </p>
     <hr />
-
     <blockquote>
         {{ form.message|nl2br|raw }}
     </blockquote>

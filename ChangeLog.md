@@ -1,5 +1,17 @@
 # Changelog
 
+v1.6
+----
+- Changes in `README.md` (16/08/2017)
+- Change about composer download in `README.md` (04/02/2018)
+- Add support in `composer.json`+ use of ^ for versions request (04/02/2018)
+- Updated  `README.md` (05/02/2018)
+- Removed email layout and styles to use those defined in c975L\EmailBundle (22/02/2018)
+- Abandoned Glyphicon and replaced by fontawesome (22/02/2018)
+- Removed method setDataFromArray() in Entity (22/02/2018)
+- Added c957L/IncludeLibrary to include libraries in layout.html.twig (27/02/2018)
+- Removed assetic bundle from composer (27/02/2018)
+
 v1.5.4
 ------
 - Change to 256 the max size of the subject (20/07/2017)

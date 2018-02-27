@@ -16,23 +16,13 @@ Bundle installation
 
 Step 1: Download the Bundle
 ---------------------------
-Add the following to your `composer.json > require section`
-```
-"require": {
-    "c975L/contactform-bundle": "1.*"
-},
-```
-Then open a command console, enter your project directory and update composer, by executing the following command, to download the latest stable version of this bundle:
-
+Use [Composer](https://getcomposer.org) to install the library
 ```bash
-$ composer update
+    composer require c975l/contactform-bundle
 ```
-
-This command requires you to have Composer installed globally, as explained in the [installation chapter](https://getcomposer.org/doc/00-intro.md) of the Composer documentation.
 
 Step 2: Enable the Bundles
 --------------------------
-
 Then, enable the bundle by adding it to the list of registered bundles in the `app/AppKernel.php` file of your project:
 
 ```php
@@ -52,52 +42,23 @@ class AppKernel extends Kernel
 
 Step 3: Configure the Bundles
 -----------------------------
+Check [Swiftmailer](https://github.com/symfony/swiftmailer-bundle), [Doctrine](https://github.com/doctrine/DoctrineBundle) and [c975LEmailBundle](https://github.com/975L/EmailBundle) for their specific configuration
 
-Then, in the `app/config.yml` file of your project, define `site` as the name of the website that will appear on the form, `sentTo` as the email address that will receive the email, `database` as `true|false` if you wish to save the emails in a database MySql, see [c975LEmailBundle](https://github.com/975L/EmailBundle) to setup the corresponding table.
+Then, in the `app/config.yml` file of your project, define the following:
 
 ```yml
-#Swiftmailer Configuration
-swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:     { type: memory }
-    auth_mode:  login
-    port:       587
-
-#Doctrine Configuration
-doctrine:
-    dbal:
-        driver:   "%database_driver%"
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
-        charset:  UTF8
-    orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
-
-#EmailBundle
-c975_l_email:
-    sentFrom: 'contact@example.com'
-
 #ContactFormBundle
 c975_l_contact_form:
     #The site name that will appear on the contact form
     site: 'example.com'
     #The email address that will receive the email sent by the contact form
     sentTo: 'contact@example.com'
-    #If you want to save the email sent to the databse linked to c975L/EmailBundle
+    #If you want to save the email sent to the database linked to c975L/EmailBundle, see https://github.com/975L/EmailBundle
     database: true #false(default)
 ```
 
 Step 4: Enable the Routes
 -------------------------
-
 Then, enable the routes by adding them to the `app/config/routing.yml` file of your project:
 
 ```yml
@@ -110,7 +71,6 @@ c975_l_contact_form:
 
 Step 5: Override templates
 --------------------------
-
 It is strongly recommended to use the [Override Templates from Third-Party Bundles feature](http://symfony.com/doc/current/templating/overriding.html) to integrate fully with your site.
 
 For this, simply, create the following structure `app/Resources/c975LContactFormBundle/views/` in your app and then duplicate the file `layout.html.twig` in it, to override the existing Bundle file.
@@ -130,11 +90,10 @@ In `layout.html.twig`, it will mainly consist to extend your layout and define s
 {% endblock %}
 ```
 
-You may also want to override the template used for building the email sent, simply add a folder `emails` in the preceeding structure and simply keep `{% block contactform_content %}{% endblock %}` to have the content.
+The template used for sending emails is the one of c975LEmailBundle. Override it in `app/Resources/c975LEmailBundle/views/emails/layout.html.twig`.
 
 How to use
 ----------
-
 The Route name is `contactform_display` so you can add link in Twig via ̀`{{ path('contactform_display') }}`.
 
 The url path is `/contact` (`/{_locale}/contact`), so simply access to `http://example.com/contact` to display the form or `http://example.com/en/contact`.
@@ -148,7 +107,6 @@ You can set the subject by using the url parameter `s` i.e. `http://example.com/
 ```
 Override Controller to set specific email data
 ----------------------------------------------
-
 It is possible to set specific email data (body, subject, etc.) based on the `subject` value. For this, the function `testSubject()` from the Controller must be overriden by doing the following:
 
 In your `src` folder, create the structure `ContactFormBundle/Controller` and set the follwing code
