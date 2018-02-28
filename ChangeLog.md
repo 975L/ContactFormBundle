@@ -1,5 +1,9 @@
 # Changelog
 
+v1.6.1
+------
+- Corrected Controller (28/02/2018)
+
 v1.6
 ----
 - Changes in `README.md` (16/08/2017)
