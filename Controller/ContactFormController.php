@@ -53,7 +53,7 @@ class ContactFormController extends Controller
         $contact
             ->setName($name)
             ->setEmail($userEmail)
-            -setSubject($subject)
+            ->setSubject($subject)
             ;
 
         //Defines form

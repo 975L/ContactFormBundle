@@ -1,5 +1,9 @@
 # Changelog
 
+v1.6.1.1
+--------
+- Corrected Controller (03/03/2018)
+
 v1.6.1
 ------
 - Corrected Controller (28/02/2018)
