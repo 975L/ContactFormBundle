@@ -1,5 +1,10 @@
 # Changelog
 
+v1.6.2
+------
+- Added "_locale requirement" part for multilingual prefix in `routing.yml` in `README.md` (04/03/2018)
+- Suppressed site + email info sent from Controller for c975L/EmailBundle as theyr are set in Twig overriding `layout.html.twig` (17/03/2018)
+
 v1.6.1.1
 --------
 - Corrected Controller (03/03/2018)

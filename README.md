@@ -65,8 +65,11 @@ Then, enable the routes by adding them to the `app/config/routing.yml` file of y
 c975_l_contact_form:
     resource: "@c975LContactFormBundle/Controller/"
     type:     annotation
-    #Multilingual website use: prefix: /{_locale}
     prefix:   /
+    #Multilingual website use the following
+    #prefix: /{_locale}
+    #requirements:
+    #    _locale: en|fr|es
 ```
 
 Step 5: Override templates

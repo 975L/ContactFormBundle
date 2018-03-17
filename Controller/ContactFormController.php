@@ -79,8 +79,6 @@ class ContactFormController extends Controller
                 $bodyData = array(
                     'locale' => $request->getLocale(),
                     'form' => $formData,
-                    'site' => $this->getParameter('c975_l_contact_form.site'),
-                    'email' => $this->getParameter('c975_l_contact_form.sentTo'),
                     );
                 $emailData = array(
                     'subject' => $formData->getSubject(),
