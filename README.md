@@ -99,7 +99,7 @@ How to use
 ----------
 The Route name is `contactform_display` so you can add link in Twig via ̀`{{ path('contactform_display') }}`.
 
-The url path is `/contact` (`/{_locale}/contact`), so simply access to `http://example.com/contact` to display the form or `http://example.com/en/contact`.
+The url path is `/contact` or `/{_locale}/contact`, so simply access to `http://example.com/contact` or `http://example.com/en/contact` to display the form.
 
 You can set the subject by using the url parameter `s` i.e. `http://example.com/contact?s=Subject`, the field will be readonly in the form, **but, of course it can be changed via the url**. The value is sanitized and given (as `subject`) to the form in order to be able to change title and/or info text based on this value, i.e.
 
@@ -108,84 +108,50 @@ You can set the subject by using the url parameter `s` i.e. `http://example.com/
     {# Do some stuff #}
 {% endif %}
 ```
-Override Controller to set specific email data
-----------------------------------------------
-It is possible to set specific email data (body, subject, etc.) based on the `subject` value. For this, the function `testSubject()` from the Controller must be overriden by doing the following:
 
-In your `src` folder, create the structure `ContactFormBundle/Controller` and set the follwing code
-
-In `/src/ContactFormBundle/ContactFormBundle.php`
+Set specific data related to subject
+------------------------------------
+It is possible to set specific email data (body, subject, etc.) based on the data sent from form. For this you have to create a listener with the following code:
 ```php
-<?php
+namespace AppBundle\Listener;
 
-namespace ContactFormBundle;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use c975L\ContactFormBundle\Event\ContactFormEvent;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-class ContactFormBundle extends Bundle
+class ContactFormListener implements EventSubscriberInterface
 {
-    public function getParent()
+    public static function getSubscribedEvents()
     {
-        return 'c975LContactFormBundle';
+        return array(
+            ContactFormEvent::SEND_FORM => 'sendForm',
+        );
     }
-}
-```
 
-In `/src/ContactFormBundle/Controller/ContactFormController.php`
-```php
-<?php
-
-namespace AppBundle\Controller;
-
-use c975L\ContactFormBundle\Controller\ContactFormController as BaseController;
-
-class ContactFormController extends BaseController
-{
-    public function testSubject($subject, $formData)
+    public function sendForm($event)
     {
-        //Any condition to fulfill
-        if (1 == 2) {
+        //Gets data
+        $formData = $event->getFormData();
+        $subject = $formData->getSubject();
+
+        //For example, you can check if a string is present in the subject
+        if (stripos($subject, 'THE_STRING_YOU_WANT_TO_MATCH') === 0) {
+            //Do the stuff...
+
             //Defines data for email
-            $bodyEmail = 'AnyTemplate.html.twig';
+            $bodyEmail = 'YOUR_EMAIL_TEMPLATE.html.twig';
             $bodyData = array(
-                'AnyDataNeededByTemplate Or empty array',
+                 //Any needed data for your template
                 );
-            //The following array, with keys, MUST be returend by the function to hydrate email
+            //The following array keys are mandatory, but you can set the other keys defined in c975L\EmailBundle
             $emailData = array(
-                'subject' => 'subjectEmail',
-                'sentTo' => 'sentToEmail',
-                'sentCc' => 'sentCcEmail',
-                'replyTo' => 'replyToEmail',
-                'body' => $this->renderView($bodyEmail, $bodyData),
+                'subject' => 'YOUR_EMAIL_SUBJECT',
+                'bodyData' => $bodyData,
+                'bodyEmail' => $bodyEmail,
                 );
 
-            return $emailData;
+            //Updates event
+            $event->setEmailData($emailData);
         }
-
-        //No subject found
-        return false;
     }
-```
-
-Then, enable the bundle by adding it to the list of registered bundles in the `app/AppKernel.php` file of your project:
-
-```php
-<?php
-// app/AppKernel.php
-
-// ...
-class AppKernel extends Kernel
-{
-    public function registerBundles()
-    {
-        $bundles = [
-            // ...
-            new ContactFormBundle\ContactFormBundle(),
-        ];
-
-        // ...
-    }
-
-    // ...
 }
 ```

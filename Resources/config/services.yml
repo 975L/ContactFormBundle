@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    c975L\ContactFormBundle\Controller\:
+        resource: '../../Controller/*'
+
+    c975L\ContactFormBundle\Form\:
+        resource: '../../Form/*'

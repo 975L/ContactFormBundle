@@ -1,5 +1,10 @@
 # Changelog
 
+v1.7
+----
+- Removed the possibility to override Controller as it's not supported anymore (18/03/2018)
+- Converted `testSuject()` method to event dispatch (18/03/2018)
+
 v1.6.2
 ------
 - Added "_locale requirement" part for multilingual prefix in `routing.yml` in `README.md` (04/03/2018)

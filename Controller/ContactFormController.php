@@ -15,10 +15,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use c975L\ContactFormBundle\Entity\ContactForm;
+use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ContactFormBundle\Form\ContactFormType;
+use c975L\ContactFormBundle\Service\ContactFormService;
 
 class ContactFormController extends Controller
 {
@@ -67,14 +67,43 @@ class ContactFormController extends Controller
             //Gets the data
             $formData = $form->getData();
 
-            //The function testSubject() has to be overriden, in your own Controller, if needed, to return specific email content, see function below
-            $emailData = $this->testSubject($request, $subject, $formData);
+            //Dispatch event
+            $dispatcher = $this->get('event_dispatcher');
+            $emailData = false;
+            $event = new ContactFormEvent($formData, $emailData);
+            $dispatcher->dispatch(ContactFormEvent::SEND_FORM, $event);
 
-            //Defines data for generic email if testSubject didn't returned correct array
-            if (!is_array($emailData) ||
-                !array_key_exists('subject', $emailData) ||
-                !array_key_exists('sentTo', $emailData) ||
-                !array_key_exists('body', $emailData)) {
+            //EmailData has been filled after Event dispatch
+            $emailData = $event->getEmailData();
+            if (is_array($emailData) &&
+                array_key_exists('subject', $emailData) &&
+                array_key_exists('bodyData', $emailData) &&
+                array_key_exists('bodyEmail', $emailData)
+            ) {
+                //Updates emailData
+                if (!array_key_exists('sentFrom', $emailData)) {
+                    $emailData['sentFrom'] = $this->getParameter('c975_l_contact_form.sentTo');
+                }
+                if (!array_key_exists('sentTo', $emailData)) {
+                    $emailData['sentTo'] = $this->getParameter('c975_l_contact_form.sentTo');
+                }
+                if (!array_key_exists('sentCc', $emailData)) {
+                    $emailData['sentCc'] = $formData->getEmail();
+                }
+                if (!array_key_exists('replyTo', $emailData)) {
+                    $emailData['replyTo'] = $formData->getEmail();
+                }
+                if (!array_key_exists('ip', $emailData)) {
+                    $emailData['ip'] = $request->getClientIp();
+                }
+                if (!array_key_exists('form', $emailData['bodyData'])) {
+                    $emailData['bodyData']['form'] = $formData;
+                }
+                $emailData['body'] = $this->renderView($emailData['bodyEmail'], $emailData['bodyData']);
+                unset($emailData['bodyEmail']);
+                unset($emailData['bodyData']);
+            //Otherwise defines generic email
+            } else {
                 $bodyEmail = '@c975LContactForm/emails/contact.html.twig';
                 $bodyData = array(
                     'locale' => $request->getLocale(),
@@ -111,34 +140,5 @@ class ContactFormController extends Controller
             'site' => $this->getParameter('c975_l_contact_form.site'),
             'subject' => $subject,
             ));
-    }
-
-
-    //Test the value of $subject in order to return specific email data related to it
-    //This function has to be overriden, in your own Controller, if needed, see README.md
-    //$formData can be used if needed
-    public function testSubject(Request $request, $subject, $formData)
-    {
-        //Any condition to fulfill
-        if (1 == 2) {
-            //Defines data for email
-            $bodyEmail = 'AnyTemplate.html.twig';
-            $bodyData = array(
-                'AnyDataNeededByTemplate Or empty array',
-                );
-            //The following array, with keys, MUST be returend by the function to hydrate email
-            $emailData = array(
-                'subject' => 'subjectEmail',
-                'sentTo' => 'sentToEmail',
-                'sentCc' => 'sentCcEmail',
-                'replyTo' => 'replyToEmail',
-                'body' => $this->renderView($bodyEmail, $bodyData),
-                );
-
-            return $emailData;
-        }
-
-        //No subject found
-        return false;
     }
 }
