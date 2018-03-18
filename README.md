@@ -7,7 +7,7 @@ ContactFormBundle does the following:
 - Pre-fills data if user is logged in,
 - Sends the email via [c975LEmailBundle](https://github.com/975L/EmailBundle) as `c975LEmailBundle` provides the possibility to save emails in a database, there is an option to NOT do so via this Bundle,
 - Sends a copy to the email provided,
-- Allows the possibility to send email to other user, related to your app specification, i.e. contact another user without giving its email. this is achieved by overriding part of the Controller (see below)
+- Allows the possibility to send email to other user, related to your app specification, i.e. contact another user without giving its email. This is achieved via event dispatch (see below)
 
 [ContactForm Bundle dedicated web page](https://975l.com/en/pages/contact-form-bundle).
 
@@ -109,9 +109,9 @@ You can set the subject by using the url parameter `s` i.e. `http://example.com/
 {% endif %}
 ```
 
-Set specific data related to subject
-------------------------------------
-It is possible to set specific email data (body, subject, etc.) based on the data sent from form. For this you have to create a listener with the following code:
+Send email to other user (Event dispatch)
+-----------------------------------------
+In relation with your app specification, it is possible to set specific email data (body, subject, etc.) based on the data sent in form. For this you have to create a listener with the following code:
 ```php
 namespace AppBundle\Listener;
 

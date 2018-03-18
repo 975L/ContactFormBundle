@@ -1,5 +1,9 @@
 # Changelog
 
+v1.7.1
+------
+- Updated `README.md` (18/03/2018)
+
 v1.7
 ----
 - Removed the possibility to override Controller as it's not supported anymore (18/03/2018)
