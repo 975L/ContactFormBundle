@@ -56,8 +56,13 @@ class ContactFormController extends Controller
             ->setSubject($subject)
             ;
 
+        //Dispatch event
+        $dispatcher = $this->get('event_dispatcher');
+        $event = new ContactFormEvent($contact);
+        $dispatcher->dispatch(ContactFormEvent::CREATE_FORM, $event);
+
         //Defines form
-        $form = $this->createForm(ContactFormType::class, $contact);
+        $form = $this->createForm(ContactFormType::class, $contact, array('receiveCopy' => $event->getReceiveCopy()));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -103,7 +108,7 @@ class ContactFormController extends Controller
                 unset($emailData['bodyEmail']);
                 unset($emailData['bodyData']);
             //Otherwise defines generic email
-            } else {
+            } elseif ($event->getError() === null) {
                 $bodyEmail = '@c975LContactForm/emails/contact.html.twig';
                 $bodyData = array(
                     'locale' => $request->getLocale(),
@@ -119,13 +124,32 @@ class ContactFormController extends Controller
                     'ip' => $request->getClientIp(),
                     );
             }
-            //Sends email
-            $emailService = $this->get(\c975L\EmailBundle\Service\EmailService::class);
-            $emailService->send($emailData, $this->getParameter('c975_l_contact_form.database'));
 
-            //Creates flash
-            $flash = $translator->trans('text.message_sent', array(), 'contactForm');
-            $session->getFlashBag()->add('success', $flash);
+            //Removes sentCC if checkbox to receive copy hasn't been checked
+            if ($formData->getReceiveCopy() !== true) {
+                unset($emailData['sentCc']);
+            }
+
+            //Sends email
+            if (is_array($emailData)) {
+                $emailService = $this->get(\c975L\EmailBundle\Service\EmailService::class);
+                $emailSent = $emailService->send($emailData, $this->getParameter('c975_l_contact_form.database'));
+
+                //Message sent
+                if ($emailSent === true) {
+                    $flash = $translator->trans('text.message_sent', array(), 'contactForm');
+                    $session->getFlashBag()->add('success', $flash);
+                //Message not sent
+                } else {
+                    $flash = $translator->trans('text.message_not_sent', array('%error%' => ''), 'contactForm');
+                    $session->getFlashBag()->add('danger', $flash);
+                }
+            //Displays error message provided in event
+            } else {
+                //Creates flash
+                $flash = $translator->trans('text.message_not_sent', array('%error%' => $event->getError()), 'contactForm');
+                $session->getFlashBag()->add('danger', $flash);
+            }
 
             //Redirects to url if defined
             $sessionRedirectUrl = $session->get('redirectUrl');

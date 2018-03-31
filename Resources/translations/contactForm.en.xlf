@@ -48,7 +48,7 @@
             </trans-unit>
             <trans-unit id="12">
                 <source>text.contact_info</source>
-                <target><![CDATA[I use this form to contact <strong>%site%</strong>. A copy of the message will be sent to the email Address I provide.]]></target>
+                <target><![CDATA[I use this form to contact <strong>%site%</strong>.]]></target>
             </trans-unit>
             <trans-unit id="13">
                 <source>text.message_sent</source>
@@ -83,6 +83,14 @@
                 <source>text.regards_team</source>
                 <target><![CDATA[Regards,
                         The %site% Team]]></target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>text.message_not_sent</source>
+                <target>An error (%error%) has occurred, the message has not been sent!</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>label.receive_copy</source>
+                <target>I wish to receive a copy of the email</target>
             </trans-unit>
         </body>
     </file>

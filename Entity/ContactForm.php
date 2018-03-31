@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ContactForm
 {
-
     /**
      * @Assert\NotBlank()
      * @Assert\Email(
@@ -56,6 +55,7 @@ class ContactForm
      */
     protected $subject;
 
+    protected $receiveCopy;
 
 
     /**
@@ -144,5 +144,25 @@ class ContactForm
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * Set message
+     *
+     * @return ContactForm
+     */
+    public function setReceiveCopy($receiveCopy)
+    {
+        $this->receiveCopy = $receiveCopy;
+    }
+
+    /**
+     * Get message
+     *
+     * @return boolean
+     */
+    public function getReceiveCopy()
+    {
+        return $this->receiveCopy;
     }
 }

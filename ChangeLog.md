@@ -1,5 +1,18 @@
 # Changelog
 
+v1.8
+----
+- Corrected `Resources\views\emails\contact.html.twig` as it was not not including the message sent... (30/03/2018)
+- Added property in event to retrieve error (30/03/2018)
+- Added flash if email has not been sent by c975L/EmailBundle, as it now returns a boolean (30/03/2018)
+- Added checkbox to allow user receiving copy of message sent, in place of always sending it (31/03/2018)
+- Added dispatch event `CREATE_FORM` to allow disabling display of receiving copy checkbox (31/03/2018)
+
+v1.7.2
+------
+- Changed submit icon (20/03/2018)
+- Updated `README.md` (21/03/2018)
+
 v1.7.1
 ------
 - Updated `README.md` (18/03/2018)

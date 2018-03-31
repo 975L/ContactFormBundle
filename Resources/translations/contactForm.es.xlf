@@ -48,7 +48,7 @@
             </trans-unit>
             <trans-unit id="12">
                 <source>text.contact_info</source>
-                <target><![CDATA[Yo uso este formulario para contactar con <strong>%site%</strong>. Una copia del mensaje se enviará a la dirección de correo electrónico que proporciono.]]></target>
+                <target><![CDATA[Yo uso este formulario para contactar con <strong>%site%</strong>.]]></target>
             </trans-unit>
             <trans-unit id="13">
                 <source>text.message_sent</source>
@@ -83,6 +83,14 @@
                 <source>text.regards_team</source>
                 <target><![CDATA[Saludos,
                         El equipo de %site%]]></target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>text.message_not_sent</source>
+                <target>¡Se ha producido un error (%error%), el mensaje no ha sido enviado!</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>label.receive_copy</source>
+                <target>Deseo recibir una copia del correo electrónico</target>
             </trans-unit>
         </body>
     </file>

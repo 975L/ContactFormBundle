@@ -86,10 +86,8 @@ In `layout.html.twig`, it will mainly consist to extend your layout and define s
 {% set title = 'Contact' %}
 
 {% block content %}
-    <div class="container">
-        {% block contactform_content %}
-        {% endblock %}
-    </div>
+    {% block contactform_content %}
+    {% endblock %}
 {% endblock %}
 ```
 
@@ -109,8 +107,42 @@ You can set the subject by using the url parameter `s` i.e. `http://example.com/
 {% endif %}
 ```
 
-Send email to other user (Event dispatch)
------------------------------------------
+Events dispatch
+===============
+
+Disable "Receive copy" checkbox
+-------------------------------
+You can disable the checkbox to allow user receiving a copy of the email sent, by catching the event `CREATE_FORM` with the following code. It's useful, for example if the contact form is used to contact another user and you want to preserve its email address.
+```php
+namespace AppBundle\Listener;
+
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use c975L\ContactFormBundle\Event\ContactFormEvent;
+
+class ContactFormListener implements EventSubscriberInterface
+{
+    public static function getSubscribedEvents()
+    {
+        return array(
+            ContactFormEvent::CREATE_FORM => 'createForm',
+        );
+    }
+
+    public function createForm($event)
+    {
+        //Gets data
+        $formData = $event->getFormData();
+        $subject = $formData->getSubject();
+
+        //For example, you can check if a string is present in the subject
+        if (stripos($subject, 'THE_STRING_YOU_WANT_TO_MATCH_IN_THE_SUBJECT') === 0) {
+            $event->setReceiveCopy(false);
+        }
+    }
+}
+```
+Set specific data in email sent
+-------------------------------
 In relation with your app specification, it is possible to set specific email data (body, subject, etc.) based on the data sent in form. For this you have to create a listener with the following code:
 ```php
 namespace AppBundle\Listener;
@@ -134,23 +166,29 @@ class ContactFormListener implements EventSubscriberInterface
         $subject = $formData->getSubject();
 
         //For example, you can check if a string is present in the subject
-        if (stripos($subject, 'THE_STRING_YOU_WANT_TO_MATCH') === 0) {
+        if (stripos($subject, 'THE_STRING_YOU_WANT_TO_MATCH_IN_THE_SUBJECT') === 0) {
             //Do the stuff...
 
-            //Defines data for email
-            $bodyEmail = 'YOUR_EMAIL_TEMPLATE.html.twig';
-            $bodyData = array(
-                 //Any needed data for your template
-                );
-            //The following array keys are mandatory, but you can set the other keys defined in c975L\EmailBundle
-            $emailData = array(
-                'subject' => 'YOUR_EMAIL_SUBJECT',
-                'bodyData' => $bodyData,
-                'bodyEmail' => $bodyEmail,
-                );
+            //Conditions to send email are met
+            if (1 == 1) {
+                //Defines data for email
+                $bodyEmail = 'YOUR_EMAIL_TEMPLATE.html.twig';
+                $bodyData = array(
+                     //Any needed data for your template
+                    );
+                //The following array keys are mandatory, but you can set the other keys defined in c975L\EmailBundle
+                $emailData = array(
+                    'subject' => 'YOUR_EMAIL_SUBJECT',
+                    'bodyData' => $bodyData,
+                    'bodyEmail' => $bodyEmail,
+                    );
 
-            //Updates event
-            $event->setEmailData($emailData);
+                //Updates event
+                $event->setEmailData($emailData);
+            //Stop sending by setting an error code, it will create a flash including your error code
+            } else {
+                $event->setError('YOUR_ERROR_CODE');
+            }
         }
     }
 }
