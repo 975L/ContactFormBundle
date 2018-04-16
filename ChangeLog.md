@@ -1,5 +1,10 @@
 # Changelog
 
+v1.8.1
+------
+- Replaced submit button by `SubmitType` (16/04/2018)
+- Added info in `README.md` about changing `infotext` (16/04/2018)
+
 v1.8
 ----
 - Corrected `Resources\views\emails\contact.html.twig` as it was not not including the message sent... (30/03/2018)

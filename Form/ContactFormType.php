@@ -1,6 +1,6 @@
 <?php
 /*
- * (c) 2017: 975l <contact@975l.com>
+ * (c) 2017: 975L <contact@975l.com>
  * (c) 2017: Laurent Marquet <laurent.marquet@laposte.net>
  *
  * This source file is subject to the MIT license that is bundled
@@ -13,6 +13,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -61,6 +62,12 @@ class ContactFormType extends AbstractType
                     ))
             ;
         }
+        $builder
+            ->add('submit', SubmitType::class, array(
+                'label' => 'label.send',
+                'attr' => array('class' => 'btn btn-block btn-lg btn-primary'),
+            ))
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

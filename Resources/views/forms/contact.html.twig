@@ -2,10 +2,6 @@
 {% trans_default_domain 'contactForm' %}
 
 {% set infoText = 'text.contact_info'|trans({'%site%': site}) %}
-{# Override data depending on subject value #}
-{#% if 'Subject' in subject %#}
-    {#% set infoText = 'Another text' %#}
-{#% endif %#}
 
 {% block contactform_content %}
     <div>
@@ -15,12 +11,6 @@
 {# Form #}
         {{ form_start(form) }}
             {{ form_widget(form) }}
-{# Submit#}
-            <div class="form-group">
-                <button type="submit" name="submit" title="{{ 'label.send'|trans }}" class="btn btn-lg btn-primary btn-block">
-                    <span class="fas fa-paper-plane"></span> {{ 'label.send'|trans }}
-                </button>
-            </div>
         {{ form_end(form) }}
 {# Mandatory field #}
         <p class="text-muted">

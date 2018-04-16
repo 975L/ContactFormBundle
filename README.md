@@ -68,6 +68,7 @@ c975_l_contact_form:
     prefix:   /
     #Multilingual website use the following
     #prefix: /{_locale}
+    #defaults:   { _locale: %locale% }
     #requirements:
     #    _locale: en|fr|es
 ```
@@ -105,6 +106,25 @@ You can set the subject by using the url parameter `s` i.e. `http://example.com/
 {% if 'Subject' in subject %}
     {# Do some stuff #}
 {% endif %}
+```
+
+Changing infoText
+-----------------
+You can change the text displayed at the top of the Contact Form with the following code in your overriding template `app/Resources/c975LContactFormBundle/views/layout.html.twig`:
+
+```twig
+{% extends 'layout.html.twig' %}
+
+{% set infoText = 'text.contact_info'|trans({'%site%': site}, 'contactForm') %}
+
+{% if YOUR_CONDITION_IS_MET %}
+    {% set infoText = 'YOUR_TEXT_TO_DISPLAY' %}
+{% endif %}
+
+{% block content %}
+    {% block contactform_content %}
+    {% endblock %}
+{% endblock %}
 ```
 
 Events dispatch
