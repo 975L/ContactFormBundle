@@ -56,7 +56,7 @@
             </trans-unit>
             <trans-unit id="14">
                 <source>text.mail_following_sent</source>
-                <target><![CDATA[Le message ci-dessous a été envoyé par <strong>%senderName%</strong> avec l'adresse email <a href="mailto:%senderEmail%">%senderEmail%</a> le %sendTime% depuis <strong>%site%</strong>.]]></target>
+                <target>Le message ci-dessous a été envoyé à votre site web</target>
             </trans-unit>
             <trans-unit id="15">
                 <source>label.message_sent</source>
@@ -91,6 +91,22 @@
             <trans-unit id="22">
                 <source>label.receive_copy</source>
                 <target>Je souhaite recevoir une copie de l'email</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>text.gdpr</source>
+                <target>Je consens que ce site Web stocke les données soumises afin qu'il puisse répondre à ma demande</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>label.date_time</source>
+                <target>Date et Heure</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>label.sender_name</source>
+                <target>Nom de l'expéditeur</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>label.sender_email</source>
+                <target>Email de l'expéditeur</target>
             </trans-unit>
         </body>
     </file>

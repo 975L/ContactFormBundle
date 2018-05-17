@@ -4,23 +4,46 @@
 {% block email_content %}
 {# Explanation #}
     <p>
-        {% trans with {
-            '%senderName%': form.name,
-            '%senderEmail%': form.email,
-            '%sendTime%': 'now'|localizeddate('medium', 'medium', locale),
-            '%site%': site
-            } from 'contactForm' %}
-            text.mail_following_sent
-        {% endtrans %}
+        {{ 'text.mail_following_sent'|trans }} <strong>{{ site }}</strong>
     </p>
-{# Message sent #}
+{# Datetime #}
     <p>
-        <strong>
-            {{ 'label.message_sent'|trans }}
-        </strong>
+        <strong>{{ 'label.date_time'|trans }}</strong>
+        <br />
+        <blockquote>
+            {{ 'now'|localizeddate('medium', 'medium', _locale) }}
+        </blockquote>
     </p>
-    <hr />
-    <blockquote>
-        {{ form.message|nl2br|raw }}
-    </blockquote>
+{# Sender name #}
+    <p>
+        <strong>{{ 'label.sender_name'|trans }}</strong>
+        <br />
+        <blockquote>
+            {{ form.name }}
+        </blockquote>
+    </p>
+{# Sender email #}
+    <p>
+        <strong>{{ 'label.sender_email'|trans }}</strong>
+        <br />
+        <blockquote>
+            <a href="mailto:{{ form.email }}">{{ form.email }}</a>
+        </blockquote>
+    </p>
+{# Subject #}
+    <p>
+        <strong>{{ 'label.subject'|trans }}</strong>
+        <br />
+        <blockquote>
+            {{ form.subject }}
+        </blockquote>
+    </p>
+{# Message #}
+    <p>
+        <strong>{{ 'label.message_sent'|trans }}</strong>
+        <br />
+        <blockquote>
+            {{ form.message|nl2br|raw }}
+        </blockquote>
+    </p>
 {% endblock %}

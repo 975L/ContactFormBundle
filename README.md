@@ -55,6 +55,8 @@ c975_l_contact_form:
     sentTo: 'contact@example.com'
     #If you want to save the email sent to the database linked to c975L/EmailBundle, see https://github.com/975L/EmailBundle
     database: true #false(default)
+    #If you want to display the checkbox for GDPR agreement
+    gdpr: false #true(default)
 ```
 
 Step 4: Enable the Routes
@@ -68,7 +70,7 @@ c975_l_contact_form:
     prefix:   /
     #Multilingual website use the following
     #prefix: /{_locale}
-    #defaults:   { _locale: %locale% }
+    #defaults:   { _locale: '%locale%' }
     #requirements:
     #    _locale: en|fr|es
 ```

@@ -1,5 +1,10 @@
 # Changelog
 
+v1.8.2
+------
+- Added GDPR agreement (17/05/2018)
+- Modified presentation of email sent (17/05/2018)
+
 v1.8.1
 ------
 - Replaced submit button by `SubmitType` (16/04/2018)

@@ -111,7 +111,7 @@ class ContactFormController extends Controller
             } elseif ($event->getError() === null) {
                 $bodyEmail = '@c975LContactForm/emails/contact.html.twig';
                 $bodyData = array(
-                    'locale' => $request->getLocale(),
+                    '_locale' => $request->getLocale(),
                     'form' => $formData,
                     );
                 $emailData = array(

@@ -28,6 +28,9 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('database')
                     ->defaultFalse()
                 ->end()
+                ->booleanNode('gdpr')
+                    ->defaultTrue()
+                ->end()
             ->end()
         ;
 

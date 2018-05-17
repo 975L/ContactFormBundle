@@ -63,6 +63,11 @@ class ContactFormType extends AbstractType
             ;
         }
         $builder
+            ->add('gdpr', CheckboxType::class, array(
+                'label' => 'text.gdpr',
+                'required' => true,
+                'mapped' => false,
+                ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'label.send',
                 'attr' => array('class' => 'btn btn-block btn-lg btn-primary'),
