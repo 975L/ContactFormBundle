@@ -1,5 +1,9 @@
 # Changelog
 
+v1.8.2.1
+--------
+- Removed required in composer.json (22/05/2018)
+
 v1.8.2
 ------
 - Added GDPR agreement (17/05/2018)
