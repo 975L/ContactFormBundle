@@ -13,7 +13,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -62,17 +61,14 @@ class ContactFormType extends AbstractType
                     ))
             ;
         }
-        $builder
-            ->add('gdpr', CheckboxType::class, array(
-                'label' => 'text.gdpr',
-                'required' => true,
-                'mapped' => false,
-                ))
-            ->add('submit', SubmitType::class, array(
-                'label' => 'label.send',
-                'attr' => array('class' => 'btn btn-block btn-lg btn-primary'),
-            ))
-        ;
+        if ($options['gdpr'] === true) {
+            $builder
+                ->add('gdpr', CheckboxType::class, array(
+                    'label' => 'text.gdpr',
+                    'required' => true,
+                    'mapped' => false,
+                    ));
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -83,6 +79,9 @@ class ContactFormType extends AbstractType
             'translation_domain' => 'contactForm',
         ));
 
-        $resolver->setRequired('receiveCopy');
+        $resolver
+            ->setRequired('receiveCopy')
+            ->setRequired('gdpr')
+        ;
     }
 }
