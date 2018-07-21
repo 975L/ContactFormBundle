@@ -9,6 +9,8 @@
 
 namespace c975L\ContactFormBundle\Service;
 
+use c975L\EmailBundle\Service\EmailService;
+
 class ContactFormService
 {
     private $container;
@@ -132,7 +134,7 @@ class ContactFormService
     }
 
     //Sends email
-    public function sendEmail($event, $formData)
+    public function sendEmail(EmailService $emailService, $event, $formData)
     {
         //Defines data to use
         $emailData = $this->defineEmailData($event, $formData);
@@ -144,7 +146,6 @@ class ContactFormService
         $session = $this->request->getSession();
 
         if (is_array($emailData)) {
-            $emailService = $this->container->get(\c975L\EmailBundle\Service\EmailService::class);
             $emailSent = $emailService->send($emailData, $this->container->getParameter('c975_l_contact_form.database'));
 
             //Message sent

@@ -1,5 +1,9 @@
 # Changelog
 
+v1.9.1
+------
+- Injected EmailService (21/07/2018)
+
 v1.9
 ----
 - Added `ContactFormService.php` to make `ContactFormController.php` more SOLID compliant (21/07/2018)
