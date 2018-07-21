@@ -1,5 +1,14 @@
 # Changelog
 
+v1.8.3
+------
+- Removed Bootstrap javascript request as not needed (21/07/2018)
+- Corrected gdpr checkbox display as it was disaplyed even if false is set (21/07/2018)
+- Removed `SubmitType` in FormType and replaced by adding button in template as it's not a "Best Practice" (Revert of v1.8.1) (21/07/2018)
+- Removed `Action` in controller method name as not requested anymore (21/07/2018)
+- Renamed variable `$contact` to `$contactForm` in Controller (21/07/2018)
+- Corrected meta in `layout.html.twig` (21/07/2018)
+
 v1.8.2.1
 --------
 - Removed required in composer.json (22/05/2018)

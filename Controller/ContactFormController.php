@@ -27,7 +27,7 @@ class ContactFormController extends Controller
      *      name="contactform_display")
      * @Method({"GET", "HEAD", "POST"})
      */
-    public function displayAction(Request $request)
+    public function display(Request $request)
     {
         //Gets subject if passed by url parameter "s"
         $subject = filter_var($request->query->get('s'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -49,8 +49,8 @@ class ContactFormController extends Controller
         }
 
         //Defines contact
-        $contact = new ContactForm();
-        $contact
+        $contactForm = new ContactForm();
+        $contactForm
             ->setName($name)
             ->setEmail($userEmail)
             ->setSubject($subject)
@@ -58,11 +58,14 @@ class ContactFormController extends Controller
 
         //Dispatch event
         $dispatcher = $this->get('event_dispatcher');
-        $event = new ContactFormEvent($contact);
+        $event = new ContactFormEvent($contactForm);
         $dispatcher->dispatch(ContactFormEvent::CREATE_FORM, $event);
 
         //Defines form
-        $form = $this->createForm(ContactFormType::class, $contact, array('receiveCopy' => $event->getReceiveCopy()));
+        $form = $this->createForm(ContactFormType::class, $contactForm, array(
+            'receiveCopy' => $event->getReceiveCopy(),
+            'gdpr' => $this->getParameter('c975_l_contact_form.gdpr'),
+            ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
