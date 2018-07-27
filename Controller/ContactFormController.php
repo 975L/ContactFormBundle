@@ -44,6 +44,11 @@ class ContactFormController extends Controller
         $event = new ContactFormEvent($contactForm);
         $dispatcher->dispatch(ContactFormEvent::CREATE_FORM, $event);
 
+        //Adds time to session
+        if (null === $request->getSession()->get('time')) {
+            $request->getSession()->set('time', time());
+        }
+
         //Defines form
         $contactFormService->defineReferer();
         $form = $this->createForm(ContactFormType::class, $contactForm, array(
@@ -53,12 +58,26 @@ class ContactFormController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //Dispatch Event SEND_FORM
-            $event = new ContactFormEvent($form->getData());
-            $dispatcher->dispatch(ContactFormEvent::SEND_FORM, $event);
+            //Tests if delay is not too short, to avoid being filled by bot
+            $delay = 7;
+            $emailSent = true;
+            if (null !== $request->getSession()->get('time') && $request->getSession()->get('time') + $delay < time()) {
+                //Tests if honeypot username has not been filled
+                if (null === $form->get('username')->getData()) {
+                    //Removes times froms session
+                    $request->getSession()->remove('time');
 
-            //Sends email
-            $contactFormService->sendEmail($event, $form->getData());
+                    //Dispatch Event SEND_FORM
+                    $event = new ContactFormEvent($form->getData());
+                    $dispatcher->dispatch(ContactFormEvent::SEND_FORM, $event);
+
+                    //Sends email
+                    $emailSent = $contactFormService->sendEmail($event, $form->getData());
+                }
+            }
+
+            //Creates flash message
+            $contactFormService->createFlash($emailSent);
 
             //Redirects to url if defined in session
             $session = $request->getSession();

@@ -108,6 +108,10 @@
                 <source>label.sender_email</source>
                 <target>Sender email</target>
             </trans-unit>
+            <trans-unit id="27">
+                <source>placeholder.username</source>
+                <target>Username (if you see this, leave it empty)</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
