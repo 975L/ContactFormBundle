@@ -1,5 +1,10 @@
 # Changelog
 
+v1.9.2
+------
+- Added honeypot to avoid spam (27/07/2018)
+- Added test delay before submission to avoid spam (27/07/2018)
+
 v1.9.1
 ------
 - Injected EmailService (21/07/2018)

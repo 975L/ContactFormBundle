@@ -9,26 +9,46 @@
 
 namespace c975L\ContactFormBundle\Service;
 
-use c975L\EmailBundle\Service\EmailService;
-
 class ContactFormService
 {
     private $container;
+    private $emailService;
     private $request;
     private $templating;
     private $tokenStorage;
 
     public function __construct(
         \Symfony\Component\DependencyInjection\ContainerInterface $container,
+        \c975L\EmailBundle\Service\EmailService $emailService,
         \Symfony\Component\HttpFoundation\RequestStack $requestStack,
         \Twig_Environment $templating,
         \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-        )
-    {
+        ) {
         $this->container = $container;
+        $this->emailService = $emailService;
         $this->request = $requestStack->getCurrentRequest();
         $this->templating = $templating;
         $this->tokenStorage = $tokenStorage;
+    }
+
+    //Creates flash message
+    public function createFlash($emailSent)
+    {
+        //Gets the translator
+        $translator = $this->container->get('translator');
+
+        //Gets the session
+        $session = $this->request->getSession();
+
+        //Message sent
+        if (true === $emailSent) {
+            $flash = $translator->trans('text.message_sent', array(), 'contactForm');
+            $session->getFlashBag()->add('success', $flash);
+        //Message not sent
+        } else {
+            $flash = $translator->trans('text.message_not_sent', array('%error%' => ''), 'contactForm');
+            $session->getFlashBag()->add('danger', $flash);
+        }
     }
 
     //Defines data to use for email
@@ -134,34 +154,20 @@ class ContactFormService
     }
 
     //Sends email
-    public function sendEmail(EmailService $emailService, $event, $formData)
+    public function sendEmail($event, $formData)
     {
         //Defines data to use
         $emailData = $this->defineEmailData($event, $formData);
 
-        //Gets the translator
-        $translator = $this->container->get('translator');
-
-        //Gets the session
-        $session = $this->request->getSession();
-
+        //Sends email
         if (is_array($emailData)) {
-            $emailSent = $emailService->send($emailData, $this->container->getParameter('c975_l_contact_form.database'));
-
-            //Message sent
-            if (true === $emailSent) {
-                $flash = $translator->trans('text.message_sent', array(), 'contactForm');
-                $session->getFlashBag()->add('success', $flash);
-            //Message not sent
-            } else {
-                $flash = $translator->trans('text.message_not_sent', array('%error%' => ''), 'contactForm');
-                $session->getFlashBag()->add('danger', $flash);
-            }
-        //Displays error message provided in event
-        } else {
-            //Creates flash
-            $flash = $translator->trans('text.message_not_sent', array('%error%' => $event->getError()), 'contactForm');
-            $session->getFlashBag()->add('danger', $flash);
+            return $this->emailService->send($emailData, $this->container->getParameter('c975_l_contact_form.database'));
         }
+
+        //Displays error message provided in event
+        $flash = $this->container->get('translator')->trans('text.message_not_sent', array('%error%' => $event->getError()), 'contactForm');
+        $this->request->getSession()->getFlashBag()->add('danger', $flash);
+
+        return false;
     }
 }

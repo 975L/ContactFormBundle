@@ -25,6 +25,15 @@ class ContactFormType extends AbstractType
         $subjectReadonly = $options['data']->getSubject() !== '' ? true : false;
 
         $builder
+            ->add('username', TextType::class, array(
+                'label' => false,
+                'required' => false,
+                'mapped' => false,
+                'data' => null,
+                'attr' => array(
+                    'placeholder' => 'placeholder.username',
+                    'class' => 'username',
+                )))
             ->add('name', TextType::class, array(
                 'label' => 'label.name',
                 'required' => true,

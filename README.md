@@ -7,7 +7,8 @@ ContactFormBundle does the following:
 - Pre-fills data if user is logged in,
 - Sends the email via [c975LEmailBundle](https://github.com/975L/EmailBundle) as `c975LEmailBundle` provides the possibility to save emails in a database, there is an option to NOT do so via this Bundle,
 - Sends a copy to the email provided,
-- Allows the possibility to send email to other user, related to your app specification, i.e. contact another user without giving its email. This is achieved via event dispatch (see below)
+- Allows the possibility to send email to other user, related to your app specification, i.e. contact another user without giving its email. This is achieved via event dispatch (see below),
+- Provides honeypot and delay before real submission, to avoid spam and not need to request captcha (see below),
 
 [ContactForm Bundle dedicated web page](https://975l.com/en/pages/contact-form-bundle).
 
@@ -109,6 +110,12 @@ You can set the subject by using the url parameter `s` i.e. `http://example.com/
     {# Do some stuff #}
 {% endif %}
 ```
+
+HoneyPot and delay to avoid spam
+--------------------------------
+To avoid ContactFormBundle serving as an entry point to send spam, the field `username` is a honeypot. It's only displayed to robots and is hidden via css to normal users. If it's filled, then it's not a user, but a bot. There is also a test for the delay used to submit the form. If the form is submitted before the defined delay then it may has not been filled by a human.
+
+For both cases, ContactFormBundle will act as if the mail was sent, but it will not be the case.
 
 Changing infoText
 -----------------
