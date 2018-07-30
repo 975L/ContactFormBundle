@@ -19,6 +19,7 @@
     ],
     "require": {
         "php": ">=5.5.9",
+        "twig/extensions": "^1",
         "c975l/email-bundle": "^1",
         "c975l/includelibrary-bundle": "^1"
     },
