@@ -41,7 +41,7 @@ class ContactFormController extends Controller
 
         //Dispatch Event CREATE_FORM
         $dispatcher = new EventDispatcher();
-        $event = new ContactFormEvent($contactForm);
+        $event = new ContactFormEvent($request, $contactForm);
         $dispatcher->dispatch(ContactFormEvent::CREATE_FORM, $event);
 
         //Adds time to session
@@ -68,7 +68,7 @@ class ContactFormController extends Controller
                     $request->getSession()->remove('time');
 
                     //Dispatch Event SEND_FORM
-                    $event = new ContactFormEvent($form->getData());
+                    $event = new ContactFormEvent($request, $form->getData());
                     $dispatcher->dispatch(ContactFormEvent::SEND_FORM, $event);
 
                     //Sends email

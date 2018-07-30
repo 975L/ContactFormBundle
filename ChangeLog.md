@@ -1,5 +1,9 @@
 # Changelog
 
+v1.9.4
+------
+- Added `Request` to Event (30/07/2018)
+
 v1.9.3
 ------
 - Corrected https://github.com/975L/ContactFormBundle/issues/4, by adding Twig_Extensions (30/07/2018)

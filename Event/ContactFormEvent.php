@@ -20,9 +20,11 @@ class ContactFormEvent extends Event
     protected $emailData;
     protected $error;
     protected $receiveCopy = true;
+    protected $request;
 
-    public function __construct($formData = null, $emailData = null)
+    public function __construct($request, $formData = null, $emailData = null)
     {
+        $this->request = $request;
         $this->formData = $formData;
         $this->emailData = $emailData;
     }
@@ -51,6 +53,12 @@ class ContactFormEvent extends Event
     public function getReceiveCopy()
     {
         return $this->receiveCopy;
+    }
+
+    //Request
+    public function getRequest()
+    {
+        return $this->request;
     }
 
     //error
