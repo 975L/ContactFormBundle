@@ -10,6 +10,7 @@
 namespace c975L\ContactFormBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\HttpFoundation\Request;
 
 class ContactFormEvent extends Event
 {
@@ -22,7 +23,7 @@ class ContactFormEvent extends Event
     protected $receiveCopy = true;
     protected $request;
 
-    public function __construct($request, $formData = null, $emailData = null)
+    public function __construct(Request $request, $formData = null, $emailData = null)
     {
         $this->request = $request;
         $this->formData = $formData;

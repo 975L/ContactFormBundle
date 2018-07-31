@@ -76,6 +76,17 @@ c975_l_contact_form:
     #    _locale: en|fr|es
 ```
 
+Step 4b: Declaration of Twig_Extensions_Extension_Text
+------------------------------------------------------
+Linked to https://github.com/symfony/symfony/issues/22849#issuecomment-409167386, you have to config `Twig_Extensions_Extension_Text` in your `services.yml` if not already the case, with the following code:
+
+```yml
+    twig.text_extension:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - name: twig.extension
+```
+
 Step 5: Override templates
 --------------------------
 It is strongly recommended to use the [Override Templates from Third-Party Bundles feature](http://symfony.com/doc/current/templating/overriding.html) to integrate fully with your site.
@@ -170,6 +181,7 @@ class ContactFormListener implements EventSubscriberInterface
     }
 }
 ```
+
 Set specific data in email sent
 -------------------------------
 In relation with your app specification, it is possible to set specific email data (body, subject, etc.) based on the data sent in form. For this you have to create a listener with the following code:
@@ -219,6 +231,33 @@ class ContactFormListener implements EventSubscriberInterface
                 $event->setError('YOUR_ERROR_CODE');
             }
         }
+    }
+}
+
+```
+
+Update redirect url
+-------------------
+You can update the url to be redirected to, after submission of the form, with the following code:
+```php
+namespace AppBundle\Listener;
+
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use c975L\ContactFormBundle\Event\ContactFormEvent;
+
+class ContactFormListener implements EventSubscriberInterface
+{
+    public static function getSubscribedEvents()
+    {
+        return array(
+            ContactFormEvent::CREATE_FORM => 'createForm',
+        );
+    }
+
+    public function createForm($event)
+    {
+        //Updates url to redirect
+        $event->getRequest()->getSession()->set('redirectUrl', 'https://example.com');
     }
 }
 ```

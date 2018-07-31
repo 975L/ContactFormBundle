@@ -31,6 +31,7 @@ class ContactFormController extends Controller
     public function display(Request $request, ContactFormService $contactFormService)
     {
         //Defines contactForm
+        $contactFormService->defineReferer();
         $subject = $contactFormService->getSubject();
         $contactForm = new ContactForm();
         $contactForm
@@ -50,7 +51,6 @@ class ContactFormController extends Controller
         }
 
         //Defines form
-        $contactFormService->defineReferer();
         $form = $this->createForm(ContactFormType::class, $contactForm, array(
             'receiveCopy' => $event->getReceiveCopy(),
             'gdpr' => $this->getParameter('c975_l_contact_form.gdpr'),

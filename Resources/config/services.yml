@@ -9,8 +9,3 @@ services:
 
     c975L\ContactFormBundle\Form\:
         resource: '../../Form/*'
-
-    twig.extension.intl:
-        class: Twig_Extensions_Extension_Intl
-        tags:
-            - name: twig.extension

@@ -1,5 +1,10 @@
 # Changelog
 
+v1.9.5
+------
+- Updated `README.md` (31/07/2018)
+- Moved `defineReferer()` call at the top of `ContactFormController->display()` (31/07/2018)
+
 v1.9.4
 ------
 - Added `Request` to Event (30/07/2018)
