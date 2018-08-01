@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use c975L\ContactFormBundle\Entity\ContactForm;
@@ -28,7 +28,7 @@ class ContactFormController extends Controller
      *      name="contactform_display")
      * @Method({"GET", "HEAD", "POST"})
      */
-    public function display(Request $request, ContactFormService $contactFormService)
+    public function display(Request $request, ContactFormService $contactFormService, EventDispatcherInterface $dispatcher)
     {
         //Defines contactForm
         $contactFormService->defineReferer();
@@ -41,7 +41,6 @@ class ContactFormController extends Controller
             ;
 
         //Dispatch Event CREATE_FORM
-        $dispatcher = new EventDispatcher();
         $event = new ContactFormEvent($request, $contactForm);
         $dispatcher->dispatch(ContactFormEvent::CREATE_FORM, $event);
 

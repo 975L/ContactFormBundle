@@ -1,5 +1,10 @@
 # Changelog
 
+v1.9.5.1
+--------
+- Corrected `README.md` to indicate EventSubscriber in place of Listener (01/08/2018)
+- Corrected Events dispatch (01/08/2018)
+
 v1.9.5
 ------
 - Updated `README.md` (31/07/2018)
