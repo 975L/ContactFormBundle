@@ -5,6 +5,7 @@ ContactFormBundle does the following:
 
 - Display a form to contact a website,
 - Pre-fills data if user is logged in,
+- Dispatch events to modify form/email,
 - Sends the email via [c975LEmailBundle](https://github.com/975L/EmailBundle) as `c975LEmailBundle` provides the possibility to save emails in a database, there is an option to NOT do so via this Bundle,
 - Sends a copy to the email provided,
 - Allows the possibility to send email to other user, related to your app specification, i.e. contact another user without giving its email. This is achieved via event dispatch (see below),
@@ -154,12 +155,12 @@ Disable "Receive copy" checkbox
 -------------------------------
 You can disable the checkbox to allow user receiving a copy of the email sent, by catching the event `CREATE_FORM` with the following code. It's useful, for example if the contact form is used to contact another user and you want to preserve its email address.
 ```php
-namespace AppBundle\Listener;
+namespace AppBundle\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 
-class ContactFormListener implements EventSubscriberInterface
+class ContactFormSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
@@ -186,12 +187,12 @@ Set specific data in email sent
 -------------------------------
 In relation with your app specification, it is possible to set specific email data (body, subject, etc.) based on the data sent in form. For this you have to create a listener with the following code:
 ```php
-namespace AppBundle\Listener;
+namespace AppBundle\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 
-class ContactFormListener implements EventSubscriberInterface
+class ContactFormSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
@@ -240,12 +241,12 @@ Update redirect url
 -------------------
 You can update the url to be redirected to, after submission of the form, with the following code:
 ```php
-namespace AppBundle\Listener;
+namespace AppBundle\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 
-class ContactFormListener implements EventSubscriberInterface
+class ContactFormSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
