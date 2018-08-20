@@ -14,6 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ContactForm
 {
     /**
+     * Stores the email address
+     *
      * @Assert\NotBlank()
      * @Assert\Email(
      *     message = "email.not_valid",
@@ -23,6 +25,8 @@ class ContactForm
     protected $email;
 
     /**
+     * Stores the name
+     *
      * @Assert\NotBlank()
      * @Assert\Length(
      *      min = 2,
@@ -34,6 +38,8 @@ class ContactForm
     protected $name;
 
     /**
+     * Stores the message
+     *
      * @Assert\NotBlank()
      * @Assert\Length(
      *      min = 20,
@@ -45,6 +51,8 @@ class ContactForm
     protected $message;
 
     /**
+     * Stores the subject
+     *
      * @Assert\NotBlank()
      * @Assert\Length(
      *      min = 2,
@@ -55,30 +63,16 @@ class ContactForm
      */
     protected $subject;
 
+    /**
+     * Stores the ip address
+     */
+    protected $ip;
+
+    /**
+     * If user wants to receive a copy of the email sent
+     */
     protected $receiveCopy;
 
-
-    /**
-     * Set name
-     *
-     * @return ContactForm
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
 
     /**
      * Set email
@@ -95,7 +89,7 @@ class ContactForm
     /**
      * Get email
      *
-     * @return string
+     * @return string|null
      */
     public function getEmail()
     {
@@ -103,25 +97,25 @@ class ContactForm
     }
 
     /**
-     * Set subject
+     * Set name
      *
      * @return ContactForm
      */
-    public function setSubject($subject)
+    public function setName($name)
     {
-        $this->subject = $subject;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get subject
+     * Get name
      *
-     * @return string
+     * @return string|null
      */
-    public function getSubject()
+    public function getName()
     {
-        return $this->subject;
+        return $this->name;
     }
 
     /**
@@ -139,7 +133,7 @@ class ContactForm
     /**
      * Get message
      *
-     * @return string
+     * @return string|null
      */
     public function getMessage()
     {
@@ -147,7 +141,51 @@ class ContactForm
     }
 
     /**
-     * Set message
+     * Set subject
+     *
+     * @return ContactForm
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return string|null
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * Set ip
+     *
+     * @return ContactForm
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+
+        return $this;
+    }
+
+    /**
+     * Get ip
+     *
+     * @return string|null
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * Set receiveCopy
      *
      * @return ContactForm
      */
@@ -157,7 +195,7 @@ class ContactForm
     }
 
     /**
-     * Get message
+     * Get receiveCopy
      *
      * @return boolean
      */

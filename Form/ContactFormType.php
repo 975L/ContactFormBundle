@@ -19,10 +19,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContactFormType extends AbstractType
 {
-    //Builds the form
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $subjectReadonly = $options['data']->getSubject() !== '' ? true : false;
+        $subjectReadonly = null !== $options['data']->getSubject() ? true : false;
 
         $builder
             ->add('username', TextType::class, array(
@@ -60,8 +59,14 @@ class ContactFormType extends AbstractType
                     'rows' => 10,
                     'placeholder' => 'placeholder.message',
                 )))
+            ->add('ip', TextType::class, array(
+                'label' => 'label.ip',
+                'required' => true,
+                'attr' => array(
+                    'readonly' => true,
+                )))
         ;
-        if ($options['receiveCopy'] === true) {
+        if (true === $options['receiveCopy']) {
             $builder
                 ->add('receiveCopy', CheckboxType::class, array(
                     'label' => 'label.receive_copy',
@@ -70,7 +75,7 @@ class ContactFormType extends AbstractType
                     ))
             ;
         }
-        if ($options['gdpr'] === true) {
+        if (true === $options['gdpr']) {
             $builder
                 ->add('gdpr', CheckboxType::class, array(
                     'label' => 'text.gdpr',
