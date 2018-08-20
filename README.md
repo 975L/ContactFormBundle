@@ -11,7 +11,9 @@ ContactFormBundle does the following:
 - Allows the possibility to send email to other user, related to your app specification, i.e. contact another user without giving its email. This is achieved via event dispatch (see below),
 - Provides honeypot and delay before real submission, to avoid spam and not need to request captcha (see below),
 
-[ContactForm Bundle dedicated web page](https://975l.com/en/pages/contact-form-bundle).
+[ContactFormBundle dedicated web page](https://975l.com/en/pages/contact-form-bundle).
+
+[ContactFormBundle API documentation](https://975l.com/apidoc/c975L/ContactFormBundle.html).
 
 Bundle installation
 ===================
@@ -46,7 +48,7 @@ Step 3: Configure the Bundles
 -----------------------------
 Check [Swiftmailer](https://github.com/symfony/swiftmailer-bundle), [Doctrine](https://github.com/doctrine/DoctrineBundle) and [c975LEmailBundle](https://github.com/975L/EmailBundle) for their specific configuration
 
-Then, in the `app/config.yml` file of your project, define the following:
+Then, in the `app/config/config.yml` file of your project, define the following:
 
 ```yml
 #ContactFormBundle
@@ -61,7 +63,17 @@ c975_l_contact_form:
     gdpr: false #true(default)
 ```
 
-Step 4: Enable the Routes
+Step 4: Declaration of Twig_Extensions_Extension_Text
+-----------------------------------------------------
+You have to config `Twig_Extensions_Extension_Text` in your `app/config/services.yml`, if not already the case, with the following code:
+
+```yml
+    twig.text_extension:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - name: twig.extension
+```
+Step 5: Enable the Routes
 -------------------------
 Then, enable the routes by adding them to the `app/config/routing.yml` file of your project:
 
@@ -77,18 +89,7 @@ c975_l_contact_form:
     #    _locale: en|fr|es
 ```
 
-Step 4b: Declaration of Twig_Extensions_Extension_Text
-------------------------------------------------------
-Linked to https://github.com/symfony/symfony/issues/22849#issuecomment-409167386, you have to config `Twig_Extensions_Extension_Text` in your `services.yml` if not already the case, with the following code:
-
-```yml
-    twig.text_extension:
-        class: Twig_Extensions_Extension_Text
-        tags:
-            - name: twig.extension
-```
-
-Step 5: Override templates
+Step 6: Override templates
 --------------------------
 It is strongly recommended to use the [Override Templates from Third-Party Bundles feature](http://symfony.com/doc/current/templating/overriding.html) to integrate fully with your site.
 
@@ -262,3 +263,5 @@ class ContactFormSubscriber implements EventSubscriberInterface
     }
 }
 ```
+
+**If this project help you to reduce time to develop, you can [buy me a coffee](https://www.buymeacoffee.com/LaurentMarquet) :)**

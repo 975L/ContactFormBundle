@@ -1,5 +1,16 @@
 # Changelog
 
+v1.10
+-----
+- Made use of EmailServiceInterface (04/08/2018)
+- Added link to BuyMeCoffee (19/08/2018)
+- Added IP field display (19/08/2018)
+- Added phpdoc (19/08/2018)
+- Added link to apidoc (19/08/2018)
+- Injected TranslatorInterface (19/08/2018)
+- Split ContactFormService in multiple Services for SOLID compliance (20/08/2018)
+- Created related services interfaces (20/08/2018)
+
 v1.9.5.1
 --------
 - Corrected `README.md` to indicate EventSubscriber in place of Listener (01/08/2018)

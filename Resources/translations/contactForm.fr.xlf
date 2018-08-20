@@ -112,6 +112,10 @@
                 <source>placeholder.username</source>
                 <target>Nom d'utilisateur (si vous voyez ceci, laissez-le vide)</target>
             </trans-unit>
+            <trans-unit id="28">
+                <source>label.ip</source>
+                <target>Adresse IP</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
