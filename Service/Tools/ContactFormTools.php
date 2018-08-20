@@ -9,6 +9,8 @@
 
 namespace c975L\ContactFormBundle\Service\Tools;
 
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Translation\TranslatorInterface;
 use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
 
 class ContactFormTools implements ContactFormToolsInterface
@@ -24,9 +26,10 @@ class ContactFormTools implements ContactFormToolsInterface
     private $translator;
 
     public function __construct(
-        \Symfony\Component\HttpFoundation\RequestStack $requestStack,
-        \Symfony\Component\Translation\TranslatorInterface $translator
-        ) {
+        RequestStack $requestStack,
+        TranslatorInterface $translator
+    )
+    {
         $this->request = $requestStack->getCurrentRequest();
         $this->translator = $translator;
     }

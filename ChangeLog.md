@@ -1,5 +1,11 @@
 # Changelog
 
+v1.10.1
+-------
+- Removed ContactFormDispatcher + Interface (20/08/2018)
+- Removed FQCN and made use of "use" (20/08/2018)
+- Removed injection of Request (20/08/2018)
+
 v1.10
 -----
 - Made use of EmailServiceInterface (04/08/2018)

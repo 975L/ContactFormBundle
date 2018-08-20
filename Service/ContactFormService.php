@@ -9,9 +9,10 @@
 
 namespace c975L\ContactFormBundle\Service;
 
+use Symfony\Component\HttpFoundation\RequestStack;
 use c975L\ContactFormBundle\Entity\ContactForm;
-use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
+use c975L\ContactFormBundle\Service\User\ContactFormUserInterface;
 
 class ContactFormService implements ContactFormServiceInterface
 {
@@ -26,9 +27,10 @@ class ContactFormService implements ContactFormServiceInterface
     private $contactFormUser;
 
     public function __construct(
-        \Symfony\Component\HttpFoundation\RequestStack $requestStack,
-        \c975L\ContactFormBundle\Service\User\ContactFormUserInterface $contactFormUser
-        ) {
+        RequestStack $requestStack,
+        ContactFormUserInterface $contactFormUser
+    )
+    {
         $this->request = $requestStack->getCurrentRequest();
         $this->contactFormUser = $contactFormUser;
     }

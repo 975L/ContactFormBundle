@@ -9,6 +9,7 @@
 
 namespace c975L\ContactFormBundle\Service\User;
 
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use c975L\ContactFormBundle\Service\User\ContactFormUserInterface;
 
 class ContactFormUser implements ContactFormUserInterface
@@ -18,7 +19,7 @@ class ContactFormUser implements ContactFormUserInterface
      */
     private $tokenStorage;
 
-    public function __construct(\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage)
+    public function __construct(TokenStorageInterface $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
     }
