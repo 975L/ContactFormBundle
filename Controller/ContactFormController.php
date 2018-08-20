@@ -12,25 +12,25 @@ namespace c975L\ContactFormBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ContactFormBundle\Form\ContactFormType;
+use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
+use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
+use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
 
 class ContactFormController extends Controller
 {
     /**
-    * @var \Symfony\Component\HttpFoundation\Request
+    * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
     */
-    private $request;
+    private $dispatcher;
 
     /**
      * @var \c975L\ContactFormBundle\Service\ContactFormServiceInterface
     */
     private $contactFormService;
-
-    /**
-    * @var \c975L\ContactFormBundle\Service\Dispatcher\ContactFormDispatcherInterface
-    */
-    private $contactFormDispatcher;
 
     /**
     * @var \c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface
@@ -43,16 +43,14 @@ class ContactFormController extends Controller
     private $contactFormTools;
 
     public function __construct(
-        \Symfony\Component\HttpFoundation\RequestStack $requestStack,
-        \c975L\ContactFormBundle\Service\ContactFormServiceInterface $contactFormService,
-        \c975L\ContactFormBundle\Service\Dispatcher\ContactFormDispatcherInterface $contactFormDispatcher,
-        \c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface $contactFormEmail,
-        \c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface $contactFormTools
+        EventDispatcherInterface $dispatcher,
+        ContactFormServiceInterface $contactFormService,
+        ContactFormEmailInterface $contactFormEmail,
+        ContactFormToolsInterface $contactFormTools
     )
     {
-        $this->request = $requestStack->getCurrentRequest();
+        $this->dispatcher = $dispatcher;
         $this->contactFormService = $contactFormService;
-        $this->contactFormDispatcher = $contactFormDispatcher;
         $this->contactFormEmail = $contactFormEmail;
         $this->contactFormTools = $contactFormTools;
     }
@@ -66,26 +64,28 @@ class ContactFormController extends Controller
      *      name="contactform_display")
      * @Method({"GET", "HEAD", "POST"})
      */
-    public function display()
+    public function display(Request $request)
     {
         //Creates ContactForm
         $contactForm = $this->contactFormService->create();
 
         //Dispatch Event CREATE_FORM
-        $event = $this->contactFormDispatcher->dispatch(ContactFormEvent::CREATE_FORM, $contactForm);
+        $event = new ContactFormEvent($request, $contactForm);
+        $this->dispatcher->dispatch(ContactFormEvent::CREATE_FORM, $event);
 
         //Defines form
         $form = $this->createForm(ContactFormType::class, $contactForm, array(
             'receiveCopy' => $event->getReceiveCopy(),
             'gdpr' => $this->getParameter('c975_l_contact_form.gdpr'),
             ));
-        $form->handleRequest($this->request);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             //Tests if it's not a bot that has used the form
             if ($this->contactFormTools->isNotBot($form->get('username')->getData())) {
                 //Dispatch Event SEND_FORM
-                $event = $this->contactFormDispatcher->dispatch(ContactFormEvent::SEND_FORM, $form->getData());
+                $event = new ContactFormEvent($request, $form->getData());
+                $this->dispatcher->dispatch(ContactFormEvent::SEND_FORM, $event);
 
                 //Sends email
                 $this->contactFormEmail->send($event, $form->getData());

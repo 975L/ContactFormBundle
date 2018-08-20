@@ -9,9 +9,6 @@
 
 namespace c975L\ContactFormBundle\Service\User;
 
-use c975L\ContactFormBundle\Entity\ContactForm;
-use c975L\ContactFormBundle\Event\ContactFormEvent;
-
 interface ContactFormUserInterface
 {
     /**

@@ -9,9 +9,14 @@
 
 namespace c975L\ContactFormBundle\Service\Email;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use c975L\EmailBundle\Service\EmailServiceInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Twig_Environment;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
+use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
 
 class ContactFormEmail implements ContactFormEmailInterface
 {
@@ -41,14 +46,13 @@ class ContactFormEmail implements ContactFormEmailInterface
     private $contactFormTools;
 
     public function __construct(
-        \Symfony\Component\DependencyInjection\ContainerInterface $container,
-        \c975L\EmailBundle\Service\EmailServiceInterface $emailService,
-        \Symfony\Component\HttpFoundation\RequestStack $requestStack,
-        \Twig_Environment $templating,
-        \c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface $contactFormTools
-
-
-        ) {
+        ContainerInterface $container,
+        EmailServiceInterface $emailService,
+        RequestStack $requestStack,
+        Twig_Environment $templating,
+        ContactFormToolsInterface $contactFormTools
+    )
+    {
         $this->container = $container;
         $this->request = $requestStack->getCurrentRequest();
         $this->templating = $templating;
