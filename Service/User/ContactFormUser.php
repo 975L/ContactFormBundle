@@ -12,6 +12,11 @@ namespace c975L\ContactFormBundle\Service\User;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use c975L\ContactFormBundle\Service\User\ContactFormUserInterface;
 
+/**
+ * Services related to ContactForm User
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class ContactFormUser implements ContactFormUserInterface
 {
     /**

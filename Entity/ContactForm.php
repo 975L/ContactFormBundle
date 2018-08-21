@@ -11,6 +11,11 @@ namespace c975L\ContactFormBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * Entity ContactForm (not linked to a db)
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2017 975L <contact@975l.com>
+ */
 class ContactForm
 {
     /**

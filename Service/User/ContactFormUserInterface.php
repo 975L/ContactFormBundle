@@ -9,6 +9,11 @@
 
 namespace c975L\ContactFormBundle\Service\User;
 
+/**
+ * Interface to be called for DI for ContactForm User related services
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 interface ContactFormUserInterface
 {
     /**

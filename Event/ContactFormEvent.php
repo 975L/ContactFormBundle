@@ -13,6 +13,11 @@ use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
 use c975L\ContactFormBundle\Entity\ContactForm;
 
+/**
+ * Events to be dispatched throughout the lifecycle of ContactForm
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class ContactFormEvent extends Event
 {
     /**
