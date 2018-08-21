@@ -20,6 +20,11 @@ use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
 use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
 use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
 
+/**
+ * Main Controller class
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2017 975L <contact@975l.com>
+ */
 class ContactFormController extends Controller
 {
     /**

@@ -18,6 +18,11 @@ use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
 use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
 
+/**
+ * Services related to ContactForm Email
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class ContactFormEmail implements ContactFormEmailInterface
 {
     /**

@@ -12,6 +12,11 @@ namespace c975L\ContactFormBundle\Service;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 
+/**
+ * Interface to be called for DI for ContactForm Main related services
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 interface ContactFormServiceInterface
 {
     /**

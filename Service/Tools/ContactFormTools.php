@@ -13,6 +13,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\TranslatorInterface;
 use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
 
+/**
+ * Services related to ContactForm Tools
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class ContactFormTools implements ContactFormToolsInterface
 {
     /**

@@ -14,6 +14,11 @@ use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
 use c975L\ContactFormBundle\Service\User\ContactFormUserInterface;
 
+/**
+ * Main services related to ContactForm
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class ContactFormService implements ContactFormServiceInterface
 {
     /**

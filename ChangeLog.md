@@ -1,5 +1,9 @@
 # Changelog
 
+v1.10.1.2
+---------
+- Added extra-information for documentation (21/08/2018)
+
 v1.10.1.1
 ---------
 - Removed FQCN in docblocks (21/08/2018)
