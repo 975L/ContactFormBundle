@@ -23,22 +23,22 @@ use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
 class ContactFormController extends Controller
 {
     /**
-    * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+    * @var EventDispatcherInterface
     */
     private $dispatcher;
 
     /**
-     * @var \c975L\ContactFormBundle\Service\ContactFormServiceInterface
+     * @var ContactFormServiceInterface
     */
     private $contactFormService;
 
     /**
-    * @var \c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface
+    * @var ContactFormEmailInterface
     */
     private $contactFormEmail;
 
     /**
-    * @var \c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface
+    * @var ContactFormToolsInterface
      */
     private $contactFormTools;
 
@@ -57,7 +57,6 @@ class ContactFormController extends Controller
 
     /**
      * Displays ContactForm and treats its submission
-     *
      * @return Response
      *
      * @Route("/contact",

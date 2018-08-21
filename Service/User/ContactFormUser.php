@@ -15,7 +15,8 @@ use c975L\ContactFormBundle\Service\User\ContactFormUserInterface;
 class ContactFormUser implements ContactFormUserInterface
 {
     /**
-     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
+     * Stores TokenStorage
+     * @var TokenStorageInterface
      */
     private $tokenStorage;
 

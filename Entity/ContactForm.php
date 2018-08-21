@@ -14,7 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ContactForm
 {
     /**
-     * Stores the email address
+     * Stores the email address provided in ContactForm
+     * @var string
      *
      * @Assert\NotBlank()
      * @Assert\Email(
@@ -25,7 +26,8 @@ class ContactForm
     protected $email;
 
     /**
-     * Stores the name
+     * Stores the name provided in ContactForm
+     * @var string
      *
      * @Assert\NotBlank()
      * @Assert\Length(
@@ -38,7 +40,8 @@ class ContactForm
     protected $name;
 
     /**
-     * Stores the message
+     * Stores the message provided in ContactForm
+     * @var string
      *
      * @Assert\NotBlank()
      * @Assert\Length(
@@ -51,7 +54,8 @@ class ContactForm
     protected $message;
 
     /**
-     * Stores the subject
+     * Stores the subject provided in ContactForm
+     * @var string
      *
      * @Assert\NotBlank()
      * @Assert\Length(
@@ -64,19 +68,21 @@ class ContactForm
     protected $subject;
 
     /**
-     * Stores the ip address
+     * Stores the ip address used to submit ContactForm
+     * @var string
      */
     protected $ip;
 
     /**
-     * If user wants to receive a copy of the email sent
+     * If user wants to receive a copy of the email sent by ContactForm
+     * @var bool
      */
     protected $receiveCopy;
 
 
     /**
      * Set email
-     *
+     * @param string|null
      * @return ContactForm
      */
     public function setEmail($email)
@@ -88,7 +94,6 @@ class ContactForm
 
     /**
      * Get email
-     *
      * @return string|null
      */
     public function getEmail()
@@ -98,7 +103,7 @@ class ContactForm
 
     /**
      * Set name
-     *
+     * @param string|null
      * @return ContactForm
      */
     public function setName($name)
@@ -110,7 +115,6 @@ class ContactForm
 
     /**
      * Get name
-     *
      * @return string|null
      */
     public function getName()
@@ -120,7 +124,7 @@ class ContactForm
 
     /**
      * Set message
-     *
+     * @param string|null
      * @return ContactForm
      */
     public function setMessage($message)
@@ -132,7 +136,6 @@ class ContactForm
 
     /**
      * Get message
-     *
      * @return string|null
      */
     public function getMessage()
@@ -142,7 +145,7 @@ class ContactForm
 
     /**
      * Set subject
-     *
+     * @param string|null
      * @return ContactForm
      */
     public function setSubject($subject)
@@ -154,7 +157,6 @@ class ContactForm
 
     /**
      * Get subject
-     *
      * @return string|null
      */
     public function getSubject()
@@ -164,7 +166,7 @@ class ContactForm
 
     /**
      * Set ip
-     *
+     * @param string|null
      * @return ContactForm
      */
     public function setIp($ip)
@@ -176,7 +178,6 @@ class ContactForm
 
     /**
      * Get ip
-     *
      * @return string|null
      */
     public function getIp()
@@ -186,7 +187,7 @@ class ContactForm
 
     /**
      * Set receiveCopy
-     *
+     * @param bool
      * @return ContactForm
      */
     public function setReceiveCopy($receiveCopy)
@@ -196,8 +197,7 @@ class ContactForm
 
     /**
      * Get receiveCopy
-     *
-     * @return boolean
+     * @return bool
      */
     public function getReceiveCopy()
     {

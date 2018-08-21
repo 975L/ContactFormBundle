@@ -1,5 +1,10 @@
 # Changelog
 
+v1.10.1.1
+---------
+- Removed FQCN in docblocks (21/08/2018)
+- Added information for documentation (21/08/2018)
+
 v1.10.1
 -------
 - Removed ContactFormDispatcher + Interface (20/08/2018)

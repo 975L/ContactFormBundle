@@ -17,13 +17,15 @@ use c975L\ContactFormBundle\Service\User\ContactFormUserInterface;
 class ContactFormService implements ContactFormServiceInterface
 {
     /**
+     * Stores current Request
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
     private $request;
 
     /**
-    * @var \c975L\ContactFormBundle\Service\User\ContactFormUserInterface
-    */
+     * Stores ContactFormUserService
+     * @var ContactFormUserInterface
+     */
     private $contactFormUser;
 
     public function __construct(
