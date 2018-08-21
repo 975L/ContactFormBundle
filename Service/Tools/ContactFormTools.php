@@ -16,12 +16,14 @@ use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
 class ContactFormTools implements ContactFormToolsInterface
 {
     /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
+     * Stores current Request
+     * @var RequestStack
      */
     private $request;
 
     /**
-     * @var \Symfony\Component\Translation\TranslatorInterface
+     * Stores Translator
+     * @var TranslatorInterface
      */
     private $translator;
 

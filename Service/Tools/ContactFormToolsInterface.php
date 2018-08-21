@@ -21,8 +21,7 @@ interface ContactFormToolsInterface
 
     /**
      * Tests if delay is not too short and if honeypot has been filled, to avoid being used by bot
-     *
-     * @return boolean
+     * @return bool
      */
     public function isNotBot($username);
 }

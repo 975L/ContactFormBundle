@@ -16,37 +16,42 @@ use c975L\ContactFormBundle\Entity\ContactForm;
 class ContactFormEvent extends Event
 {
     /**
-     * Used to dispatch "create.form"
+     * Used to dispatch event "create.form"
      */
     const CREATE_FORM = 'c975l_contactform.create.form';
 
     /**
-     * Used to dispatch "send.form"
+     * Used to dispatch event "send.form"
      */
     const SEND_FORM = 'c975l_contactform.send.form';
 
     /**
-     * Stores formData
+     * Stores data issued fy form
+     * @var ContactForm
      */
     protected $formData;
 
     /**
-     * Stores emailData
+     * Stores data used to create email
+     * @var array
      */
     protected $emailData;
 
     /**
      * Stores error
+     * @var string
      */
     protected $error;
 
     /**
-     * Stores receiveCopy
+     * If user wants to receive a copy of the email sent by ContactForm
+     * @var bool
      */
     protected $receiveCopy = true;
 
     /**
      * Stores Request
+     * @var Request
      */
     protected $request;
 
@@ -59,7 +64,6 @@ class ContactFormEvent extends Event
 
     /**
      * Get formData
-     *
      * @return ContactForm
      */
     public function getFormData()
@@ -69,6 +73,7 @@ class ContactFormEvent extends Event
 
     /**
      * Set emailData
+     * @param array
      */
     public function setEmailData(array $emailData)
     {
@@ -77,7 +82,6 @@ class ContactFormEvent extends Event
 
     /**
      * Get emailData
-     *
      * @return array
      */
     public function getEmailData()
@@ -87,6 +91,7 @@ class ContactFormEvent extends Event
 
     /**
      * Set receiveCopy
+     * @param bool
      */
     public function setReceiveCopy($receiveCopy)
     {
@@ -95,8 +100,7 @@ class ContactFormEvent extends Event
 
     /**
      * Get receiveCopy
-     *
-     * @return boolean
+     * @return bool
      */
     public function getReceiveCopy()
     {
@@ -105,7 +109,6 @@ class ContactFormEvent extends Event
 
     /**
      * Get request
-     *
      * @return Request
      */
     public function getRequest()
@@ -115,6 +118,7 @@ class ContactFormEvent extends Event
 
     /**
      * Set error
+     * @param string|null
      */
     public function setError($error)
     {
@@ -122,6 +126,7 @@ class ContactFormEvent extends Event
     }
 
     /**
+     * Get error
      * @return string|null
      */
     public function getError()

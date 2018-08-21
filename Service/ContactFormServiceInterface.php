@@ -16,21 +16,18 @@ interface ContactFormServiceInterface
 {
     /**
      * Creates the contactForm
-     *
      * @return ContactForm
      */
     public function create();
 
     /**
-     * Gets subject if passed by url parameter "s"
-     *
+     * Gets subject if provided by url parameter "s"
      * @return string|null
      */
     public function getSubject();
 
     /**
-     * Returns referer defined in session
-     *
+     * Gets referer defined in session
      * @return string|null
      */
     public function getReferer();

@@ -21,27 +21,32 @@ use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
 class ContactFormEmail implements ContactFormEmailInterface
 {
     /**
-    * @var \Symfony\Component\DependencyInjection\ContainerInterface
-    */
+     * Stores container
+     * @var ContainerInterface
+     */
     private $container;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
+     * Stores current Request
+     * @var RequestStack
      */
     private $request;
 
     /**
-     * @var \Twig_Environment
+     * Stores Twig_Environment
+     * @var Twig_Environment
      */
     private $templating;
 
     /**
-    * @var \c975L\EmailBundle\Service\EmailServiceInterface
-    */
+     * Stores EmailService
+     * @var EmailServiceInterface
+     */
     private $emailService;
 
     /**
-    * @var \c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface
+     * Stores ContactFormToolsService
+     * @var ContactFormToolsInterface
      */
     private $contactFormTools;
 

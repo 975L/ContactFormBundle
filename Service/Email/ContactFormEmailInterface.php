@@ -16,15 +16,13 @@ interface ContactFormEmailInterface
 {
     /**
      * Defines data to use for email
-     *
      * @return array
      */
     public function defineData(ContactFormEvent $event, ContactForm $formData);
 
     /**
      * Sends email
-     *
-     * @return boolean
+     * @return bool
      */
     public function send(ContactFormEvent $event, ContactForm $formData);
 }

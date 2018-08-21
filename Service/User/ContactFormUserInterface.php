@@ -13,14 +13,12 @@ interface ContactFormUserInterface
 {
     /**
      * Gets email if user has signed in
-     *
      * @return string|null
      */
     public function getEmail();
 
     /**
      * Gets name if user has signed in
-     *
      * @return string|null
      */
     public function getName();
