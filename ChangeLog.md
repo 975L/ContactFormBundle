@@ -1,5 +1,10 @@
 # Changelog
 
+v1.10.2
+-------
+- Moved send Email logic from controller to ContactFormService (22/08/2018) Thanks Kalpesh Mahida :)
+- Made delay to test bot submission as an optional config value (22/08/2018)
+
 v1.10.1.2
 ---------
 - Added extra-information for documentation (21/08/2018)

@@ -25,7 +25,7 @@ interface ContactFormToolsInterface
     public function createFlash($object);
 
     /**
-     * Tests if delay is not too short and if honeypot has been filled, to avoid being used by bot
+     * Tests if delay (defined in config) is not too short and if honeypot has not been filled, to avoid being used by bot
      * @return bool
      */
     public function isNotBot($username);

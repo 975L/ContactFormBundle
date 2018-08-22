@@ -36,6 +36,9 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('gdpr')
                     ->defaultTrue()
                 ->end()
+                ->integerNode('delay')
+                    ->defaultValue(7)
+                ->end()
             ->end()
         ;
 

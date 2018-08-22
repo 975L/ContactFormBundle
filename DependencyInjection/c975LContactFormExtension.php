@@ -37,5 +37,6 @@ class c975LContactFormExtension extends Extension
         $container->setParameter('c975_l_contact_form.sentTo', $processedConfig['sentTo']);
         $container->setParameter('c975_l_contact_form.database', $processedConfig['database']);
         $container->setParameter('c975_l_contact_form.gdpr', $processedConfig['gdpr']);
+        $container->setParameter('c975_l_contact_form.delay', $processedConfig['delay']);
     }
 }
