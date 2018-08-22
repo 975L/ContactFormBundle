@@ -1,8 +1,12 @@
 # Changelog
 
+v1.10.2.1
+---------
+- Defined ContactForm form config as an array (to be coherent with other bundles developed by 975L) (22/08/2018)
+
 v1.10.2
 -------
-- Moved send Email logic from controller to ContactFormService (22/08/2018) Thanks Kalpesh Mahida :)
+- Moved send Email logic from controller to ContactFormService (22/08/2018) Thanks [Kalpesh Mahida](https://github.com/kalpeshmahida) :)
 - Made delay to test bot submission as an optional config value (22/08/2018)
 
 v1.10.1.2
