@@ -9,9 +9,13 @@
 
 namespace c975L\ContactFormBundle\Service;
 
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RequestStack;
 use c975L\ContactFormBundle\Entity\ContactForm;
+use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
+use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
+use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
 use c975L\ContactFormBundle\Service\User\ContactFormUserInterface;
 
 /**
@@ -28,17 +32,33 @@ class ContactFormService implements ContactFormServiceInterface
     private $request;
 
     /**
-     * Stores ContactFormUserService
+     * Stores ContactFormEmail Service
+     * @var ContactFormEmailInterface
+     */
+    private $contactFormEmail;
+
+    /**
+     * Stores ContactFormTools Service
+     * @var ContactFormToolsInterface
+     */
+    private $contactFormTools;
+
+    /**
+     * Stores ContactFormUser Service
      * @var ContactFormUserInterface
      */
     private $contactFormUser;
 
     public function __construct(
         RequestStack $requestStack,
+        ContactFormEmailInterface $contactFormEmail,
+        ContactFormToolsInterface $contactFormTools,
         ContactFormUserInterface $contactFormUser
     )
     {
         $this->request = $requestStack->getCurrentRequest();
+        $this->contactFormEmail = $contactFormEmail;
+        $this->contactFormTools = $contactFormTools;
         $this->contactFormUser = $contactFormUser;
     }
 
@@ -99,5 +119,19 @@ class ContactFormService implements ContactFormServiceInterface
     public function setReferer()
     {
         $this->request->getSession()->set('redirectUrl', $this->request->headers->get('referer'));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function sendEmail(Form $form, ContactFormEvent $event)
+    {
+        //Sends email if it's not a bot that has used the form
+        if ($this->contactFormTools->isNotBot($form->get('username')->getData())) {
+            $this->contactFormEmail->send($event, $form->getData());
+        }
+
+        //Returns defined referer
+        return $this->getReferer();
     }
 }

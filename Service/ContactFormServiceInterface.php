@@ -9,6 +9,7 @@
 
 namespace c975L\ContactFormBundle\Service;
 
+use Symfony\Component\Form\Form;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 
@@ -41,4 +42,10 @@ interface ContactFormServiceInterface
      * Defines the referer to redirect to after submission of form
      */
     public function setReferer();
+
+    /**
+     * Sends email resulting from submission of form
+     * @return string|null
+     */
+    public function sendEmail(Form $form, ContactFormEvent $event);
 }

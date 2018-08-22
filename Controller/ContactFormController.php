@@ -17,8 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ContactFormBundle\Form\ContactFormType;
 use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
-use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
-use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
 
 /**
  * Main Controller class
@@ -28,40 +26,28 @@ use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
 class ContactFormController extends Controller
 {
     /**
-    * @var EventDispatcherInterface
-    */
+     * Stores EventDispatcher
+     * @var EventDispatcherInterface
+     */
     private $dispatcher;
 
     /**
+     * Stores ContactFormService
      * @var ContactFormServiceInterface
-    */
-    private $contactFormService;
-
-    /**
-    * @var ContactFormEmailInterface
-    */
-    private $contactFormEmail;
-
-    /**
-    * @var ContactFormToolsInterface
      */
-    private $contactFormTools;
+    private $contactFormService;
 
     public function __construct(
         EventDispatcherInterface $dispatcher,
-        ContactFormServiceInterface $contactFormService,
-        ContactFormEmailInterface $contactFormEmail,
-        ContactFormToolsInterface $contactFormTools
+        ContactFormServiceInterface $contactFormService
     )
     {
         $this->dispatcher = $dispatcher;
         $this->contactFormService = $contactFormService;
-        $this->contactFormEmail = $contactFormEmail;
-        $this->contactFormTools = $contactFormTools;
     }
 
     /**
-     * Displays ContactForm and treats its submission
+     * Displays ContactForm and handles its submission
      * @return Response
      *
      * @Route("/contact",
@@ -85,18 +71,12 @@ class ContactFormController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //Tests if it's not a bot that has used the form
-            if ($this->contactFormTools->isNotBot($form->get('username')->getData())) {
-                //Dispatch Event SEND_FORM
-                $event = new ContactFormEvent($request, $form->getData());
-                $this->dispatcher->dispatch(ContactFormEvent::SEND_FORM, $event);
+            //Dispatch Event SEND_FORM
+            $event = new ContactFormEvent($request, $form->getData());
+            $this->dispatcher->dispatch(ContactFormEvent::SEND_FORM, $event);
 
-                //Sends email
-                $this->contactFormEmail->send($event, $form->getData());
-            }
-
-            //Redirects to defined referer
-            $redirectUrl = $this->contactFormService->getReferer();
+            //Sends email and redirects to defined referer
+            $redirectUrl = $this->contactFormService->sendEmail($form, $event);
             if (null !== $redirectUrl) {
                 return $this->redirect($redirectUrl);
             }

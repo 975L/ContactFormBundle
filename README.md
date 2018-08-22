@@ -61,6 +61,8 @@ c975_l_contact_form:
     database: true #false(default)
     #If you want to display the checkbox for GDPR agreement
     gdpr: false #true(default)
+    #(Optional) The delay, in seconds, to test against for Bot submission
+    delay: 7 #(default)
 ```
 
 Step 4: Declaration of Twig_Extensions_Extension_Text

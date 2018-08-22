@@ -9,6 +9,7 @@
 
 namespace c975L\ContactFormBundle\Service\Tools;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\TranslatorInterface;
 use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
@@ -20,6 +21,12 @@ use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
  */
 class ContactFormTools implements ContactFormToolsInterface
 {
+    /**
+     * Stores container
+     * @var ContainerInterface
+     */
+    private $container;
+
     /**
      * Stores current Request
      * @var RequestStack
@@ -33,10 +40,12 @@ class ContactFormTools implements ContactFormToolsInterface
     private $translator;
 
     public function __construct(
+        ContainerInterface $container,
         RequestStack $requestStack,
         TranslatorInterface $translator
     )
     {
+        $this->container = $container;
         $this->request = $requestStack->getCurrentRequest();
         $this->translator = $translator;
     }
@@ -75,10 +84,8 @@ class ContactFormTools implements ContactFormToolsInterface
      */
     public function isNotBot($username)
     {
-        $delay = 7;
-
         $bot = null === $this->request->getSession()->get('time');
-        $bot = true === $bot ? true : $this->request->getSession()->get('time') + $delay > time();
+        $bot = true === $bot ? true : $this->request->getSession()->get('time') + $this->container->getParameter('c975_l_contact_form.delay') > time();
         $bot = true === $bot ? true : null !== $username;
 
         return ! $bot;
