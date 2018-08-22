@@ -64,10 +64,11 @@ class ContactFormController extends Controller
         $this->dispatcher->dispatch(ContactFormEvent::CREATE_FORM, $event);
 
         //Defines form
-        $form = $this->createForm(ContactFormType::class, $contactForm, array(
+        $contactFormConfig = array(
             'receiveCopy' => $event->getReceiveCopy(),
             'gdpr' => $this->getParameter('c975_l_contact_form.gdpr'),
-            ));
+        );
+        $form = $this->createForm(ContactFormType::class, $contactForm, array('contactFormConfig' => $contactFormConfig));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
