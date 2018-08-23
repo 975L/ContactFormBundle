@@ -88,7 +88,8 @@ class ContactFormType extends AbstractType
                     'label' => 'text.gdpr',
                     'required' => true,
                     'mapped' => false,
-                    ));
+                    ))
+            ;
         }
     }
 
