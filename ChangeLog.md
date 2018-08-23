@@ -1,5 +1,9 @@
 # Changelog
 
+v1.10.2.2
+---------
+- Removed unused use calls (22/08/2018)
+
 v1.10.2.1
 ---------
 - Defined ContactForm form config as an array (to be coherent with other bundles developed by 975L) (22/08/2018)

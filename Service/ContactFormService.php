@@ -27,7 +27,7 @@ class ContactFormService implements ContactFormServiceInterface
 {
     /**
      * Stores current Request
-     * @var \Symfony\Component\HttpFoundation\RequestStack
+     * @var RequestStack
      */
     private $request;
 
