@@ -39,6 +39,12 @@ interface ContactFormServiceInterface
     public function getReferer();
 
     /**
+     * Tests if delay (defined in config) is not too short and if honeypot has not been filled, to avoid being used by bot
+     * @return bool
+     */
+    public function isNotBot($username);
+
+    /**
      * Defines the referer to redirect to after submission of form
      */
     public function setReferer();

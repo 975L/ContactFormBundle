@@ -66,13 +66,14 @@ class ContactFormType extends AbstractType
                 )))
             ->add('ip', TextType::class, array(
                 'label' => 'label.ip',
+                'translation_domain' => 'services',
                 'required' => true,
                 'attr' => array(
                     'readonly' => true,
                 )))
         ;
         //Receive copy
-        if (true === $options['contactFormConfig']['receiveCopy']) {
+        if ($options['contactFormConfig']['receiveCopy']) {
             $builder
                 ->add('receiveCopy', CheckboxType::class, array(
                     'label' => 'label.receive_copy',
@@ -82,10 +83,11 @@ class ContactFormType extends AbstractType
             ;
         }
         //GDPR
-        if (true === $options['contactFormConfig']['gdpr']) {
+        if ($options['contactFormConfig']['gdpr']) {
             $builder
                 ->add('gdpr', CheckboxType::class, array(
                     'label' => 'text.gdpr',
+                    'translation_domain' => 'services',
                     'required' => true,
                     'mapped' => false,
                     ))
