@@ -10,10 +10,6 @@
                 <source>label.send</source>
                 <target>I send</target>
             </trans-unit>
-            <trans-unit id="3">
-                <source>label.mandatory_field</source>
-                <target>* Mandatory field</target>
-            </trans-unit>
             <trans-unit id="4">
                 <source>label.email</source>
                 <target>Email</target>
@@ -92,10 +88,6 @@
                 <source>label.receive_copy</source>
                 <target>I wish to receive a copy of the email</target>
             </trans-unit>
-            <trans-unit id="23">
-                <source>text.gdpr</source>
-                <target>I agree that this website stores the submitted data so that it can answer my request</target>
-            </trans-unit>
             <trans-unit id="24">
                 <source>label.date_time</source>
                 <target>Date and Time</target>
@@ -111,10 +103,6 @@
             <trans-unit id="27">
                 <source>placeholder.username</source>
                 <target>Username (if you see this, leave it empty)</target>
-            </trans-unit>
-            <trans-unit id="28">
-                <source>label.ip</source>
-                <target>IP Address</target>
             </trans-unit>
         </body>
     </file>

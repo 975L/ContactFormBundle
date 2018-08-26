@@ -1,5 +1,13 @@
 # Changelog
 
+v1.10.3
+-------
+- Removed 'true ===' as not needed (25/08/2018)
+- Added dependency on "c975l/config-bundle" and "c975l/services-bundle" (26/08/2018)
+- Removed un-needed translations (26/08/2018)
+- Moved `isNotBot()` method  to `ContactFormService` (26/08/2018)
+- Removed un-needed Services (26/08/2018)
+
 v1.10.2.2
 ---------
 - Removed unused use calls (22/08/2018)

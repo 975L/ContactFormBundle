@@ -10,13 +10,13 @@
 namespace c975L\ContactFormBundle\Service\Email;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use c975L\EmailBundle\Service\EmailServiceInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig_Environment;
+use c975L\EmailBundle\Service\EmailServiceInterface;
+use c975L\ServicesBundle\Service\ServiceToolsInterface;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
-use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
 
 /**
  * Services related to ContactForm Email
@@ -50,24 +50,24 @@ class ContactFormEmail implements ContactFormEmailInterface
     private $emailService;
 
     /**
-     * Stores ContactFormToolsService
-     * @var ContactFormToolsInterface
+     * Stores ServiceToolsInterface
+     * @var ServiceToolsInterface
      */
-    private $contactFormTools;
+    private $serviceTools;
 
     public function __construct(
         ContainerInterface $container,
         EmailServiceInterface $emailService,
         RequestStack $requestStack,
         Twig_Environment $templating,
-        ContactFormToolsInterface $contactFormTools
+        ServiceToolsInterface $serviceTools
     )
     {
         $this->container = $container;
         $this->request = $requestStack->getCurrentRequest();
         $this->templating = $templating;
         $this->emailService = $emailService;
-        $this->contactFormTools = $contactFormTools;
+        $this->serviceTools = $serviceTools;
     }
 
     /**
@@ -82,7 +82,8 @@ class ContactFormEmail implements ContactFormEmailInterface
             array_key_exists('subject', $emailData) &&
             array_key_exists('bodyData', $emailData) &&
             array_key_exists('bodyEmail', $emailData)
-        ) {
+        )
+        {
             //Updates emailData
             if (!array_key_exists('sentFrom', $emailData)) {
                 $emailData['sentFrom'] = $this->container->getParameter('c975_l_contact_form.sentTo');
@@ -147,13 +148,17 @@ class ContactFormEmail implements ContactFormEmailInterface
             $emailSent = $this->emailService->send($emailData, $this->container->getParameter('c975_l_contact_form.database'));
 
             //Creates flash message
-            $this->contactFormTools->createFlash($emailSent);
+            if ($emailSent) {
+                $this->serviceTools->createFlash('contactForm', 'text.message_sent');
+            } else {
+                $this->serviceTools->createFlash('contactForm', 'text.message_not_sent', 'danger');
+            }
 
             return $emailSent;
         }
 
         //Displays error message provided in event
-        $this->contactFormTools->createFlash(false, $event->getError());
+        $this->serviceTools->createFlash('contactForm', 'text.message_not_sent', 'danger', array('%error%' => $event->getError()));
 
         return false;
     }

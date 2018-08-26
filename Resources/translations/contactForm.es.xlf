@@ -10,10 +10,6 @@
                 <source>label.send</source>
                 <target>Envío</target>
             </trans-unit>
-            <trans-unit id="3">
-                <source>label.mandatory_field</source>
-                <target>* Campo obligatorio</target>
-            </trans-unit>
             <trans-unit id="4">
                 <source>label.email</source>
                 <target>Email</target>
@@ -92,10 +88,6 @@
                 <source>label.receive_copy</source>
                 <target>Deseo recibir una copia del correo electrónico</target>
             </trans-unit>
-            <trans-unit id="23">
-                <source>text.gdpr</source>
-                <target>Acepto que este sitio web almacena los datos enviados para que pueda responder a mi solicitud</target>
-            </trans-unit>
             <trans-unit id="24">
                 <source>label.date_time</source>
                 <target>Fecha y Hora</target>
@@ -111,10 +103,6 @@
             <trans-unit id="27">
                 <source>placeholder.username</source>
                 <target>Nombre de usuario (si ves esto, déjalo vacío)</target>
-            </trans-unit>
-            <trans-unit id="28">
-                <source>label.ip</source>
-                <target>Dirección IP</target>
             </trans-unit>
         </body>
     </file>

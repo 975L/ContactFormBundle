@@ -9,13 +9,14 @@
 
 namespace c975L\ContactFormBundle\Service;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RequestStack;
+use c975L\ServicesBundle\Service\ServiceUserInterface;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
 use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
-use c975L\ContactFormBundle\Service\Tools\ContactFormToolsInterface;
 use c975L\ContactFormBundle\Service\User\ContactFormUserInterface;
 
 /**
@@ -26,40 +27,40 @@ use c975L\ContactFormBundle\Service\User\ContactFormUserInterface;
 class ContactFormService implements ContactFormServiceInterface
 {
     /**
+     * Stores container
+     * @var ContainerInterface
+     */
+    private $container;
+
+    /**
+     * Stores ContactFormEmailInterface
+     * @var ContactFormEmailInterface
+     */
+    private $contactFormEmail;
+
+    /**
      * Stores current Request
      * @var RequestStack
      */
     private $request;
 
     /**
-     * Stores ContactFormEmail Service
-     * @var ContactFormEmailInterface
+     * Stores ServiceUserInterface
+     * @var ServiceUserInterface
      */
-    private $contactFormEmail;
-
-    /**
-     * Stores ContactFormTools Service
-     * @var ContactFormToolsInterface
-     */
-    private $contactFormTools;
-
-    /**
-     * Stores ContactFormUser Service
-     * @var ContactFormUserInterface
-     */
-    private $contactFormUser;
+    private $serviceUser;
 
     public function __construct(
-        RequestStack $requestStack,
+        ContainerInterface $container,
         ContactFormEmailInterface $contactFormEmail,
-        ContactFormToolsInterface $contactFormTools,
-        ContactFormUserInterface $contactFormUser
+        RequestStack $requestStack,
+        ServiceUserInterface $serviceUser
     )
     {
-        $this->request = $requestStack->getCurrentRequest();
+        $this->container = $container;
         $this->contactFormEmail = $contactFormEmail;
-        $this->contactFormTools = $contactFormTools;
-        $this->contactFormUser = $contactFormUser;
+        $this->request = $requestStack->getCurrentRequest();
+        $this->serviceUser = $serviceUser;
     }
 
     /**
@@ -78,8 +79,8 @@ class ContactFormService implements ContactFormServiceInterface
         //Defines the ContactForm
         $contactForm = new ContactForm();
         $contactForm
-            ->setName($this->contactFormUser->getName())
-            ->setEmail($this->contactFormUser->getEmail())
+            ->setName($this->serviceUser->getName())
+            ->setEmail($this->serviceUser->getEmail())
             ->setSubject($this->getSubject())
             ->setIp($this->request->getClientIp())
         ;
@@ -116,6 +117,18 @@ class ContactFormService implements ContactFormServiceInterface
     /**
      * {@inheritdoc}
      */
+    public function isNotBot($username)
+    {
+        $bot = null === $this->request->getSession()->get('time');
+        $bot = $bot ? true : $this->request->getSession()->get('time') + $this->container->getParameter('c975_l_contact_form.delay') > time();
+        $bot = $bot ? true : null !== $username;
+
+        return ! $bot;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function setReferer()
     {
         $this->request->getSession()->set('redirectUrl', $this->request->headers->get('referer'));
@@ -127,7 +140,7 @@ class ContactFormService implements ContactFormServiceInterface
     public function sendEmail(Form $form, ContactFormEvent $event)
     {
         //Sends email if it's not a bot that has used the form
-        if ($this->contactFormTools->isNotBot($form->get('username')->getData())) {
+        if ($this->isNotBot($form->get('username')->getData())) {
             $this->contactFormEmail->send($event, $form->getData());
         }
 
