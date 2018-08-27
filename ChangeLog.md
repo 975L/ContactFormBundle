@@ -1,5 +1,9 @@
 # Changelog
 
+v1.10.4.1
+---------
+- Renamed "contactFormConfig" to "config" for ContactFormType (27/08/2018)
+
 v1.10.4
 -------
 - Added ContactFormFactory + Interface (27/08/2018)

@@ -73,7 +73,7 @@ class ContactFormType extends AbstractType
                 )))
         ;
         //Receive copy
-        if ($options['contactFormConfig']['receiveCopy']) {
+        if ($options['config']['receiveCopy']) {
             $builder
                 ->add('receiveCopy', CheckboxType::class, array(
                     'label' => 'label.receive_copy',
@@ -83,7 +83,7 @@ class ContactFormType extends AbstractType
             ;
         }
         //GDPR
-        if ($options['contactFormConfig']['gdpr']) {
+        if ($options['config']['gdpr']) {
             $builder
                 ->add('gdpr', CheckboxType::class, array(
                     'label' => 'text.gdpr',
@@ -103,6 +103,6 @@ class ContactFormType extends AbstractType
             'translation_domain' => 'contactForm',
         ));
 
-        $resolver->setRequired('contactFormConfig');
+        $resolver->setRequired('config');
     }
 }

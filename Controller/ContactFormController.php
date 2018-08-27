@@ -15,7 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
-use c975L\ContactFormBundle\Form\ContactFormType;
 use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
 
 /**
