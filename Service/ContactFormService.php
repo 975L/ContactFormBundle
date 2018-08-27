@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use c975L\ServicesBundle\Service\ServiceUserInterface;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
+use c975L\ContactFormBundle\Form\ContactFormFactoryInterface;
 use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
 use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
 use c975L\ContactFormBundle\Service\User\ContactFormUserInterface;
@@ -39,6 +40,12 @@ class ContactFormService implements ContactFormServiceInterface
     private $contactFormEmail;
 
     /**
+     * Stores ContactFormFactoryInterface
+     * @var ContactFormFactoryInterface
+     */
+    private $contactFormFactory;
+
+    /**
      * Stores current Request
      * @var RequestStack
      */
@@ -53,12 +60,14 @@ class ContactFormService implements ContactFormServiceInterface
     public function __construct(
         ContainerInterface $container,
         ContactFormEmailInterface $contactFormEmail,
+        ContactFormFactoryInterface $contactFormFactory,
         RequestStack $requestStack,
         ServiceUserInterface $serviceUser
     )
     {
         $this->container = $container;
         $this->contactFormEmail = $contactFormEmail;
+        $this->contactFormFactory = $contactFormFactory;
         $this->request = $requestStack->getCurrentRequest();
         $this->serviceUser = $serviceUser;
     }
@@ -86,6 +95,14 @@ class ContactFormService implements ContactFormServiceInterface
         ;
 
         return $contactForm;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createForm(string $name, ContactForm $contactForm, ContactFormEvent $event)
+    {
+        return $this->contactFormFactory->create($name, $contactForm, $event);
     }
 
     /**
