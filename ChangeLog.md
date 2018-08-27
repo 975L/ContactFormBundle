@@ -1,5 +1,9 @@
 # Changelog
 
+v1.10.4.2
+---------
+- Added missing property in ContactFormFactory (27/08/2018)
+
 v1.10.4.1
 ---------
 - Renamed "contactFormConfig" to "config" for ContactFormType (27/08/2018)

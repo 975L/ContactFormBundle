@@ -30,6 +30,12 @@ class ContactFormFactory implements ContactFormFactoryInterface
      */
     private $container;
 
+    /**
+     * Stores FormFactoryInterface
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
+
     public function __construct(
         ContainerInterface $container,
         FormFactoryInterface $formFactory
