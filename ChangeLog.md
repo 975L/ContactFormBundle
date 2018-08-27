@@ -1,5 +1,9 @@
 # Changelog
 
+v1.10.4.4
+---------
+- Used a `switch()` for the FormFactory more readable (27/08/2018)
+
 v1.10.4.3
 ---------
 - Moved Creation of flash from ContactFormEmail `send()` to ContactForFormService `sendMail()` (27/08/2018)
