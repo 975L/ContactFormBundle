@@ -26,13 +26,13 @@ use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
 class ContactFormController extends Controller
 {
     /**
-     * Stores EventDispatcher
+     * Stores EventDispatcherInterface
      * @var EventDispatcherInterface
      */
     private $dispatcher;
 
     /**
-     * Stores ContactFormService
+     * Stores ContactFormServiceInterface
      * @var ContactFormServiceInterface
      */
     private $contactFormService;
@@ -64,11 +64,7 @@ class ContactFormController extends Controller
         $this->dispatcher->dispatch(ContactFormEvent::CREATE_FORM, $event);
 
         //Defines form
-        $contactFormConfig = array(
-            'receiveCopy' => $event->getReceiveCopy(),
-            'gdpr' => $this->getParameter('c975_l_contact_form.gdpr'),
-        );
-        $form = $this->createForm(ContactFormType::class, $contactForm, array('contactFormConfig' => $contactFormConfig));
+        $form = $this->contactFormService->createForm('display', $contactForm, $event);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

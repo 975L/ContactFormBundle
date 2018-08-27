@@ -14,7 +14,7 @@ use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 
 /**
- * Interface to be called for DI for ContactForm Main related services
+ * Interface to be called for DI for ContactFormServiceInterface related services
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
@@ -25,6 +25,12 @@ interface ContactFormServiceInterface
      * @return ContactForm
      */
     public function create();
+
+    /**
+     * Creates the contactForm
+     * @return Form
+     */
+    public function createForm(string $name, ContactForm $contactForm, ContactFormEvent $event);
 
     /**
      * Gets subject if provided by url parameter "s"
