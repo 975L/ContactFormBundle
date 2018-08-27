@@ -12,6 +12,7 @@ namespace c975L\ContactFormBundle\Service;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RequestStack;
+use c975L\ServicesBundle\Service\ServiceToolsInterface;
 use c975L\ServicesBundle\Service\ServiceUserInterface;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
@@ -52,6 +53,12 @@ class ContactFormService implements ContactFormServiceInterface
     private $request;
 
     /**
+     * Stores ServiceToolsInterface
+     * @var ServiceToolsInterface
+     */
+    private $serviceTools;
+
+    /**
      * Stores ServiceUserInterface
      * @var ServiceUserInterface
      */
@@ -62,6 +69,7 @@ class ContactFormService implements ContactFormServiceInterface
         ContactFormEmailInterface $contactFormEmail,
         ContactFormFactoryInterface $contactFormFactory,
         RequestStack $requestStack,
+        ServiceToolsInterface $serviceTools,
         ServiceUserInterface $serviceUser
     )
     {
@@ -69,6 +77,7 @@ class ContactFormService implements ContactFormServiceInterface
         $this->contactFormEmail = $contactFormEmail;
         $this->contactFormFactory = $contactFormFactory;
         $this->request = $requestStack->getCurrentRequest();
+        $this->serviceTools = $serviceTools;
         $this->serviceUser = $serviceUser;
     }
 
@@ -158,7 +167,14 @@ class ContactFormService implements ContactFormServiceInterface
     {
         //Sends email if it's not a bot that has used the form
         if ($this->isNotBot($form->get('username')->getData())) {
-            $this->contactFormEmail->send($event, $form->getData());
+            $emailSent = $this->contactFormEmail->send($event, $form->getData());
+
+            //Creates flash message
+            if ($emailSent) {
+                $this->serviceTools->createFlash('contactForm', 'text.message_sent');
+            } else {
+                $this->serviceTools->createFlash('contactForm', 'text.message_not_sent', 'danger', array('%error%' => $event->getError()));
+            }
         }
 
         //Returns defined referer

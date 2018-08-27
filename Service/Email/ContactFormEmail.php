@@ -13,7 +13,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig_Environment;
 use c975L\EmailBundle\Service\EmailServiceInterface;
-use c975L\ServicesBundle\Service\ServiceToolsInterface;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
@@ -49,25 +48,17 @@ class ContactFormEmail implements ContactFormEmailInterface
      */
     private $emailService;
 
-    /**
-     * Stores ServiceToolsInterface
-     * @var ServiceToolsInterface
-     */
-    private $serviceTools;
-
     public function __construct(
         ContainerInterface $container,
         EmailServiceInterface $emailService,
         RequestStack $requestStack,
-        Twig_Environment $templating,
-        ServiceToolsInterface $serviceTools
+        Twig_Environment $templating
     )
     {
         $this->container = $container;
         $this->request = $requestStack->getCurrentRequest();
         $this->templating = $templating;
         $this->emailService = $emailService;
-        $this->serviceTools = $serviceTools;
     }
 
     /**
@@ -140,25 +131,11 @@ class ContactFormEmail implements ContactFormEmailInterface
         //Removes time from session
         $this->request->getSession()->remove('time');
 
-        //Defines data to use
-        $emailData = $this->defineData($event, $formData);
-
         //Sends email
+        $emailData = $this->defineData($event, $formData);
         if (is_array($emailData)) {
-            $emailSent = $this->emailService->send($emailData, $this->container->getParameter('c975_l_contact_form.database'));
-
-            //Creates flash message
-            if ($emailSent) {
-                $this->serviceTools->createFlash('contactForm', 'text.message_sent');
-            } else {
-                $this->serviceTools->createFlash('contactForm', 'text.message_not_sent', 'danger');
-            }
-
-            return $emailSent;
+            return $this->emailService->send($emailData, $this->container->getParameter('c975_l_contact_form.database'));
         }
-
-        //Displays error message provided in event
-        $this->serviceTools->createFlash('contactForm', 'text.message_not_sent', 'danger', array('%error%' => $event->getError()));
 
         return false;
     }
