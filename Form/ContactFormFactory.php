@@ -50,13 +50,15 @@ class ContactFormFactory implements ContactFormFactoryInterface
      */
     public function create(string $name, ContactForm $contactForm, ContactFormEvent $event)
     {
-        $config = array();
-
-        if ('display' === $name) {
-            $config = array(
-                'receiveCopy' => $event->getReceiveCopy(),
-                'gdpr' => $this->container->getParameter('c975_l_contact_form.gdpr'),
-            );
+        switch ($name) {
+            case 'display':
+                $config = array(
+                    'receiveCopy' => $event->getReceiveCopy(),
+                    'gdpr' => $this->container->getParameter('c975_l_contact_form.gdpr'),
+                );
+            default:
+                $config = array();
+                break;
         }
 
         return $this->formFactory->create(ContactFormType::class, $contactForm, array('config' => $config));
