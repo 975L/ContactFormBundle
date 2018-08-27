@@ -27,7 +27,7 @@ interface ContactFormServiceInterface
     public function create();
 
     /**
-     * Creates the contactForm
+     * Shortcut to call ContactFormFactory to create Form
      * @return Form
      */
     public function createForm(string $name, ContactForm $contactForm, ContactFormEvent $event);

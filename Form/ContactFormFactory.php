@@ -9,8 +9,8 @@
 
 namespace c975L\ContactFormBundle\Form;
 
-use Symfony\Component\Form\Form;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
@@ -18,7 +18,7 @@ use c975L\ContactFormBundle\Form\ContactFormType;
 use c975L\ContactFormBundle\Form\ContactFormFactoryInterface;
 
 /**
- * FormFactory class
+ * ContactFormFactory class
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
@@ -44,15 +44,15 @@ class ContactFormFactory implements ContactFormFactoryInterface
      */
     public function create(string $name, ContactForm $contactForm, ContactFormEvent $event)
     {
-        $contactFormConfig = array();
+        $config = array();
 
         if ('display' === $name) {
-            $contactFormConfig = array(
+            $config = array(
                 'receiveCopy' => $event->getReceiveCopy(),
                 'gdpr' => $this->container->getParameter('c975_l_contact_form.gdpr'),
             );
         }
 
-        return $this->formFactory->create(ContactFormType::class, $contactForm, array('contactFormConfig' => $contactFormConfig));
+        return $this->formFactory->create(ContactFormType::class, $contactForm, array('config' => $config));
     }
 }
