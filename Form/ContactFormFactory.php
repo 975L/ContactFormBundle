@@ -56,6 +56,7 @@ class ContactFormFactory implements ContactFormFactoryInterface
                     'receiveCopy' => $event->getReceiveCopy(),
                     'gdpr' => $this->container->getParameter('c975_l_contact_form.gdpr'),
                 );
+                break;
             default:
                 $config = array();
                 break;

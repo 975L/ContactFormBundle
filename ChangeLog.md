@@ -1,5 +1,9 @@
 # Changelog
 
+v1.10.5
+-------
+- Fixed missing break (30/08/2018)
+
 v1.10.4.5
 ---------
 - Fixed file access rights (30/08/2018)
