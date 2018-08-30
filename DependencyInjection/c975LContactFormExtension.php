@@ -29,14 +29,5 @@ class c975LContactFormExtension extends Extension
             new FileLocator(__DIR__.'/../Resources/config')
         );
         $loader->load('services.yml');
-
-        $configuration = new Configuration();
-        $processedConfig = $this->processConfiguration($configuration, $configs);
-
-        $container->setParameter('c975_l_contact_form.site', $processedConfig['site']);
-        $container->setParameter('c975_l_contact_form.sentTo', $processedConfig['sentTo']);
-        $container->setParameter('c975_l_contact_form.database', $processedConfig['database']);
-        $container->setParameter('c975_l_contact_form.gdpr', $processedConfig['gdpr']);
-        $container->setParameter('c975_l_contact_form.delay', $processedConfig['delay']);
     }
 }

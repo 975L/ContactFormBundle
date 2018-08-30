@@ -1,0 +1,22 @@
+{% trans_default_domain 'toolbar' %}
+
+{% spaceless %}
+{# Dashboard #}
+{{ toolbar_button(path('contactform_dashboard'), 'dashboard', 'md', 'label.contactform'|trans) }}
+
+{# Display #}
+{% if type != 'display' %}
+    {{ toolbar_button(path('contactform_display'), 'display') }}
+{% endif %}
+
+{# Config #}
+{% if type != 'config' %}
+    {{ toolbar_button(path('contactform_config'), 'config') }}
+{% endif %}
+
+{# Signout #}
+{{ toolbar_button(path('user_signout'), 'signout') }}
+
+{# Other dashboards #}
+{{ toolbar_dashboards('md') }}
+{% endspaceless %}

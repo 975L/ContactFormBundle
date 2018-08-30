@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
 
@@ -45,6 +46,26 @@ class ContactFormController extends Controller
         $this->contactFormService = $contactFormService;
     }
 
+//DASHBOARD
+    /**
+     * Displays the dashboard
+     * @return Response
+     * @throws AccessDeniedException
+     *
+     * @Route("/contact/dashboard",
+     *      name="contactform_dashboard")
+     * @Method({"GET", "HEAD", "POST"})
+     */
+    //
+    public function dashboard()
+    {
+        $this->denyAccessUnlessGranted('c975lContactForm-dashboard');
+
+        //Renders the dashboard
+        return $this->render('@c975LContactForm/pages/dashboard.html.twig');
+    }
+
+//DISPLAY
     /**
      * Displays ContactForm and handles its submission
      * @return Response
@@ -53,7 +74,7 @@ class ContactFormController extends Controller
      *      name="contactform_display")
      * @Method({"GET", "HEAD", "POST"})
      */
-    public function display(Request $request)
+    public function display(Request $request, ConfigServiceInterface $configService)
     {
         //Creates ContactForm
         $contactForm = $this->contactFormService->create();
@@ -81,8 +102,41 @@ class ContactFormController extends Controller
         //Renders the form
         return $this->render('@c975LContactForm/forms/contact.html.twig', array(
             'form' => $form->createView(),
-            'site' => $this->getParameter('c975_l_contact_form.site'),
+            'site' => $configService->getParameter('c975LContactForm.site'),
             'subject' => $contactForm->getSubject(),
+        ));
+    }
+
+//CONFIG
+    /**
+     * Displays the configuration
+     * @return Response
+     * @throws AccessDeniedException
+     *
+     * @Route("/contact/config",
+     *      name="contactform_config")
+     * @Method({"GET", "HEAD", "POST"})
+     */
+    public function config(Request $request, ConfigServiceInterface $configService)
+    {
+        $this->denyAccessUnlessGranted('c975lContactForm-config', null);
+
+        //Defines form
+        $form = $configService->createForm('c975l/contactform-bundle');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //Validates config
+            $configService->setConfig($form);
+
+            //Redirects
+            return $this->redirectToRoute('contactform_dashboard');
+        }
+
+        //Renders the config form
+        return $this->render('@c975LConfig/forms/config.html.twig', array(
+            'form' => $form->createView(),
+            'toolbar' => '@c975LContactForm',
         ));
     }
 }

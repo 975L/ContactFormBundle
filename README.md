@@ -48,22 +48,9 @@ Step 3: Configure the Bundles
 -----------------------------
 Check [Swiftmailer](https://github.com/symfony/swiftmailer-bundle), [Doctrine](https://github.com/doctrine/DoctrineBundle) and [c975LEmailBundle](https://github.com/975L/EmailBundle) for their specific configuration
 
-Then, in the `app/config/config.yml` file of your project, define the following:
+v2.0+ of c975LContactFormBundle uses [c975L/ConfigBundle](https://github.com/975L/ConfigBundle) to manage configuration parameters. Use the Route "/contact/config" with the proper user role to modify them.
 
-```yml
-#ContactFormBundle
-c975_l_contact_form:
-    #The site name that will appear on the contact form
-    site: 'example.com'
-    #The email address that will receive the email sent by the contact form
-    sentTo: 'contact@example.com'
-    #If you want to save the email sent to the database linked to c975L/EmailBundle, see https://github.com/975L/EmailBundle
-    database: true #false(default)
-    #If you want to display the checkbox for GDPR agreement
-    gdpr: false #true(default)
-    #(Optional) The delay, in seconds, to test against for Bot submission
-    delay: 7 #(default)
-```
+**Upgrading from v1.x? Check UPGRADE.md.**
 
 Step 4: Declaration of Twig_Extensions_Extension_Text
 -----------------------------------------------------
