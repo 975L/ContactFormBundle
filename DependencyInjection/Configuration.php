@@ -22,25 +22,6 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('c975_l_contact_form');
-
-        $rootNode
-            ->children()
-                ->scalarNode('site')
-                ->end()
-                ->scalarNode('sentTo')
-                ->end()
-                ->booleanNode('database')
-                    ->defaultFalse()
-                ->end()
-                ->booleanNode('gdpr')
-                    ->defaultTrue()
-                ->end()
-                ->integerNode('delay')
-                    ->defaultValue(7)
-                ->end()
-            ->end()
-        ;
 
         return $treeBuilder;
     }

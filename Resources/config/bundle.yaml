@@ -1,0 +1,31 @@
+c975LContactForm:
+    roleNeeded:
+        type: string
+        required: true
+        default: ROLE_ADMIN
+        info: "User's role needed to enable access to config data for contact form: i.e. ROLE_ADMIN (default)"
+    site:
+        type: string
+        required: true
+        default: null
+        info: "Name of the web site"
+    sentTo:
+        type: string
+        required: true
+        default: null
+        info: "Email address used to receive the emails: i.e. contact@example.com"
+    database:
+        type: bool
+        required: false
+        default: false
+        info: "If the emails sent via contact form should be registered in the database"
+    gdpr:
+        type: bool
+        required: false
+        default: true
+        info: "If the checkbox related to GDPR rules should be displayed"
+    delay:
+        type: int
+        required: true
+        default: 7
+        info: "Below this delay (seconds) the contact form is supposed to be filled by a robot and will not be sent, to avoid spam"

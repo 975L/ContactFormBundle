@@ -9,9 +9,9 @@
 
 namespace c975L\ContactFormBundle\Service\Email;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig_Environment;
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\EmailBundle\Service\EmailServiceInterface;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
@@ -25,10 +25,10 @@ use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
 class ContactFormEmail implements ContactFormEmailInterface
 {
     /**
-     * Stores container
-     * @var ContainerInterface
+     * Stores ConfigServiceInterface
+     * @var ConfigServiceInterface
      */
-    private $container;
+    private $configService;
 
     /**
      * Stores current Request
@@ -43,19 +43,19 @@ class ContactFormEmail implements ContactFormEmailInterface
     private $templating;
 
     /**
-     * Stores EmailService
+     * Stores EmailServiceInterface
      * @var EmailServiceInterface
      */
     private $emailService;
 
     public function __construct(
-        ContainerInterface $container,
+        ConfigServiceInterface $configService,
         EmailServiceInterface $emailService,
         RequestStack $requestStack,
         Twig_Environment $templating
     )
     {
-        $this->container = $container;
+        $this->configService = $configService;
         $this->request = $requestStack->getCurrentRequest();
         $this->templating = $templating;
         $this->emailService = $emailService;
@@ -77,10 +77,11 @@ class ContactFormEmail implements ContactFormEmailInterface
         {
             //Updates emailData
             if (!array_key_exists('sentFrom', $emailData)) {
-                $emailData['sentFrom'] = $this->container->getParameter('c975_l_contact_form.sentTo');
+                $emailData['sentFrom'] = $this->configService->getParameter('c975LContactForm.sentTo');
+
             }
             if (!array_key_exists('sentTo', $emailData)) {
-                $emailData['sentTo'] = $this->container->getParameter('c975_l_contact_form.sentTo');
+                $emailData['sentTo'] = $this->configService->getParameter('c975LContactForm.sentTo');
             }
             if (!array_key_exists('sentCc', $emailData)) {
                 $emailData['sentCc'] = $formData->getEmail();
@@ -106,8 +107,8 @@ class ContactFormEmail implements ContactFormEmailInterface
                 );
             $emailData = array(
                 'subject' => $formData->getSubject(),
-                'sentFrom' => $this->container->getParameter('c975_l_contact_form.sentTo'),
-                'sentTo' => $this->container->getParameter('c975_l_contact_form.sentTo'),
+                'sentFrom' => $this->configService->getParameter('c975LContactForm.sentTo'),
+                'sentTo' => $this->configService->getParameter('c975LContactForm.sentTo'),
                 'sentCc' => $formData->getEmail(),
                 'replyTo' => $formData->getEmail(),
                 'body' => $this->templating->render($bodyEmail, $bodyData),
@@ -134,7 +135,7 @@ class ContactFormEmail implements ContactFormEmailInterface
         //Sends email
         $emailData = $this->defineData($event, $formData);
         if (is_array($emailData)) {
-            return $this->emailService->send($emailData, $this->container->getParameter('c975_l_contact_form.database'));
+            return $this->emailService->send($emailData, $this->configService->getParameter('c975LContactForm.database'));
         }
 
         return false;
