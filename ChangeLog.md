@@ -1,5 +1,9 @@
 # Changelog
 
+v1.10.4.5
+---------
+- Fixed file access rights (30/08/2018)
+
 v1.10.4.4
 ---------
 - Used a `switch()` for the FormFactory more readable (27/08/2018)

@@ -83,6 +83,6 @@ class ContactFormController extends Controller
             'form' => $form->createView(),
             'site' => $this->getParameter('c975_l_contact_form.site'),
             'subject' => $contactForm->getSubject(),
-            ));
+        ));
     }
 }
