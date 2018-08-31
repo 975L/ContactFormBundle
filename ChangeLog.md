@@ -1,5 +1,7 @@
 # Changelog
 
+- Updated `README.md` (31/08/2018)
+
 v2.0.1
 ------
 - Fixed `UPGRADE.md` (31/08/2018)
