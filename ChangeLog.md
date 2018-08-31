@@ -1,5 +1,10 @@
 # Changelog
 
+v2.0.1
+------
+- Fixed `UPGRADE.md` (31/08/2018)
+- Fixed `bundle.yaml` (31/08/2018)
+
 v2.0
 ----
 **Upgrading from v1.x? Check UPGRADE.md**

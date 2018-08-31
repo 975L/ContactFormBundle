@@ -3,7 +3,7 @@ c975LContactForm:
         type: string
         required: true
         default: ROLE_ADMIN
-        info: "User's role needed to enable access to config data for contact form: i.e. ROLE_ADMIN (default)"
+        info: "User's role needed to enable access to data linked to ContactFormBundle: i.e. ROLE_ADMIN (default)"
     site:
         type: string
         required: true
