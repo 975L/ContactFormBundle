@@ -25,8 +25,8 @@ Use [Composer](https://getcomposer.org) to install the library
     composer require c975l/contactform-bundle
 ```
 
-Step 2: Enable the Bundles
---------------------------
+Step 2: Enable the Bundle
+-------------------------
 Then, enable the bundle by adding it to the list of registered bundles in the `app/AppKernel.php` file of your project:
 
 ```php
@@ -37,20 +37,21 @@ class AppKernel extends Kernel
     {
         $bundles = [
             // ...
-            new c975L\EmailBundle\c975LEmailBundle(),
             new c975L\ContactFormBundle\c975LContactFormBundle(),
         ];
     }
 }
 ```
 
-Step 3: Configure the Bundles
------------------------------
-Check [Swiftmailer](https://github.com/symfony/swiftmailer-bundle), [Doctrine](https://github.com/doctrine/DoctrineBundle) and [c975LEmailBundle](https://github.com/975L/EmailBundle) for their specific configuration
+Step 3: Configure the Bundle
+----------------------------
+Check dependencies for their configuration:
+- [Swiftmailer](https://github.com/symfony/swiftmailer-bundle)
+- [c975LEmailBundle](https://github.com/975L/EmailBundle)
 
 v2.0+ of c975LContactFormBundle uses [c975L/ConfigBundle](https://github.com/975L/ConfigBundle) to manage configuration parameters. Use the Route "/contact/config" with the proper user role to modify them.
 
-**Upgrading from v1.x? Check UPGRADE.md.**
+**Upgrading from v1.x? Check [UPGRADE.md](UPGRADE.md).**
 
 Step 4: Declaration of Twig_Extensions_Extension_Text
 -----------------------------------------------------
