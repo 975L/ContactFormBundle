@@ -27,8 +27,12 @@
     },
     "minimum-stability": "dev",
     "autoload": {
-        "psr-4": { "c975L\\ContactFormBundle\\": ""
+        "psr-4": {
+            "c975L\\ContactFormBundle\\": ""
         }
+    },
+    "config": {
+        "sort-packages": true
     },
     "support": {
         "email": "contact@975l.com",

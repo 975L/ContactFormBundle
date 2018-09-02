@@ -3,9 +3,11 @@
 
 {% block email_content %}
 {# Explanation #}
-    <p>
-        {{ 'text.mail_following_sent'|trans }} <strong>{{ site }}</strong>
-    </p>
+    {% if site is defined %}
+        <p>
+            {{ 'text.mail_following_sent'|trans }} <strong>{{ site }}</strong>
+        </p>
+    {% endif %}
 {# Datetime #}
     <p>
         <strong>{{ 'label.date_time'|trans }}</strong>
