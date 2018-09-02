@@ -1,5 +1,7 @@
 # Changelog
 
+v2.0.2
+------
 - Updated `README.md` (31/08/2018)
 - Updated `UPGRADE.md` (01/09/2018)
 - Updated composer.json (01/09/2018)
