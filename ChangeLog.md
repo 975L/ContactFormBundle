@@ -1,5 +1,8 @@
 # Changelog
 
+- Corrected `UPGRADE.md` for `php bin/console config:create` (03/12/2018)
+- Made use of parameter `c975LCommon.site` in place of `c975LContactForm.site` (03/12/2018)
+
 v2.0.2
 ------
 - Updated `README.md` (31/08/2018)

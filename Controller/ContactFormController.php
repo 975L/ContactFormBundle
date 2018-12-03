@@ -102,7 +102,7 @@ class ContactFormController extends Controller
         //Renders the form
         return $this->render('@c975LContactForm/forms/contact.html.twig', array(
             'form' => $form->createView(),
-            'site' => $configService->getParameter('c975LContactForm.site'),
+            'site' => $configService->getParameter('c975LCommon.site'),
             'subject' => $contactForm->getSubject(),
         ));
     }

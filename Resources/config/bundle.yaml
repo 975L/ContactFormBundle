@@ -4,11 +4,6 @@ c975LContactForm:
         required: true
         default: ROLE_ADMIN
         info: "User's role needed to enable access to data linked to ContactFormBundle: i.e. ROLE_ADMIN (default)"
-    site:
-        type: string
-        required: true
-        default: null
-        info: "Name of the web site"
     sentTo:
         type: string
         required: true
@@ -29,3 +24,9 @@ c975LContactForm:
         required: true
         default: 7
         info: "Below this delay (seconds) the contact form is supposed to be filled by a robot and will not be sent, to avoid spam"
+c975LCommon:
+    site:
+        type: string
+        required: true
+        default: null
+        info: "Name of the web site"
