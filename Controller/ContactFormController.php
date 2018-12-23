@@ -9,14 +9,14 @@
 
 namespace c975L\ContactFormBundle\Controller;
 
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
+use c975L\ContactFormBundle\Event\ContactFormEvent;
+use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
-use c975L\ConfigBundle\Service\ConfigServiceInterface;
-use c975L\ContactFormBundle\Event\ContactFormEvent;
-use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
 
 /**
  * Main Controller class

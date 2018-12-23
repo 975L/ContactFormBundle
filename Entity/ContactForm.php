@@ -84,7 +84,6 @@ class ContactForm
      */
     protected $receiveCopy;
 
-
     /**
      * Set email
      * @param string|null

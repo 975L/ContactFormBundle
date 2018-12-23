@@ -9,9 +9,9 @@
 
 namespace c975L\ContactFormBundle\Event;
 
+use c975L\ContactFormBundle\Entity\ContactForm;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
-use c975L\ContactFormBundle\Entity\ContactForm;
 
 /**
  * Events to be dispatched throughout the lifecycle of ContactForm
