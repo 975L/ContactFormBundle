@@ -9,13 +9,10 @@
 
 namespace c975L\ContactFormBundle\Form;
 
-use Symfony\Component\Form\Form;
-use Symfony\Component\Form\FormFactoryInterface;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
-use c975L\ContactFormBundle\Form\ContactFormType;
-use c975L\ContactFormBundle\Form\ContactFormFactoryInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 
 /**
  * ContactFormFactory class

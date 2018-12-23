@@ -9,10 +9,11 @@
 
 namespace c975L\ContactFormBundle\Security;
 
-use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
+use LogicException;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
  * Voter for ContactForm access
@@ -75,7 +76,7 @@ class ContactFormVoter extends Voter
     /**
      * Votes if access is granted
      * @return bool
-     * @throws \LogicException
+     * @throws LogicException
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
@@ -87,6 +88,6 @@ class ContactFormVoter extends Voter
                 break;
         }
 
-        throw new \LogicException('Invalid attribute: ' . $attribute);
+        throw new LogicException('Invalid attribute: ' . $attribute);
     }
 }

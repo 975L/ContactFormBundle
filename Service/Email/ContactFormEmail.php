@@ -9,13 +9,13 @@
 
 namespace c975L\ContactFormBundle\Service\Email;
 
-use Symfony\Component\HttpFoundation\RequestStack;
-use Twig_Environment;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
-use c975L\EmailBundle\Service\EmailServiceInterface;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
-use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
+use c975L\EmailBundle\Service\EmailServiceInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Twig_Environment;
 
 /**
  * Services related to ContactForm Email
@@ -32,7 +32,7 @@ class ContactFormEmail implements ContactFormEmailInterface
 
     /**
      * Stores current Request
-     * @var RequestStack
+     * @var Request
      */
     private $request;
 

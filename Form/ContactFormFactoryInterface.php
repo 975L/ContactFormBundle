@@ -9,9 +9,9 @@
 
 namespace c975L\ContactFormBundle\Form;
 
-use Symfony\Component\Form\Form;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
+use Symfony\Component\Form\Form;
 
 /**
  * Interface to be called for DI for ContactFormFactoryInterface related services
