@@ -66,6 +66,7 @@ class ContactFormController extends Controller
     }
 
 //DISPLAY
+
     /**
      * Displays ContactForm and handles its submission
      * @return Response
@@ -108,6 +109,7 @@ class ContactFormController extends Controller
     }
 
 //CONFIG
+
     /**
      * Displays the configuration
      * @return Response
