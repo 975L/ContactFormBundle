@@ -24,9 +24,9 @@
         "c975l/includelibrary-bundle": "^1",
         "c975l/services-bundle": "^1",
         "c975l/toolbar-bundle": "^1",
-        "symfony/form": "^4.2",
-        "symfony/security": "^4.2",
-        "twig/extensions": "^1"
+        "symfony/form": "*",
+        "symfony/security": "*",
+        "twig/extensions": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.3@dev",
