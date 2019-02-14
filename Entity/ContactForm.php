@@ -24,8 +24,7 @@ class ContactForm
      *
      * @Assert\NotBlank()
      * @Assert\Email(
-     *     message = "email.not_valid",
-     *     checkMX = true
+     *     message = "email.not_valid"
      * )
      */
     protected $email;
