@@ -1,5 +1,13 @@
 # Changelog
 
+v2.0.7
+------
+- Removed deprecated checkMX (13/02/2019)
+- Removed deprecations for @Method (13/02/2019)
+- Implemented AstractController instead of Controller (13/02/2019)
+- Modified Dependencyinjection rootNode to be not empty (13/02/2019)
+- Modified Dependencyinjection rootNode to be not empty (13/02/2019)
+
 v2.0.6
 ------
 - Updated composer.json (15/01/2019)

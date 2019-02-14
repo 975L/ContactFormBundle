@@ -12,9 +12,8 @@ namespace c975L\ContactFormBundle\Controller;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -23,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2017 975L <contact@975l.com>
  */
-class ContactFormController extends Controller
+class ContactFormController extends AbstractController
 {
     /**
      * Stores EventDispatcherInterface
@@ -53,8 +52,8 @@ class ContactFormController extends Controller
      * @throws AccessDeniedException
      *
      * @Route("/contact/dashboard",
-     *      name="contactform_dashboard")
-     * @Method({"GET", "HEAD", "POST"})
+     *      name="contactform_dashboard",
+     *    methods={"HEAD", "GET", "POST"})
      */
     //
     public function dashboard()
@@ -72,8 +71,8 @@ class ContactFormController extends Controller
      * @return Response
      *
      * @Route("/contact",
-     *      name="contactform_display")
-     * @Method({"GET", "HEAD", "POST"})
+     *    name="contactform_display",
+     *    methods={"HEAD", "GET", "POST"})
      */
     public function display(Request $request, ConfigServiceInterface $configService)
     {
@@ -116,8 +115,8 @@ class ContactFormController extends Controller
      * @throws AccessDeniedException
      *
      * @Route("/contact/config",
-     *      name="contactform_config")
-     * @Method({"GET", "HEAD", "POST"})
+     *    name="contactform_config",
+     *    methods={"HEAD", "GET", "POST"})
      */
     public function config(Request $request, ConfigServiceInterface $configService)
     {
