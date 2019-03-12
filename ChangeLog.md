@@ -1,5 +1,10 @@
 # Changelog
 
+v2.0.8
+------
+- Made use of Twig namespace (11/03/2019)
+- Added use of Symfony\Component\HttpFoundation\Response (11/03/2019)
+
 v2.0.7
 ------
 - Removed deprecated checkMX (13/02/2019)
