@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Main Controller class
@@ -65,7 +66,6 @@ class ContactFormController extends AbstractController
     }
 
 //DISPLAY
-
     /**
      * Displays ContactForm and handles its submission
      * @return Response
@@ -108,7 +108,6 @@ class ContactFormController extends AbstractController
     }
 
 //CONFIG
-
     /**
      * Displays the configuration
      * @return Response

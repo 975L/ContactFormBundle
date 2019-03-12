@@ -15,7 +15,7 @@ use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\EmailBundle\Service\EmailServiceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Twig_Environment;
+use Twig\Environment;
 
 /**
  * Services related to ContactForm Email
@@ -37,10 +37,10 @@ class ContactFormEmail implements ContactFormEmailInterface
     private $request;
 
     /**
-     * Stores Twig_Environment
-     * @var Twig_Environment
+     * Stores Environment
+     * @var Environment
      */
-    private $templating;
+    private $environment;
 
     /**
      * Stores EmailServiceInterface
@@ -52,12 +52,12 @@ class ContactFormEmail implements ContactFormEmailInterface
         ConfigServiceInterface $configService,
         EmailServiceInterface $emailService,
         RequestStack $requestStack,
-        Twig_Environment $templating
+        Environment $environment
     )
     {
         $this->configService = $configService;
         $this->request = $requestStack->getCurrentRequest();
-        $this->templating = $templating;
+        $this->environment = $environment;
         $this->emailService = $emailService;
     }
 
@@ -95,7 +95,7 @@ class ContactFormEmail implements ContactFormEmailInterface
             if (!array_key_exists('form', $emailData['bodyData'])) {
                 $emailData['bodyData']['form'] = $formData;
             }
-            $emailData['body'] = $this->templating->render($emailData['bodyEmail'], $emailData['bodyData']);
+            $emailData['body'] = $this->environment->render($emailData['bodyEmail'], $emailData['bodyData']);
             unset($emailData['bodyEmail']);
             unset($emailData['bodyData']);
         //Otherwise defines generic email
@@ -111,7 +111,7 @@ class ContactFormEmail implements ContactFormEmailInterface
                 'sentTo' => $this->configService->getParameter('c975LContactForm.sentTo'),
                 'sentCc' => $formData->getEmail(),
                 'replyTo' => $formData->getEmail(),
-                'body' => $this->templating->render($bodyEmail, $bodyData),
+                'body' => $this->environment->render($bodyEmail, $bodyData),
                 'ip' => $this->request->getClientIp(),
                 );
         }
