@@ -1,5 +1,15 @@
 # Changelog
 
+v3.0
+----
+- Made use of c975LEmailBundle v3 which use Symfony/Mailer (15/07/2019)
+- Drop support of Symfony 3.x (15/07/2019)
+
+
+
+v2.x
+====
+
 v2.0.8.2
 --------
 - Changed file rights (15/07/2019)
