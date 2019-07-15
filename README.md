@@ -20,30 +20,13 @@ Bundle installation
 
 Step 1: Download the Bundle
 ---------------------------
+**v3.x works with Symfony 4.x. Use v2.x for Symfony 3.x**
 Use [Composer](https://getcomposer.org) to install the library
 ```bash
     composer require c975l/contactform-bundle
 ```
 
-Step 2: Enable the Bundle
--------------------------
-Then, enable the bundle by adding it to the list of registered bundles in the `app/AppKernel.php` file of your project:
-
-```php
-<?php
-class AppKernel extends Kernel
-{
-    public function registerBundles()
-    {
-        $bundles = [
-            // ...
-            new c975L\ContactFormBundle\c975LContactFormBundle(),
-        ];
-    }
-}
-```
-
-Step 3: Configure the Bundle
+Step 2: Configure the Bundle
 ----------------------------
 Check dependencies for their configuration:
 - [Swiftmailer](https://github.com/symfony/swiftmailer-bundle)
@@ -53,9 +36,9 @@ v2.0+ of c975LContactFormBundle uses [c975L/ConfigBundle](https://github.com/975
 
 **Upgrading from v1.x? Check [UPGRADE.md](UPGRADE.md).**
 
-Step 4: Declaration of Twig_Extensions_Extension_Text
+Step 3: Declaration of Twig_Extensions_Extension_Text
 -----------------------------------------------------
-You have to config `Twig_Extensions_Extension_Text` in your `app/config/services.yml`, if not already the case, with the following code:
+You have to config `Twig_Extensions_Extension_Text` in your `/config/services.yaml`, if not already the case, with the following code:
 
 ```yml
     twig.text_extension:
@@ -63,9 +46,9 @@ You have to config `Twig_Extensions_Extension_Text` in your `app/config/services
         tags:
             - name: twig.extension
 ```
-Step 5: Enable the Routes
+Step 4: Enable the Routes
 -------------------------
-Then, enable the routes by adding them to the `app/config/routing.yml` file of your project:
+Then, enable the routes by adding them to the `/config/routes.yaml` file of your project:
 
 ```yml
 c975_l_contact_form:
@@ -79,11 +62,11 @@ c975_l_contact_form:
     #    _locale: en|fr|es
 ```
 
-Step 6: Override templates
+Step 5: Override templates
 --------------------------
 It is strongly recommended to use the [Override Templates from Third-Party Bundles feature](http://symfony.com/doc/current/templating/overriding.html) to integrate fully with your site.
 
-For this, simply, create the following structure `app/Resources/c975LContactFormBundle/views/` in your app and then duplicate the file `layout.html.twig` in it, to override the existing Bundle file.
+For this, simply, create the following structure `/templates/bundles/c975LContactFormBundle/` in your app and then duplicate the file `layout.html.twig` in it, to override the existing Bundle file.
 
 In `layout.html.twig`, it will mainly consist to extend your layout and define specific variables, i.e. :
 ```twig
@@ -98,7 +81,7 @@ In `layout.html.twig`, it will mainly consist to extend your layout and define s
 {% endblock %}
 ```
 
-The template used for sending emails is the one of c975LEmailBundle. Override it in `app/Resources/c975LEmailBundle/views/emails/layout.html.twig`.
+The template used for sending emails is the one of c975LEmailBundle. Override it in `/templates/c975LEmailBundle/emails/layout.html.twig`.
 
 How to use
 ----------
@@ -122,7 +105,7 @@ For both cases, ContactFormBundle will act as if the mail was sent, but it will 
 
 Changing infoText
 -----------------
-You can change the text displayed at the top of the Contact Form with the following code in your overriding template `app/Resources/c975LContactFormBundle/views/layout.html.twig`:
+You can change the text displayed at the top of the Contact Form with the following code in your overriding template `/templates/c975LContactFormBundle/layout.html.twig`:
 
 ```twig
 {% extends 'layout.html.twig' %}
