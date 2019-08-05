@@ -10,7 +10,7 @@
 namespace c975L\ContactFormBundle\Event;
 
 use c975L\ContactFormBundle\Entity\ContactForm;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -23,12 +23,12 @@ class ContactFormEvent extends Event
     /**
      * Used to dispatch event "create.form"
      */
-    const CREATE_FORM = 'c975l_contactform.create.form';
+    public const CREATE_FORM = 'c975l_contactform.create.form';
 
     /**
      * Used to dispatch event "send.form"
      */
-    const SEND_FORM = 'c975l_contactform.send.form';
+    public const SEND_FORM = 'c975l_contactform.send.form';
 
     /**
      * Stores data issued fy form

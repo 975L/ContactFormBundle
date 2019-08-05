@@ -78,7 +78,6 @@ class ContactFormEmail implements ContactFormEmailInterface
             //Updates emailData
             if (!array_key_exists('sentFrom', $emailData)) {
                 $emailData['sentFrom'] = $this->configService->getParameter('c975LContactForm.sentTo');
-
             }
             if (!array_key_exists('sentTo', $emailData)) {
                 $emailData['sentTo'] = $this->configService->getParameter('c975LContactForm.sentTo');
@@ -102,7 +101,7 @@ class ContactFormEmail implements ContactFormEmailInterface
         } elseif (null === $event->getError()) {
             $bodyEmail = '@c975LContactForm/emails/contact.html.twig';
             $bodyData = array(
-                '_locale' => $this->request->getLocale(),
+                'locale' => $this->request->getLocale(),
                 'form' => $formData,
                 );
             $emailData = array(
