@@ -81,7 +81,7 @@ class ContactFormController extends AbstractController
 
         //Dispatch Event CREATE_FORM
         $event = new ContactFormEvent($request, $contactForm);
-        $this->dispatcher->dispatch(ContactFormEvent::CREATE_FORM, $event);
+        $this->dispatcher->dispatch($event, ContactFormEvent::CREATE_FORM);
 
         //Defines form
         $form = $this->contactFormService->createForm('display', $contactForm, $event);
@@ -90,7 +90,7 @@ class ContactFormController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //Dispatch Event SEND_FORM
             $event = new ContactFormEvent($request, $form->getData());
-            $this->dispatcher->dispatch(ContactFormEvent::SEND_FORM, $event);
+            $this->dispatcher->dispatch($event, ContactFormEvent::SEND_FORM);
 
             //Sends email and redirects to defined referer
             $redirectUrl = $this->contactFormService->sendEmail($form, $event);

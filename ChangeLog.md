@@ -1,5 +1,11 @@
 # Changelog
 
+v3.1
+----
+- Made use of Symfony\Contracts\EventDispatcher\Event (05/08/2019)
+- Made use of apply spaceless (05/08/2019)
+- Use locale instead of _locale (05/08/2019)
+
 v3.0.1
 ------
 - Corrected README.md (15/07/2019)
