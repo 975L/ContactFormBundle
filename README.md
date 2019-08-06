@@ -29,23 +29,14 @@ Use [Composer](https://getcomposer.org) to install the library
 Step 2: Configure the Bundle
 ----------------------------
 Check dependencies for their configuration:
-- [Swiftmailer](https://github.com/symfony/swiftmailer-bundle)
 - [c975LEmailBundle](https://github.com/975L/EmailBundle)
 
 v2.0+ of c975LContactFormBundle uses [c975L/ConfigBundle](https://github.com/975L/ConfigBundle) to manage configuration parameters. Use the Route "/contact/config" with the proper user role to modify them.
 
-**Upgrading from v1.x? Check [UPGRADE.md](UPGRADE.md).**
+Step 3: Declaration of Twig\Extensions\TextExtension
+----------------------------------------------------
+You have to allow `Twig\Extensions\TextExtension` in your `/config/pacakes/twig_extensions.yaml`.
 
-Step 3: Declaration of Twig_Extensions_Extension_Text
------------------------------------------------------
-You have to config `Twig_Extensions_Extension_Text` in your `/config/services.yaml`, if not already the case, with the following code:
-
-```yml
-    twig.text_extension:
-        class: Twig_Extensions_Extension_Text
-        tags:
-            - name: twig.extension
-```
 Step 4: Enable the Routes
 -------------------------
 Then, enable the routes by adding them to the `/config/routes.yaml` file of your project:
