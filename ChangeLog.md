@@ -1,5 +1,9 @@
 # Changelog
 
+v3.1.1
+------
+- Updated README.md (06/08/2019)
+
 v3.1
 ----
 - Made use of Symfony\Contracts\EventDispatcher\Event (05/08/2019)
