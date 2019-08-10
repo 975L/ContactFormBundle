@@ -1,5 +1,9 @@
 # Changelog
 
+v3.1.2.1
+--------
+- Updated tag as previous one was wrong (10/08/2019)
+
 v3.1.2
 ------
 - Corrected isNotBot that was not sending emails... (10/08/2019)
