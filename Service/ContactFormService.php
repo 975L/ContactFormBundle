@@ -146,7 +146,6 @@ class ContactFormService implements ContactFormServiceInterface
     {
         $bot = null === $this->request->getSession()->get('time');
         $bot = $bot ? true : $this->request->getSession()->get('time') + $this->configService->getParameter('c975LContactForm.delay') > time();
-
         $bot = $bot ? true : null === $username;
 
         return ! $bot;
