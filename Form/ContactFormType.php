@@ -30,25 +30,27 @@ class ContactFormType extends AbstractType
 
         $builder
             ->add('username', TextType::class, array(
-                'label' => false,
+                'label' => 'label.username',
                 'required' => false,
                 'mapped' => false,
                 'data' => null,
                 'attr' => array(
-                    'placeholder' => 'placeholder.username',
-                    'class' => 'username',
+                    'placeholder' => 'label.username',
+                    'autocomplete' => 'off',
                 )))
             ->add('name', TextType::class, array(
                 'label' => 'label.name',
                 'required' => true,
                 'attr' => array(
                     'placeholder' => 'placeholder.name',
+                    'autocomplete' => 'off',
                 )))
             ->add('email', EmailType::class, array(
                 'label' => 'label.email',
                 'required' => true,
                 'attr' => array(
                     'placeholder' => 'placeholder.email',
+                    'autocomplete' => 'off',
                 )))
             ->add('subject', TextType::class, array(
                 'label' => 'label.subject',
@@ -56,6 +58,7 @@ class ContactFormType extends AbstractType
                 'attr' => array(
                     'placeholder' => 'placeholder.subject',
                     'readonly' => $subjectReadonly,
+                    'autocomplete' => 'off',
                 )))
             ->add('message', TextareaType::class, array(
                 'label' => 'label.message',

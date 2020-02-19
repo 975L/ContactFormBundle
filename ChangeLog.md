@@ -1,5 +1,12 @@
 # Changelog
 
+v3.2
+----
+- Removed information about username placeholder to improve use of honeypot (19/02/2020)
+- Added label for username honeypot (19/02/2020)
+- Corrected condition test for bot (19/02/2020)
+- Added 'autocomplete' => 'off' (19/02/2020)
+
 v3.1.2.1
 --------
 - Updated tag as previous one was wrong (10/08/2019)

@@ -4,7 +4,6 @@
 {% set infoText = 'text.contact_info'|trans({'%site%': site}) %}
 
 {% block contactform_content %}
-    <style>.username {position:absolute;top:-1000px;left:-1000px;}</style>
     <div>
 {# Toolbar #}
         {% if is_granted('ROLE_ADMIN') %}
@@ -30,4 +29,5 @@
             </em>
         </p>
     </div>
+    <style>label[for=contact_form_username],#contact_form_username {position:absolute;top:-1000px;left:-1000px;display:none}</style>
 {% endblock %}
