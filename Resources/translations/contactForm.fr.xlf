@@ -101,8 +101,8 @@
                 <target>Email de l'expéditeur</target>
             </trans-unit>
             <trans-unit id="27">
-                <source>placeholder.username</source>
-                <target>Nom d'utilisateur (si vous voyez ceci, laissez-le vide)</target>
+                <source>label.username</source>
+                <target>Nom d'utilisateur</target>
             </trans-unit>
         </body>
     </file>

@@ -101,8 +101,8 @@
                 <target>Sender email</target>
             </trans-unit>
             <trans-unit id="27">
-                <source>placeholder.username</source>
-                <target>Username (if you see this, leave it empty)</target>
+                <source>label.username</source>
+                <target>Username</target>
             </trans-unit>
         </body>
     </file>
