@@ -24,6 +24,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ContactFormType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $subjectReadonly = null !== $options['data']->getSubject() ? true : false;
