@@ -65,8 +65,7 @@ class ContactFormVoter extends Voter
     }
 
     /**
-     * Checks if attribute and subject are supported
-     * @return bool
+     * {@inheritdoc}
      */
     protected function supports($attribute, $subject)
     {
@@ -74,9 +73,7 @@ class ContactFormVoter extends Voter
     }
 
     /**
-     * Votes if access is granted
-     * @return bool
-     * @throws LogicException
+     * {@inheritdoc}
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
