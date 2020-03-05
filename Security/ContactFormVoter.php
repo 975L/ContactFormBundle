@@ -58,8 +58,7 @@ class ContactFormVoter extends Voter
     public function __construct(
         ConfigServiceInterface $configService,
         AccessDecisionManagerInterface $decisionManager
-    )
-    {
+    ) {
         $this->configService = $configService;
         $this->decisionManager = $decisionManager;
     }
