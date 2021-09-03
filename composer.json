@@ -25,8 +25,7 @@
         "c975l/services-bundle": "^1",
         "c975l/toolbar-bundle": "^1",
         "symfony/form": "*",
-        "symfony/security": "*",
-        "twig/extensions": "*"
+        "symfony/security": "*"
     },
     "require-dev": {
         "phpstan/phpstan": "*",
