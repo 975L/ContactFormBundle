@@ -1,5 +1,13 @@
 # Changelog
 
+## v3.4
+
+- Removed versions constraints in composer (03/09/2021)
+
+## v3.3.1
+
+- Cosmetic changes due to Codacy review (04/03/2020)
+
 ## v3.3
 
 - Removed use of symplify/easy-coding-standard as abandonned (19/02/2020)
