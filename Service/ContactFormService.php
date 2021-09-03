@@ -70,8 +70,7 @@ class ContactFormService implements ContactFormServiceInterface
         RequestStack $requestStack,
         ServiceToolsInterface $serviceTools,
         ServiceUserInterface $serviceUser
-    )
-    {
+    ) {
         $this->configService = $configService;
         $this->contactFormEmail = $contactFormEmail;
         $this->contactFormFactory = $contactFormFactory;
