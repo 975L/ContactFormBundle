@@ -1,5 +1,9 @@
 # Changelog
 
+## v5.0.1
+
+- Added return type for Voter (24/07/2022)
+
 ## v5.0
 
 - Changed compatibility to Symfony 6 (24/07/2022)
