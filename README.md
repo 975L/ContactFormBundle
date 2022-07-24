@@ -18,7 +18,7 @@ ContactFormBundle does the following:
 
 ### Step 1: Download the Bundle
 
-v3.x works with Symfony 4.x. **Use v2.x for Symfony 3.x**
+v5.x works with Symfony 6.x. **Use v3|4.x for Symfony 4.x** **Use v2.x for Symfony 3.x**
 Use [Composer](https://getcomposer.org) to install the library
 
 ```bash
@@ -31,7 +31,7 @@ Check dependencies for their configuration:
 
 - [c975LEmailBundle](https://github.com/975L/EmailBundle)
 
-v2.0+ of c975LContactFormBundle uses [c975L/ConfigBundle](https://github.com/975L/ConfigBundle) to manage configuration parameters. Use the Route "/contact/config" with the proper user role to modify them.
+c975LContactFormBundle uses [c975L/ConfigBundle](https://github.com/975L/ConfigBundle) to manage configuration parameters. Use the Route "/contact/config" with the proper user role to modify them.
 
 ### Step 3: Declaration of Twig\Extensions\TextExtension
 

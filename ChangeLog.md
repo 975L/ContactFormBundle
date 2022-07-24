@@ -1,5 +1,11 @@
 # Changelog
 
+## v5.0
+
+- Changed compatibility to Symfony 6 (24/07/2022)
+
+Upgrading from v4.x? **Check UPGRADE.md**
+
 ## v4.0.1
 
 - Upgraded version for c975l/email-bundle (11/10/2021)
