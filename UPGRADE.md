@@ -1,5 +1,9 @@
 # UPGRADE
 
+## v4.x > v5.x
+
+Changed compatibility so Symfony 6
+
 ## v3.x > v4.x
 
 Changed `localizeddate` to `format_datetime`
