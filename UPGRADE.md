@@ -1,5 +1,9 @@
 # UPGRADE
 
+## v5.x > v6.x
+
+Changed compatibility so PHP 8
+
 ## v4.x > v5.x
 
 Changed compatibility so Symfony 6

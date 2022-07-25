@@ -25,25 +25,17 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ContactFormController extends AbstractController
 {
-    /**
-     * Stores EventDispatcherInterface
-     * @var EventDispatcherInterface
-     */
-    private $dispatcher;
-
-    /**
-     * Stores ContactFormServiceInterface
-     * @var ContactFormServiceInterface
-     */
-    private $contactFormService;
-
     public function __construct(
-        EventDispatcherInterface $dispatcher,
-        ContactFormServiceInterface $contactFormService
+        /**
+         * Stores EventDispatcherInterface
+         */
+        private readonly EventDispatcherInterface $dispatcher,
+        /**
+         * Stores ContactFormServiceInterface
+         */
+        private readonly ContactFormServiceInterface $contactFormService
     )
     {
-        $this->dispatcher = $dispatcher;
-        $this->contactFormService = $contactFormService;
     }
 
 //DASHBOARD
@@ -100,11 +92,7 @@ class ContactFormController extends AbstractController
         }
 
         //Renders the form
-        return $this->render('@c975LContactForm/forms/contact.html.twig', array(
-            'form' => $form->createView(),
-            'site' => $configService->getParameter('c975LCommon.site'),
-            'subject' => $contactForm->getSubject(),
-        ));
+        return $this->render('@c975LContactForm/forms/contact.html.twig', ['form' => $form->createView(), 'site' => $configService->getParameter('c975LCommon.site'), 'subject' => $contactForm->getSubject()]);
     }
 
 //CONFIG
@@ -134,9 +122,6 @@ class ContactFormController extends AbstractController
         }
 
         //Renders the config form
-        return $this->render('@c975LConfig/forms/config.html.twig', array(
-            'form' => $form->createView(),
-            'toolbar' => '@c975LContactForm',
-        ));
+        return $this->render('@c975LConfig/forms/config.html.twig', ['form' => $form->createView(), 'toolbar' => '@c975LContactForm']);
     }
 }

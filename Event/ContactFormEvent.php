@@ -23,24 +23,12 @@ class ContactFormEvent extends Event
     /**
      * Used to dispatch event "create.form"
      */
-    public const CREATE_FORM = 'c975l_contactform.create.form';
+    final public const CREATE_FORM = 'c975l_contactform.create.form';
 
     /**
      * Used to dispatch event "send.form"
      */
-    public const SEND_FORM = 'c975l_contactform.send.form';
-
-    /**
-     * Stores data issued fy form
-     * @var ContactForm
-     */
-    protected $formData;
-
-    /**
-     * Stores data used to create email
-     * @var array
-     */
-    protected $emailData;
+    final public const SEND_FORM = 'c975l_contactform.send.form';
 
     /**
      * Stores error
@@ -54,17 +42,21 @@ class ContactFormEvent extends Event
      */
     protected $receiveCopy = true;
 
-    /**
-     * Stores Request
-     * @var Request
-     */
-    protected $request;
-
-    public function __construct(Request $request, ContactForm $formData = null, array $emailData = null)
+    public function __construct(
+        /**
+         * Stores Request
+         */
+        protected Request $request,
+        /**
+         * Stores data issued fy form
+         */
+        protected ContactForm $formData,
+        /**
+         * Stores data used to create email
+         */
+        protected array $emailData = []
+    )
     {
-        $this->request = $request;
-        $this->formData = $formData;
-        $this->emailData = $emailData;
     }
 
     /**

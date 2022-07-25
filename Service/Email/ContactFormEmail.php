@@ -25,40 +25,27 @@ use Twig\Environment;
 class ContactFormEmail implements ContactFormEmailInterface
 {
     /**
-     * Stores ConfigServiceInterface
-     * @var ConfigServiceInterface
-     */
-    private $configService;
-
-    /**
      * Stores current Request
-     * @var Request
      */
-    private $request;
-
-    /**
-     * Stores Environment
-     * @var Environment
-     */
-    private $environment;
-
-    /**
-     * Stores EmailServiceInterface
-     * @var EmailServiceInterface
-     */
-    private $emailService;
+    private readonly ?\Symfony\Component\HttpFoundation\Request $request;
 
     public function __construct(
-        ConfigServiceInterface $configService,
-        EmailServiceInterface $emailService,
+        /**
+         * Stores ConfigServiceInterface
+         */
+        private readonly ConfigServiceInterface $configService,
+        /**
+         * Stores EmailServiceInterface
+         */
+        private readonly EmailServiceInterface $emailService,
         RequestStack $requestStack,
-        Environment $environment
+        /**
+         * Stores Environment
+         */
+        private readonly Environment $environment
     )
     {
-        $this->configService = $configService;
         $this->request = $requestStack->getCurrentRequest();
-        $this->environment = $environment;
-        $this->emailService = $emailService;
     }
 
     /**
@@ -100,19 +87,8 @@ class ContactFormEmail implements ContactFormEmailInterface
         //Otherwise defines generic email
         } elseif (null === $event->getError()) {
             $bodyEmail = '@c975LContactForm/emails/contact.html.twig';
-            $bodyData = array(
-                'locale' => $this->request->getLocale(),
-                'form' => $formData,
-                );
-            $emailData = array(
-                'subject' => $formData->getSubject(),
-                'sentFrom' => $this->configService->getParameter('c975LContactForm.sentTo'),
-                'sentTo' => $this->configService->getParameter('c975LContactForm.sentTo'),
-                'sentCc' => $formData->getEmail(),
-                'replyTo' => $formData->getEmail(),
-                'body' => $this->environment->render($bodyEmail, $bodyData),
-                'ip' => $this->request->getClientIp(),
-                );
+            $bodyData = ['locale' => $this->request->getLocale(), 'form' => $formData];
+            $emailData = ['subject' => $formData->getSubject(), 'sentFrom' => $this->configService->getParameter('c975LContactForm.sentTo'), 'sentTo' => $this->configService->getParameter('c975LContactForm.sentTo'), 'sentCc' => $formData->getEmail(), 'replyTo' => $formData->getEmail(), 'body' => $this->environment->render($bodyEmail, $bodyData), 'ip' => $this->request->getClientIp()];
         }
 
         //Removes sentCC if checkbox to receive copy hasn't been checked

@@ -21,25 +21,17 @@ use Symfony\Component\Form\FormFactoryInterface;
  */
 class ContactFormFactory implements ContactFormFactoryInterface
 {
-    /**
-     * Stores ConfigServiceInterface
-     * @var ConfigServiceInterface
-     */
-    private $configService;
-
-    /**
-     * Stores FormFactoryInterface
-     * @var FormFactoryInterface
-     */
-    private $formFactory;
-
     public function __construct(
-        ConfigServiceInterface $configService,
-        FormFactoryInterface $formFactory
+        /**
+         * Stores ConfigServiceInterface
+         */
+        private readonly ConfigServiceInterface $configService,
+        /**
+         * Stores FormFactoryInterface
+         */
+        private readonly FormFactoryInterface $formFactory
     )
     {
-        $this->configService = $configService;
-        $this->formFactory = $formFactory;
     }
 
     /**
@@ -49,16 +41,13 @@ class ContactFormFactory implements ContactFormFactoryInterface
     {
         switch ($name) {
             case 'display':
-                $config = array(
-                    'receiveCopy' => $event->getReceiveCopy(),
-                    'gdpr' => $this->configService->getParameter('c975LContactForm.gdpr'),
-                );
+                $config = ['receiveCopy' => $event->getReceiveCopy(), 'gdpr' => $this->configService->getParameter('c975LContactForm.gdpr')];
                 break;
             default:
-                $config = array();
+                $config = [];
                 break;
         }
 
-        return $this->formFactory->create(ContactFormType::class, $contactForm, array('config' => $config));
+        return $this->formFactory->create(ContactFormType::class, $contactForm, ['config' => $config]);
     }
 }

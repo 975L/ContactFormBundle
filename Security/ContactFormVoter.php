@@ -23,44 +23,34 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class ContactFormVoter extends Voter
 {
     /**
-     * Stores ConfigServiceInterface
-     * @var ConfigServiceInterface
-     */
-    private $configService;
-
-    /**
-     * Stores AccessDecisionManagerInterface
-     * @var AccessDecisionManagerInterface
-     */
-    private $decisionManager;
-
-    /**
      * Used for access to config
      * @var string
      */
-    public const CONFIG = 'c975lContactForm-config';
+    final public const CONFIG = 'c975lContactForm-config';
 
     /**
      * Used for access to dashboard
      * @var string
      */
-    public const DASHBOARD = 'c975lContactForm-dashboard';
+    final public const DASHBOARD = 'c975lContactForm-dashboard';
 
     /**
      * Contains all the available attributes to check with in supports()
      * @var array
      */
-    private const ATTRIBUTES = array(
-        self::CONFIG,
-        self::DASHBOARD,
-    );
+    private const ATTRIBUTES = [self::CONFIG, self::DASHBOARD];
 
     public function __construct(
-        ConfigServiceInterface $configService,
-        AccessDecisionManagerInterface $decisionManager
-    ) {
-        $this->configService = $configService;
-        $this->decisionManager = $decisionManager;
+        /**
+         * Stores ConfigServiceInterface
+         */
+        private readonly ConfigServiceInterface $configService,
+        /**
+         * Stores AccessDecisionManagerInterface
+         */
+        private readonly AccessDecisionManagerInterface $decisionManager
+    )
+    {
     }
 
     /**
@@ -76,14 +66,9 @@ class ContactFormVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
-        //Defines access rights
-        switch ($attribute) {
-            case self::CONFIG:
-            case self::DASHBOARD:
-                return $this->decisionManager->decide($token, array($this->configService->getParameter('c975LContactForm.roleNeeded', 'c975l/contactform-bundle')));
-                break;
-        }
-
-        throw new LogicException('Invalid attribute: ' . $attribute);
+        return match ($attribute) {
+            self::CONFIG, self::DASHBOARD => $this->decisionManager->decide($token, [$this->configService->getParameter('c975LContactForm.roleNeeded', 'c975l/contactform-bundle')]),
+            default => throw new LogicException('Invalid attribute: ' . $attribute),
+        };
     }
 }
