@@ -28,55 +28,34 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class ContactFormService implements ContactFormServiceInterface
 {
     /**
-     * Stores ConfigServiceInterface
-     * @var ConfigServiceInterface
-     */
-    private $configService;
-
-    /**
-     * Stores ContactFormEmailInterface
-     * @var ContactFormEmailInterface
-     */
-    private $contactFormEmail;
-
-    /**
-     * Stores ContactFormFactoryInterface
-     * @var ContactFormFactoryInterface
-     */
-    private $contactFormFactory;
-
-    /**
      * Stores current Request
-     * @var Request
      */
-    private $request;
-
-    /**
-     * Stores ServiceToolsInterface
-     * @var ServiceToolsInterface
-     */
-    private $serviceTools;
-
-    /**
-     * Stores ServiceUserInterface
-     * @var ServiceUserInterface
-     */
-    private $serviceUser;
+    private readonly ?\Symfony\Component\HttpFoundation\Request $request;
 
     public function __construct(
-        ConfigServiceInterface $configService,
-        ContactFormEmailInterface $contactFormEmail,
-        ContactFormFactoryInterface $contactFormFactory,
+        /**
+         * Stores ConfigServiceInterface
+         */
+        private readonly ConfigServiceInterface $configService,
+        /**
+         * Stores ContactFormEmailInterface
+         */
+        private readonly ContactFormEmailInterface $contactFormEmail,
+        /**
+         * Stores ContactFormFactoryInterface
+         */
+        private readonly ContactFormFactoryInterface $contactFormFactory,
         RequestStack $requestStack,
-        ServiceToolsInterface $serviceTools,
-        ServiceUserInterface $serviceUser
+        /**
+         * Stores ServiceToolsInterface
+         */
+        private readonly ServiceToolsInterface $serviceTools,
+        /**
+         * Stores ServiceUserInterface
+         */
+        private readonly ServiceUserInterface $serviceUser
     ) {
-        $this->configService = $configService;
-        $this->contactFormEmail = $contactFormEmail;
-        $this->contactFormFactory = $contactFormFactory;
         $this->request = $requestStack->getCurrentRequest();
-        $this->serviceTools = $serviceTools;
-        $this->serviceUser = $serviceUser;
     }
 
     /**
@@ -169,9 +148,9 @@ class ContactFormService implements ContactFormServiceInterface
 
             //Creates flash message
             if ($emailSent) {
-                $this->serviceTools->createFlash('contactForm', 'text.message_sent');
+                $this->serviceTools->createFlash('text.message_sent', 'contactForm');
             } else {
-                $this->serviceTools->createFlash('contactForm', 'text.message_not_sent', 'danger', array('%error%' => $event->getError()));
+                $this->serviceTools->createFlash('text.message_not_sent', 'contactForm', 'danger', ['%error%' => $event->getError()]);
             }
         }
 

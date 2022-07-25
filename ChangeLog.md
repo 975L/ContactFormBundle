@@ -1,5 +1,11 @@
 # Changelog
 
+## v6.0
+
+- Changed to PHP 8 (25/07/2022)
+
+Upgrading from v5.x? **Check UPGRADE.md**
+
 ## v5.0.1
 
 - Added return type for Voter (24/07/2022)
