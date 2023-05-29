@@ -1,5 +1,9 @@
 # Changelog
 
+## v6.0.1
+
+- Added TreeBuilder return type (29/05/2023)
+
 ## v6.0
 
 - Changed to PHP 8 (25/07/2022)
