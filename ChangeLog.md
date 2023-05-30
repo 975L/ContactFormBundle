@@ -1,5 +1,9 @@
 # Changelog
 
+## v6.0.2
+
+- Added return carriages (30/05/2023)
+
 ## v6.0.1
 
 - Added TreeBuilder return type (29/05/2023)
