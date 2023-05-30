@@ -41,7 +41,10 @@ class ContactFormFactory implements ContactFormFactoryInterface
     {
         switch ($name) {
             case 'display':
-                $config = ['receiveCopy' => $event->getReceiveCopy(), 'gdpr' => $this->configService->getParameter('c975LContactForm.gdpr')];
+                $config = [
+                    'receiveCopy' => $event->getReceiveCopy(),
+                    'gdpr' => $this->configService->getParameter('c975LContactForm.gdpr')
+                ];
                 break;
             default:
                 $config = [];
