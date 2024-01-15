@@ -33,7 +33,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "c975L\\ContactFormBundle\\": ""
+            "c975L\\ContactFormBundle\\": "src/"
         }
     },
     "config": {

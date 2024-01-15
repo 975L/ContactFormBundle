@@ -5,13 +5,13 @@ services:
         public: true
 
     c975L\ContactFormBundle\Controller\:
-        resource: '../../Controller/*'
+        resource: '../src/Controller/*'
 
     c975L\ContactFormBundle\Form\:
-        resource: '../../Form/*'
+        resource: '../src/Form/*'
 
     c975L\ContactFormBundle\Security\:
-        resource: '../../Security/*'
+        resource: '../src/Security/*'
 
     c975L\ContactFormBundle\Service\:
-        resource: '../../Service/*'
+        resource: '../src/Service/*'

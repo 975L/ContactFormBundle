@@ -43,12 +43,12 @@ class ContactFormController extends AbstractController
      * Displays the dashboard
      * @return Response
      * @throws AccessDeniedException
-     *
-     * @Route("/contact/dashboard",
-     *      name="contactform_dashboard",
-     *    methods={"HEAD", "GET", "POST"})
      */
-    //
+    #[Route(
+        '/contact/dashboard',
+        name: 'contactform_dashboard',
+        methods: ['GET', 'POST']
+    )]
     public function dashboard()
     {
         $this->denyAccessUnlessGranted('c975lContactForm-dashboard');
@@ -61,11 +61,12 @@ class ContactFormController extends AbstractController
     /**
      * Displays ContactForm and handles its submission
      * @return Response
-     *
-     * @Route("/contact",
-     *    name="contactform_display",
-     *    methods={"HEAD", "GET", "POST"})
      */
+    #[Route(
+        '/contact/',
+        name: 'contactform_display',
+        methods: ['GET', 'POST']
+    )]
     public function display(Request $request, ConfigServiceInterface $configService)
     {
         //Creates ContactForm
@@ -104,11 +105,12 @@ class ContactFormController extends AbstractController
      * Displays the configuration
      * @return Response
      * @throws AccessDeniedException
-     *
-     * @Route("/contact/config",
-     *    name="contactform_config",
-     *    methods={"HEAD", "GET", "POST"})
      */
+    #[Route(
+        '/contact/config',
+        name: 'contactform_config',
+        methods: ['GET', 'POST']
+    )]
     public function config(Request $request, ConfigServiceInterface $configService)
     {
         $this->denyAccessUnlessGranted('c975lContactForm-config', null);
