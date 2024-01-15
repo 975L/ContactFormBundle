@@ -1,5 +1,12 @@
 # Changelog
 
+## v7.0
+
+- Changed to new recomended structure (15/01/2024)
+
+Upgrading from v5.x? **Check UPGRADE.md**
+
+
 ## v6.0.2
 
 - Added return carriages (30/05/2023)
