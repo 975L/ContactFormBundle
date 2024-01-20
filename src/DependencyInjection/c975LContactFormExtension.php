@@ -11,7 +11,6 @@ namespace c975L\ContactFormBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-//use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * DI Extension Class
@@ -23,7 +22,7 @@ class c975LContactFormExtension extends Extension
     /**
      * {@inheritdoc}
      */
-     public function load(array $configs, ContainerBuilder $container): void
-     {
-     }
+    public function load(array $configs, ContainerBuilder $container): void
+    {
+    }
 }

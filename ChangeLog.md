@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.0.2
+
+- Cosmetic changes (20/01/2024)
+
 ## v7.0.1
 
 - Corrected structure (16/01/2024)
