@@ -63,7 +63,7 @@ class ContactFormController extends AbstractController
      * @return Response
      */
     #[Route(
-        '/contact/',
+        '/contact',
         name: 'contactform_display',
         methods: ['GET', 'POST']
     )]

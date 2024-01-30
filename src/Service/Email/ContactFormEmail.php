@@ -27,7 +27,7 @@ class ContactFormEmail implements ContactFormEmailInterface
     /**
      * Stores current Request
      */
-    private readonly ?\Symfony\Component\HttpFoundation\Request $request;
+    private readonly ?Request $request;
 
     public function __construct(
         /**
