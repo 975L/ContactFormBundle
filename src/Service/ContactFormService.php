@@ -30,7 +30,7 @@ class ContactFormService implements ContactFormServiceInterface
     /**
      * Stores current Request
      */
-    private readonly ?\Symfony\Component\HttpFoundation\Request $request;
+    private readonly ?Request $request;
 
     public function __construct(
         /**
@@ -77,7 +77,6 @@ class ContactFormService implements ContactFormServiceInterface
             ->setName($this->serviceUser->getName())
             ->setEmail($this->serviceUser->getEmail())
             ->setSubject($this->getSubject())
-            ->setIp($this->request->getClientIp())
         ;
 
         return $contactForm;
@@ -96,7 +95,7 @@ class ContactFormService implements ContactFormServiceInterface
      */
     public function getSubject()
     {
-        $subject = filter_var($this->request->query->get('s'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+        $subject = filter_var($this->request->query->get('s'), FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES);
 
         return empty($subject) ? null : $subject;
     }

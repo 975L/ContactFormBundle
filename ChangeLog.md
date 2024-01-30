@@ -1,5 +1,11 @@
 # Changelog
 
+## v7.1
+
+- Removed trailing slash in Route (29/01/2024)
+- Replaced FILTER_SANITIZE_STRING (29/01/2024)
+- Removed storage of ip address (29/01/2024)
+
 ## v7.0.3
 
 - Added voidCosmetic changes (20/01/2024)
@@ -17,7 +23,6 @@
 - Changed to new recomended bundle SF 7 structure (15/01/2024)
 
 Upgrading from v5.x? **Check UPGRADE.md**
-
 
 ## v6.0.2
 

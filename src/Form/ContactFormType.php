@@ -27,7 +27,7 @@ class ContactFormType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $subjectReadonly = null !== $options['data']->getSubject() ? true : false;
 
@@ -93,16 +93,6 @@ class ContactFormType extends AbstractType
                         'rows' => 10,
                         'placeholder' => 'placeholder.message'
                     ]
-                ]
-            )
-            ->add(
-                'ip',
-                TextType::class,
-                [
-                    'label' => 'label.ip',
-                    'translation_domain' => 'services',
-                    'required' => true,
-                    'attr' => ['readonly' => true]
                 ]
             );
         //Receive copy

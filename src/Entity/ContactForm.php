@@ -72,12 +72,6 @@ class ContactForm
     protected $subject;
 
     /**
-     * Stores the ip address used to submit ContactForm
-     * @var string
-     */
-    protected $ip;
-
-    /**
      * If user wants to receive a copy of the email sent by ContactForm
      * @var bool
      */
@@ -165,27 +159,6 @@ class ContactForm
     public function getSubject()
     {
         return $this->subject;
-    }
-
-    /**
-     * Set ip
-     * @param string|null
-     * @return ContactForm
-     */
-    public function setIp($ip)
-    {
-        $this->ip = $ip;
-
-        return $this;
-    }
-
-    /**
-     * Get ip
-     * @return string|null
-     */
-    public function getIp()
-    {
-        return $this->ip;
     }
 
     /**
