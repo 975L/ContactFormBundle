@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.2
+
+- Changed form (11/02/2024)
+
 ## v7.1
 
 - Removed trailing slash in Route (29/01/2024)
