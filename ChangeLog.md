@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.3
+
+- Suppressed spaceless filter as it's deprecated (12/09/2024)
+
 ## v7.2
 
 - Changed form (11/02/2024)

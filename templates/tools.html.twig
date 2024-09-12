@@ -1,6 +1,5 @@
 {% trans_default_domain 'toolbar' %}
 
-{% apply spaceless %}
 {# Dashboard #}
 {{ toolbar_button(path('contactform_dashboard'), 'dashboard', 'md', 'label.contactform'|trans) }}
 
@@ -19,4 +18,3 @@
 
 {# Other dashboards #}
 {{ toolbar_dashboards('md') }}
-{% endapply %}
