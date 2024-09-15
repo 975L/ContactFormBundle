@@ -54,7 +54,7 @@ class ContactFormController extends AbstractController
         $this->denyAccessUnlessGranted('c975lContactForm-dashboard');
 
         //Renders the dashboard
-        return $this->render('@c975LContactForm/pages/dashboard.html.twig');
+        return $this->render('@c975LContactForm/pages/dashboard.html.twig')->setMaxAge(3600);
     }
 
 //DISPLAY
@@ -97,7 +97,7 @@ class ContactFormController extends AbstractController
             'form' => $form->createView(),
             'site' => $configService->getParameter('c975LCommon.site'),
             'subject' => $contactForm->getSubject()
-        ]);
+        ])->setMaxAge(3600);
     }
 
 //CONFIG
@@ -131,6 +131,6 @@ class ContactFormController extends AbstractController
         return $this->render('@c975LConfig/forms/config.html.twig', [
             'form' => $form->createView(),
             'toolbar' => '@c975LContactForm'
-        ]);
+        ])->setMaxAge(3600);
     }
 }
