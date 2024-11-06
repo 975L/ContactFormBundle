@@ -42,7 +42,6 @@ class ContactFormType extends AbstractType
                     'data' => null,
                     'attr' => [
                         'placeholder' => 'label.username',
-                        'autocomplete' => 'off'
                     ]
                 ]
             )
@@ -54,7 +53,6 @@ class ContactFormType extends AbstractType
                     'required' => true,
                     'attr' => [
                         'placeholder' => 'placeholder.name',
-                        'autocomplete' => 'off'
                     ]
                 ]
             )
@@ -66,7 +64,6 @@ class ContactFormType extends AbstractType
                     'required' => true,
                     'attr' => [
                         'placeholder' => 'placeholder.email',
-                        'autocomplete' => 'off'
                     ]
                 ]
             )
@@ -79,7 +76,6 @@ class ContactFormType extends AbstractType
                     'attr' => [
                         'placeholder' => 'placeholder.subject',
                         'readonly' => $subjectReadonly,
-                        'autocomplete' => 'off'
                     ]
                 ]
             )

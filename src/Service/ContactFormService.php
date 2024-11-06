@@ -83,7 +83,7 @@ class ContactFormService implements ContactFormServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function createForm(string $name, ContactForm $contactForm, ContactFormEvent $event)
+    public function createForm(string $name, ContactForm $contactForm, ContactFormEvent $event): Form
     {
         return $this->contactFormFactory->create($name, $contactForm, $event);
     }
