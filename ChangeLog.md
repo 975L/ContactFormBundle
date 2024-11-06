@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.5
+
+- Removed autocomplete off as not useful (06/11/2024)
+
 ## v7.4.1
 
 - Added return type (06/11/2024)

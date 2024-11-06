@@ -30,7 +30,7 @@ interface ContactFormServiceInterface
      * Shortcut to call ContactFormFactory to create Form
      * @return Form
      */
-    public function createForm(string $name, ContactForm $contactForm, ContactFormEvent $event);
+    public function createForm(string $name, ContactForm $contactForm, ContactFormEvent $event): Form;
 
     /**
      * Gets subject if provided by url parameter "s"
