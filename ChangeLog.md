@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.5.1
+
+- Converted Assert to attributes (06/11/2024)
+
 ## v7.5
 
 - Removed autocomplete off as not useful (06/11/2024)

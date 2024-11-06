@@ -21,54 +21,33 @@ class ContactForm
     /**
      * Stores the email address provided in ContactForm
      * @var string
-     *
-     * @Assert\NotBlank()
-     * @Assert\Email(
-     *     message = "email.not_valid"
-     * )
      */
-    protected $email;
+    #[Assert\NotBlank]
+    #[Assert\Email(message: "email.not_valid")]
+     protected $email;
 
     /**
      * Stores the name provided in ContactForm
      * @var string
-     *
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 128,
-     *      minMessage = "name.min_length",
-     *      maxMessage = "name.max_length"
-     * )
      */
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 128)]
     protected $name;
 
     /**
      * Stores the message provided in ContactForm
      * @var string
-     *
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *      min = 20,
-     *      max = 2000,
-     *      minMessage = "message.min_length",
-     *      maxMessage = "message.max_length"
-     * )
      */
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 20, max: 2000)]
     protected $message;
 
     /**
      * Stores the subject provided in ContactForm
      * @var string
-     *
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 256,
-     *      minMessage = "subject.min_length",
-     *      maxMessage = "subject.max_length"
-     * )
      */
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 256)]
     protected $subject;
 
     /**
