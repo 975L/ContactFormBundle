@@ -24,7 +24,7 @@ interface ContactFormServiceInterface
      * Creates the contactForm
      * @return ContactForm
      */
-    public function create();
+    public function create(): ContactForm;
 
     /**
      * Shortcut to call ContactFormFactory to create Form

@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.4.1
+
+- Added return type (06/11/2024)
+
 ## v7.4
 
 - Added ->setMaxAge(3600) on controllers (15/09/2024)
@@ -20,7 +24,7 @@
 
 ## v7.0.3
 
-- Added voidCosmetic changes (20/01/2024)
+- Added Cosmetic changes (20/01/2024)
 
 ## v7.0.2
 

@@ -61,7 +61,7 @@ class ContactFormService implements ContactFormServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function create()
+    public function create(): ContactForm
     {
         //Adds time to session to check if a robot has filled the form
         if (null === $this->request->getSession()->get('time')) {
@@ -73,11 +73,9 @@ class ContactFormService implements ContactFormServiceInterface
 
         //Defines the ContactForm
         $contactForm = new ContactForm();
-        $contactForm
-            ->setName($this->serviceUser->getName())
-            ->setEmail($this->serviceUser->getEmail())
-            ->setSubject($this->getSubject())
-        ;
+        $contactForm->setName($this->serviceUser->getName());
+        $contactForm->setEmail($this->serviceUser->getEmail());
+        $contactForm->setSubject($this->getSubject());
 
         return $contactForm;
     }
