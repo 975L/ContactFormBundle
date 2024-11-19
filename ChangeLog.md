@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.5.2
+
+- Removed code about ip address (19/11/2024)
+
 ## v7.5.1
 
 - Converted Assert to attributes (06/11/2024)

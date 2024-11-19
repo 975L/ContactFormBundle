@@ -43,8 +43,7 @@ class ContactFormEmail implements ContactFormEmailInterface
          * Stores Environment
          */
         private readonly Environment $environment
-    )
-    {
+    ) {
         $this->request = $requestStack->getCurrentRequest();
     }
 
@@ -56,12 +55,12 @@ class ContactFormEmail implements ContactFormEmailInterface
         $emailData = $event->getEmailData();
 
         //emailData has been updated after Event SEND_FORM dispatch
-        if (is_array($emailData) &&
+        if (
+            is_array($emailData) &&
             array_key_exists('subject', $emailData) &&
             array_key_exists('bodyData', $emailData) &&
             array_key_exists('bodyEmail', $emailData)
-        )
-        {
+        ) {
             //Updates emailData
             if (!array_key_exists('sentFrom', $emailData)) {
                 $emailData['sentFrom'] = $this->configService->getParameter('c975LContactForm.sentTo');
@@ -75,20 +74,27 @@ class ContactFormEmail implements ContactFormEmailInterface
             if (!array_key_exists('replyTo', $emailData)) {
                 $emailData['replyTo'] = $formData->getEmail();
             }
-            if (!array_key_exists('ip', $emailData)) {
-                $emailData['ip'] = $this->request->getClientIp();
-            }
             if (!array_key_exists('form', $emailData['bodyData'])) {
                 $emailData['bodyData']['form'] = $formData;
             }
             $emailData['body'] = $this->environment->render($emailData['bodyEmail'], $emailData['bodyData']);
             unset($emailData['bodyEmail']);
             unset($emailData['bodyData']);
-        //Otherwise defines generic email
+            //Otherwise defines generic email
         } elseif (null === $event->getError()) {
             $bodyEmail = '@c975LContactForm/emails/contact.html.twig';
-            $bodyData = ['locale' => $this->request->getLocale(), 'form' => $formData];
-            $emailData = ['subject' => $formData->getSubject(), 'sentFrom' => $this->configService->getParameter('c975LContactForm.sentTo'), 'sentTo' => $this->configService->getParameter('c975LContactForm.sentTo'), 'sentCc' => $formData->getEmail(), 'replyTo' => $formData->getEmail(), 'body' => $this->environment->render($bodyEmail, $bodyData), 'ip' => $this->request->getClientIp()];
+            $bodyData = [
+                'locale' => $this->request->getLocale(),
+                'form' => $formData
+            ];
+            $emailData = [
+                'subject' => $formData->getSubject(),
+                'sentFrom' => $this->configService->getParameter('c975LContactForm.sentTo'),
+                'sentTo' => $this->configService->getParameter('c975LContactForm.sentTo'),
+                'sentCc' => $formData->getEmail(),
+                'replyTo' => $formData->getEmail(),
+                'body' => $this->environment->render($bodyEmail, $bodyData),
+            ];
         }
 
         //Removes sentCC if checkbox to receive copy hasn't been checked

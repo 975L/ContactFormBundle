@@ -13,6 +13,7 @@ use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\Form;
 
 /**
  * ContactFormFactory class
@@ -37,7 +38,7 @@ class ContactFormFactory implements ContactFormFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function create(string $name, ContactForm $contactForm, ContactFormEvent $event)
+    public function create(string $name, ContactForm $contactForm, ContactFormEvent $event): Form
     {
         switch ($name) {
             case 'display':
