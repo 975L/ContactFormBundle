@@ -24,5 +24,5 @@ interface ContactFormFactoryInterface
      * Returns the defined form
      * @return Form
      */
-    public function create(string $name, ContactForm $contactForm, ContactFormEvent $event);
+    public function create(string $name, ContactForm $contactForm, ContactFormEvent $event): Form;
 }
