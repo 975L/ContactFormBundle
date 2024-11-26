@@ -1,5 +1,11 @@
 # Changelog
 
+## v7.6
+
+- Removed use of c975L\EmailBundle\Service\EmailServiceInterface (26/11/2024)
+- Made use of Symfony\Component\Mailer\MailerInterface (26/11/2024)
+- Added use of TemplatedEmail instead of using Twig Environment (26/11/2024)
+
 ## v7.5.3
 
 - Corrected sent datetime format (26/11/2024)

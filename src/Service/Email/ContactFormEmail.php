@@ -9,13 +9,14 @@
 
 namespace c975L\ContactFormBundle\Service\Email;
 
-use c975L\ConfigBundle\Service\ConfigServiceInterface;
-use c975L\ContactFormBundle\Entity\ContactForm;
-use c975L\ContactFormBundle\Event\ContactFormEvent;
-use c975L\EmailBundle\Service\EmailServiceInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use c975L\ContactFormBundle\Entity\ContactForm;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Twig\Environment;
+use c975L\ContactFormBundle\Event\ContactFormEvent;
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
 
 /**
  * Services related to ContactForm Email
@@ -30,19 +31,15 @@ class ContactFormEmail implements ContactFormEmailInterface
     private readonly ?Request $request;
 
     public function __construct(
+        private readonly RequestStack $requestStack,
         /**
          * Stores ConfigServiceInterface
          */
         private readonly ConfigServiceInterface $configService,
         /**
-         * Stores EmailServiceInterface
+         * Stores MailerInterface
          */
-        private readonly EmailServiceInterface $emailService,
-        RequestStack $requestStack,
-        /**
-         * Stores Environment
-         */
-        private readonly Environment $environment
+        private readonly MailerInterface $mailer
     ) {
         $this->request = $requestStack->getCurrentRequest();
     }
@@ -54,55 +51,30 @@ class ContactFormEmail implements ContactFormEmailInterface
     {
         $emailData = $event->getEmailData();
 
-        //emailData has been updated after Event SEND_FORM dispatch
-        if (
-            is_array($emailData) &&
-            array_key_exists('subject', $emailData) &&
-            array_key_exists('bodyData', $emailData) &&
-            array_key_exists('bodyEmail', $emailData)
-        ) {
-            //Updates emailData
-            if (!array_key_exists('sentFrom', $emailData)) {
-                $emailData['sentFrom'] = $this->configService->getParameter('c975LContactForm.sentTo');
-            }
-            if (!array_key_exists('sentTo', $emailData)) {
-                $emailData['sentTo'] = $this->configService->getParameter('c975LContactForm.sentTo');
-            }
-            if (!array_key_exists('sentCc', $emailData)) {
-                $emailData['sentCc'] = $formData->getEmail();
-            }
-            if (!array_key_exists('replyTo', $emailData)) {
-                $emailData['replyTo'] = $formData->getEmail();
-            }
-            if (!array_key_exists('form', $emailData['bodyData'])) {
-                $emailData['bodyData']['form'] = $formData;
-            }
-            $emailData['body'] = $this->environment->render($emailData['bodyEmail'], $emailData['bodyData']);
-            unset($emailData['bodyEmail']);
-            unset($emailData['bodyData']);
-            //Otherwise defines generic email
-        } elseif (null === $event->getError()) {
-            $bodyEmail = '@c975LContactForm/emails/contact.html.twig';
-            $bodyData = [
-                'locale' => $this->request->getLocale(),
-                'form' => $formData
-            ];
-            $emailData = [
-                'subject' => $formData->getSubject(),
-                'sentFrom' => $this->configService->getParameter('c975LContactForm.sentTo'),
-                'sentTo' => $this->configService->getParameter('c975LContactForm.sentTo'),
-                'sentCc' => $formData->getEmail(),
-                'replyTo' => $formData->getEmail(),
-                'body' => $this->environment->render($bodyEmail, $bodyData),
-            ];
+        // Defines data
+        $from = is_array($emailData) && array_key_exists('sentFrom', $emailData) ? $emailData['sentFrom'] : $this->configService->getParameter('c975LContactForm.sentTo');
+        $to = is_array($emailData) && array_key_exists('sentTo', $emailData) ? $emailData['sentTo'] : $this->configService->getParameter('c975LContactForm.sentTo');
+        $cc = is_array($emailData) && array_key_exists('sentCc', $emailData) ? $emailData['sentCc'] : $formData->getEmail();
+        $replyTo = is_array($emailData) && array_key_exists('replyTo', $emailData) ? $emailData['replyTo'] : $formData->getEmail();
+
+        // Defines email
+        $email = new TemplatedEmail();
+        $email->subject($formData->getSubject());
+        $email->from(new Address($from));
+        $email->to(new Address($to));
+        $email->replyTo(new Address($replyTo));
+        $email->htmlTemplate('@c975LContactForm/emails/contact.html.twig');
+        $email->context([
+            'locale' => $this->request->getLocale(),
+            'form' => $formData
+        ]);
+
+        // Adds cc if checkbox to receive copy has been checked
+        if ($formData->getReceiveCopy()) {
+            $email->cc(new Address($cc));
         }
 
-        //Removes sentCC if checkbox to receive copy hasn't been checked
-        if (true !== $formData->getReceiveCopy()) {
-            unset($emailData['sentCc']);
-        }
-
-        return $emailData;
+        return $email;
     }
 
     /**
@@ -110,13 +82,15 @@ class ContactFormEmail implements ContactFormEmailInterface
      */
     public function send(ContactFormEvent $event, ContactForm $formData)
     {
-        //Removes time from session
+        // Removes time from session
         $this->request->getSession()->remove('time');
 
-        //Sends email
-        $emailData = $this->defineData($event, $formData);
-        if (is_array($emailData)) {
-            return $this->emailService->send($emailData, $this->configService->getParameter('c975LContactForm.database'));
+        // Defines data for email and sends it if TemplatedEmail
+        $email = $this->defineData($event, $formData);
+        if ($email instanceof TemplatedEmail) {
+            $this->mailer->send($email);
+
+            return true;
         }
 
         return false;

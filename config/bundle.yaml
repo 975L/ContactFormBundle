@@ -9,11 +9,6 @@ c975LContactForm:
         required: true
         default: null
         info: "Email address used to receive the emails: i.e. contact@example.com"
-    database:
-        type: bool
-        required: false
-        default: false
-        info: "If the emails sent via contact form should be registered in the database"
     gdpr:
         type: bool
         required: false
