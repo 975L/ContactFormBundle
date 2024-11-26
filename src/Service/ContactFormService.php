@@ -9,16 +9,16 @@
 
 namespace c975L\ContactFormBundle\Service;
 
-use c975L\ConfigBundle\Service\ConfigServiceInterface;
-use c975L\ContactFormBundle\Entity\ContactForm;
-use c975L\ContactFormBundle\Event\ContactFormEvent;
-use c975L\ContactFormBundle\Form\ContactFormFactoryInterface;
-use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
-use c975L\ServicesBundle\Service\ServiceToolsInterface;
-use c975L\ServicesBundle\Service\ServiceUserInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use c975L\ContactFormBundle\Entity\ContactForm;
 use Symfony\Component\HttpFoundation\RequestStack;
+use c975L\ContactFormBundle\Event\ContactFormEvent;
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
+use c975L\ServicesBundle\Service\ServiceUserInterface;
+use c975L\ServicesBundle\Service\ServiceToolsInterface;
+use c975L\ContactFormBundle\Form\ContactFormFactoryInterface;
+use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
 
 /**
  * Main services related to ContactForm
@@ -33,6 +33,7 @@ class ContactFormService implements ContactFormServiceInterface
     private readonly ?Request $request;
 
     public function __construct(
+        private readonly RequestStack $requestStack,
         /**
          * Stores ConfigServiceInterface
          */
@@ -45,7 +46,6 @@ class ContactFormService implements ContactFormServiceInterface
          * Stores ContactFormFactoryInterface
          */
         private readonly ContactFormFactoryInterface $contactFormFactory,
-        RequestStack $requestStack,
         /**
          * Stores ServiceToolsInterface
          */
