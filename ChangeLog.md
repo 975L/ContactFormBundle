@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.5.3
+
+- Corrected sent datetime format (26/11/2024)
+- Added a note about css style for honeypot (26/11/2024)
+
 ## v7.5.2
 
 - Removed code about ip address (19/11/2024)

@@ -95,6 +95,18 @@ To avoid ContactFormBundle serving as an entry point to send spam, the field `us
 
 For both cases, ContactFormBundle will act as if the mail was sent, but it will not be the case.
 
+**Please note** that if you have disabled `unsafe-inline` for `style-src` in your Content Security Policy, you have to add the following code in your stylesheet css file. If you use [SiteBundle](https://github.com/975L/SiteBundle), it's already included.
+
+```css
+label[for=contact_form_username],
+#contact_form_username {
+    position:absolute;
+    top:-1000px;
+    left:-1000px;
+    display:none
+}
+```
+
 ### Changing infoText
 
 You can change the text displayed at the top of the Contact Form with the following code in your overriding template `/templates/c975LContactFormBundle/layout.html.twig`:
