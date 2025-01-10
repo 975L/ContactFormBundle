@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.6.1
+
+- Added sentToName parameter (10/01/2025)
+
 ## v7.6
 
 - Removed use of c975L\EmailBundle\Service\EmailServiceInterface (26/11/2024)

@@ -51,17 +51,19 @@ class ContactFormEmail implements ContactFormEmailInterface
     {
         $emailData = $event->getEmailData();
 
-        // Defines data
+        // Defines adresses and names
         $from = is_array($emailData) && array_key_exists('sentFrom', $emailData) ? $emailData['sentFrom'] : $this->configService->getParameter('c975LContactForm.sentTo');
+        $fromName = $this->configService->hasParameter('c975LContactForm.sentToName') ? $this->configService->getParameter('c975LContactForm.sentToName') : '';
         $to = is_array($emailData) && array_key_exists('sentTo', $emailData) ? $emailData['sentTo'] : $this->configService->getParameter('c975LContactForm.sentTo');
-        $cc = is_array($emailData) && array_key_exists('sentCc', $emailData) ? $emailData['sentCc'] : $formData->getEmail();
+        $toName = $this->configService->hasParameter('c975LContactForm.sentToName') ? $this->configService->getParameter('c975LContactForm.sentToName') : '';
         $replyTo = is_array($emailData) && array_key_exists('replyTo', $emailData) ? $emailData['replyTo'] : $formData->getEmail();
+        $cc = is_array($emailData) && array_key_exists('sentCc', $emailData) ? $emailData['sentCc'] : $formData->getEmail();
 
-        // Defines email
+        // Creates email
         $email = new TemplatedEmail();
         $email->subject($formData->getSubject());
-        $email->from(new Address($from));
-        $email->to(new Address($to));
+        $email->from(new Address($from, $fromName));
+        $email->to(new Address($to, $toName));
         $email->replyTo(new Address($replyTo));
         $email->htmlTemplate('@c975LContactForm/emails/contact.html.twig');
         $email->context([

@@ -196,13 +196,13 @@ class ContactFormSubscriber implements EventSubscriberInterface
                 $bodyEmail = 'YOUR_EMAIL_TEMPLATE.html.twig';
                 $bodyData = array(
                      //Any needed data for your template
-                    );
+                );
                 //The following array keys are mandatory, but you can set the other keys defined in c975L\EmailBundle
                 $emailData = array(
                     'subject' => 'YOUR_EMAIL_SUBJECT',
                     'bodyData' => $bodyData,
                     'bodyEmail' => $bodyEmail,
-                    );
+                );
 
                 //Updates event
                 $event->setEmailData($emailData);
