@@ -15,8 +15,8 @@ use c975L\ContactFormBundle\Entity\ContactForm;
 use Symfony\Component\HttpFoundation\RequestStack;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
-use c975L\ServicesBundle\Service\ServiceUserInterface;
-use c975L\ServicesBundle\Service\ServiceToolsInterface;
+use c975L\SiteBundle\Service\ServiceUserInterface;
+use c975L\SiteBundle\Service\ServiceToolsInterface;
 use c975L\ContactFormBundle\Form\ContactFormFactoryInterface;
 use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
 

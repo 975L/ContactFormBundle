@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.7
+
+- Removed use of`c975L/ServicesBundle` (09/03/2025)
+
 ## v7.6.1
 
 - Added sentToName parameter (10/01/2025)
