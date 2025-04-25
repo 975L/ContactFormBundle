@@ -5,8 +5,7 @@ ContactFormBundle does the following:
 - Display a form to contact a website,
 - Pre-fills data if user is logged in,
 - Dispatch events to modify form/email,
-- Sends the email via [c975LEmailBundle](https://github.com/975L/EmailBundle) as `c975LEmailBundle` provides the possibility to save emails in a database, there is an option to NOT do so via this Bundle,
-- Sends a copy to the email provided,
+- Sends the email via mailer,
 - Allows the possibility to send email to other user, related to your app specification, i.e. contact another user without giving its email. This is achieved via event dispatch (see below),
 - Provides honeypot and delay before real submission, to avoid spam and not need to request captcha (see below),
 
@@ -28,8 +27,6 @@ Use [Composer](https://getcomposer.org) to install the library
 ### Step 2: Configure the Bundle
 
 Check dependencies for their configuration:
-
-- [c975LEmailBundle](https://github.com/975L/EmailBundle)
 
 c975LContactFormBundle uses [c975L/ConfigBundle](https://github.com/975L/ConfigBundle) to manage configuration parameters. Use the Route "/contact/config" with the proper user role to modify them.
 
@@ -73,7 +70,7 @@ In `layout.html.twig`, it will mainly consist to extend your layout and define s
 {% endblock %}
 ```
 
-The template used for sending emails is the one of c975LEmailBundle. Override it in `/templates/c975LEmailBundle/emails/layout.html.twig`.
+The template used for sending emails is the one of c975LSiteBundle. Override it in `/templates/c975LSiteBundle/emails/layout.html.twig`.
 
 ### How to use
 
