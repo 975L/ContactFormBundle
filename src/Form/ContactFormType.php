@@ -112,7 +112,7 @@ class ContactFormType extends AbstractType
                     CheckboxType::class,
                     [
                         'label' => 'text.gdpr',
-                        'translation_domain' => 'services',
+                        'translation_domain' => 'site',
                         'required' => true,
                         'mapped' => false
                     ]

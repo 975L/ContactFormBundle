@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.7.1
+
+- Corrected translations moved from services to site domain (25/04/2025)
+
 ## v7.7
 
 - Removed use of`c975L/ServicesBundle` (09/03/2025)
