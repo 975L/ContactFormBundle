@@ -20,7 +20,6 @@
     "require": {
         "php": ">=8.0",
         "c975l/config-bundle": "*",
-        "c975l/email-bundle": "*",
         "c975l/site-bundle": "*",
         "c975l/toolbar-bundle": "*",
         "symfony/form": "*",

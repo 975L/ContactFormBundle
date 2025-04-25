@@ -4,11 +4,26 @@ c975LContactForm:
         required: true
         default: ROLE_ADMIN
         info: "User's role needed to enable access to data linked to ContactFormBundle: i.e. ROLE_ADMIN (default)"
+    from:
+        type: string
+        required: true
+        default: null
+        info: "Email address used to send the emails: i.e. contact@example.com"
+    fromName:
+        type: string
+        required: true
+        default: null
+        info: "Name to be used to send the emails"
     sentTo:
         type: string
         required: true
         default: null
         info: "Email address used to receive the emails: i.e. contact@example.com"
+    sentToName:
+        type: string
+        required: true
+        default: null
+        info: "Name to be used to receive the emails"
     gdpr:
         type: bool
         required: false

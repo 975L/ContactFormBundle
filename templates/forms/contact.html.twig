@@ -5,26 +5,26 @@
 
 {% block contactform_content %}
     <div>
-{# Toolbar #}
+        {# Toolbar #}
         {% if is_granted('ROLE_ADMIN') %}
             {{ toolbar_display('@c975LContactForm/tools.html.twig', 'display', 'md') }}
         {% endif %}
         <p class="text-center">
             {{ infoText|raw }}
         </p>
-{# Form #}
+        {# Form #}
         {{ form_start(form) }}
             {{ form_widget(form) }}
-{# Submit#}
+            {# Submit#}
             <div>
                 <input type="submit" name="submit" title="{{ 'label.send'|trans }}" class="btn btn-primary" value="{{ 'label.send'|trans }}">
             </div>
-{# Mandatory field #}
+            {# Mandatory field #}
             <p class="text-muted">
                 {{ 'label.mandatory_field'|trans({}, 'site') }}
             </p>
         {{ form_end(form) }}
     </div>
-{# Moves the label out of view for user as it acts as an honeypot for robots and should not be filled #}
+    {# Moves the label out of view for user as it acts as an honeypot for robots and should not be filled #}
     <style>label[for=contact_form_username],#contact_form_username {position:absolute;top:-1000px;left:-1000px;display:none}</style>
 {% endblock %}

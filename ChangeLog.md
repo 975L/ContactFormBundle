@@ -1,5 +1,11 @@
 # Changelog
 
+## v7.8
+
+- Removed "c975l/email-bundle from composer.json (25/04/2025)
+- Added config fields from, fromName and sentToName (25/04/2025)
+- Made use of from/fromName in place of sentTo/sentToName [BC-Break] (25/04/2025)
+
 ## v7.7.1
 
 - Corrected translations moved from services to site domain (25/04/2025)
