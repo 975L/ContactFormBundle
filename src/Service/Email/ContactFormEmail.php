@@ -53,7 +53,7 @@ class ContactFormEmail implements ContactFormEmailInterface
 
         // Defines adresses and names
         $from = is_array($emailData) && array_key_exists('sentFrom', $emailData) ? $emailData['sentFrom'] : $this->configService->getParameter('c975LContactForm.from');
-        $fromName = $this->configService->hasParameter('c975LContactForm.sentToName') ? $this->configService->getParameter('c975LContactForm.fromToName') : '';
+        $fromName = $this->configService->hasParameter('c975LContactForm.sentToName') ? $this->configService->getParameter('c975LContactForm.fromName') : '';
 
         $to = is_array($emailData) && array_key_exists('sentTo', $emailData) ? $emailData['sentTo'] : $this->configService->getParameter('c975LContactForm.sentTo');
         $toName = $this->configService->hasParameter('c975LContactForm.sentToName') ? $this->configService->getParameter('c975LContactForm.sentToName') : '';

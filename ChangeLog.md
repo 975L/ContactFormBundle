@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.8.1
+
+- Made use of c975LSite/emails/ instead of c975LEmail/emails/ (25/04/2025)
+- Corrected fromName (25/04/2025)
+
 ## v7.8
 
 - Removed "c975l/email-bundle from composer.json (25/04/2025)
