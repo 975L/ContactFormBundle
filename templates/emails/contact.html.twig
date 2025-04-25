@@ -2,13 +2,13 @@
 {% trans_default_domain 'contactForm' %}
 
 {% block email_content %}
-{# Explanation #}
+    {# Explanation #}
     {% if site is defined %}
         <p>
             {{ 'text.mail_following_sent'|trans }} <strong>{{ site }}</strong>
         </p>
     {% endif %}
-{# Datetime #}
+    {# Datetime #}
     <p>
         <strong>{{ 'label.date_time'|trans }}</strong>
         <br />
@@ -16,7 +16,7 @@
             {{ 'now'|format_datetime('medium', 'medium') }}
         </blockquote>
     </p>
-{# Sender name #}
+    {# Sender name #}
     <p>
         <strong>{{ 'label.sender_name'|trans }}</strong>
         <br />
@@ -24,7 +24,7 @@
             {{ form.name }}
         </blockquote>
     </p>
-{# Sender email #}
+    {# Sender email #}
     <p>
         <strong>{{ 'label.sender_email'|trans }}</strong>
         <br />
@@ -32,7 +32,7 @@
             <a href="mailto:{{ form.email }}">{{ form.email }}</a>
         </blockquote>
     </p>
-{# Subject #}
+    {# Subject #}
     <p>
         <strong>{{ 'label.subject'|trans }}</strong>
         <br />
@@ -40,7 +40,7 @@
             {{ form.subject }}
         </blockquote>
     </p>
-{# Message #}
+    {# Message #}
     <p>
         <strong>{{ 'label.message_sent'|trans }}</strong>
         <br />
