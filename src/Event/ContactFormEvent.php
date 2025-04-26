@@ -13,120 +13,59 @@ use c975L\ContactFormBundle\Entity\ContactForm;
 use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Events to be dispatched throughout the lifecycle of ContactForm
- * @author Laurent Marquet <laurent.marquet@laposte.net>
- * @copyright 2018 975L <contact@975l.com>
- */
 class ContactFormEvent extends Event
 {
-    /**
-     * Used to dispatch event "create.form"
-     */
     final public const CREATE_FORM = 'c975l_contactform.create.form';
-
-    /**
-     * Used to dispatch event "send.form"
-     */
     final public const SEND_FORM = 'c975l_contactform.send.form';
 
-    /**
-     * Stores error
-     * @var string
-     */
     protected $error;
 
-    /**
-     * If user wants to receive a copy of the email sent by ContactForm
-     * @var bool
-     */
     protected $receiveCopy = true;
 
     public function __construct(
-        /**
-         * Stores Request
-         */
         protected Request $request,
-        /**
-         * Stores data issued fy form
-         */
         protected ContactForm $formData,
-        /**
-         * Stores data used to create email
-         */
-        protected array $emailData = []
+        protected array $emailData = [],
     )
     {
     }
 
-    /**
-     * Get formData
-     * @return ContactForm
-     */
-    public function getFormData()
+    public function getFormData(): ContactForm
     {
         return $this->formData;
     }
 
-    /**
-     * Set emailData
-     * @param array
-     */
-    public function setEmailData(array $emailData)
+    public function setEmailData(array $emailData): void
     {
         $this->emailData = $emailData;
     }
 
-    /**
-     * Get emailData
-     * @return array
-     */
-    public function getEmailData()
+    public function getEmailData(): array
     {
         return $this->emailData;
     }
 
-    /**
-     * Set receiveCopy
-     * @param bool
-     */
-    public function setReceiveCopy($receiveCopy)
+    public function setReceiveCopy($receiveCopy): void
     {
         $this->receiveCopy = $receiveCopy;
     }
 
-    /**
-     * Get receiveCopy
-     * @return bool
-     */
-    public function getReceiveCopy()
+    public function getReceiveCopy(): bool
     {
         return $this->receiveCopy;
     }
 
-    /**
-     * Get request
-     * @return Request
-     */
-    public function getRequest()
+    public function getRequest(): Request
     {
         return $this->request;
     }
 
-    /**
-     * Set error
-     * @param string|null
-     */
-    public function setError($error)
+    public function setError($error): void
     {
         $this->error = $error;
     }
 
-    /**
-     * Get error
-     * @return string|null
-     */
-    public function getError()
+    public function getError(): ?string
     {
         return $this->error;
     }

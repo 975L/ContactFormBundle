@@ -7,13 +7,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace c975L\ContactFormBundle\Form;
+namespace c975L\ContactFormBundle\Service;
 
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
-use Symfony\Component\Form\Form;
 
-interface ContactFormFactoryInterface
+interface EmailServiceInterface
 {
-    public function create(string $name, ContactForm $contactForm, ContactFormEvent $event): Form;
+    public function defineData(ContactFormEvent $event, ContactForm $formData): array;
+
+    public function send(ContactFormEvent $event, ContactForm $formData): bool;
 }

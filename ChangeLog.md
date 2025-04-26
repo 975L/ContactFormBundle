@@ -1,5 +1,14 @@
 # Changelog
 
+## v7.9
+
+- Removed dashoard Route (26/04/2025)
+- Added return types (26/04/2025)
+- Suppressed comments (26/04/2025)
+- Changed behavior for copy email, and send a separate email to avoid providing the email address of the receiver (26/04/2025)
+- Update README (26/04/2025)
+- Changed format of email sent (26/04/2025)
+
 ## v7.8.1
 
 - Made use of c975LSite/emails/ instead of c975LEmail/emails/ (25/04/2025)

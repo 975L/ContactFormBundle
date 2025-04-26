@@ -7,8 +7,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace c975L\ContactFormBundle\Service\Email;
+namespace c975L\ContactFormBundle\Service;
 
+use Twig\Environment;
 use Symfony\Component\Mime\Address;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,36 +19,21 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 
-/**
- * Services related to ContactForm Email
- * @author Laurent Marquet <laurent.marquet@laposte.net>
- * @copyright 2018 975L <contact@975l.com>
- */
-class ContactFormEmail implements ContactFormEmailInterface
+class EmailService implements EmailServiceInterface
 {
-    /**
-     * Stores current Request
-     */
     private readonly ?Request $request;
 
     public function __construct(
         private readonly RequestStack $requestStack,
-        /**
-         * Stores ConfigServiceInterface
-         */
         private readonly ConfigServiceInterface $configService,
-        /**
-         * Stores MailerInterface
-         */
-        private readonly MailerInterface $mailer
+        private readonly MailerInterface $mailer,
+        private readonly Environment $twig,
     ) {
         $this->request = $requestStack->getCurrentRequest();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function defineData(ContactFormEvent $event, ContactForm $formData)
+    // Defines data for email
+    public function defineData(ContactFormEvent $event, ContactForm $formData): array
     {
         $emailData = $event->getEmailData();
 
@@ -59,44 +45,53 @@ class ContactFormEmail implements ContactFormEmailInterface
         $toName = $this->configService->hasParameter('c975LContactForm.sentToName') ? $this->configService->getParameter('c975LContactForm.sentToName') : '';
 
         $replyTo = is_array($emailData) && array_key_exists('replyTo', $emailData) ? $emailData['replyTo'] : $formData->getEmail();
-        $cc = is_array($emailData) && array_key_exists('sentCc', $emailData) ? $emailData['sentCc'] : $formData->getEmail();
+        $replyToName = is_array($emailData) && array_key_exists('replyToName', $emailData) ? $emailData['replyToName'] : $formData->getName();
 
-        // Creates email
+        $emails = [];
+        // Creates email for sending to the defined receiver
         $email = new TemplatedEmail();
         $email->subject($formData->getSubject());
         $email->from(new Address($from, $fromName));
         $email->to(new Address($to, $toName));
-        $email->replyTo(new Address($replyTo));
+        $email->replyTo(new Address($replyTo, $replyToName));
         $email->htmlTemplate('@c975LContactForm/emails/contact.html.twig');
         $email->context([
             'locale' => $this->request->getLocale(),
             'form' => $formData
         ]);
+        $emails[] = $email;
 
-        // Adds cc if checkbox to receive copy has been checked
+        // Creates email for sending to sender if checkbox to receive copy has been checked. Do so to avoid providing the email address of the receiver
         if ($formData->getReceiveCopy()) {
-            $email->cc(new Address($cc));
+            $emailSender = clone $email;
+            $emailSender->to(new Address($replyTo));
+            $emailSender->getHeaders()->remove('Reply-To');
+
+            $emails[] = $emailSender;
         }
 
-        return $email;
+        return $emails;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function send(ContactFormEvent $event, ContactForm $formData)
+    // Sends email
+    public function send(ContactFormEvent $event, ContactForm $formData): bool
     {
         // Removes time from session
         $this->request->getSession()->remove('time');
 
         // Defines data for email and sends it if TemplatedEmail
-        $email = $this->defineData($event, $formData);
-        if ($email instanceof TemplatedEmail) {
-            $this->mailer->send($email);
+        $emails = $this->defineData($event, $formData);
+        try {
+            foreach ($emails as $email) {
+                if ($email instanceof TemplatedEmail) {
+                    // echo $this->twig->render($email->getHtmlTemplate(), ['form' => $email->getContext()['form']]); dd(); // for debug
+                    $this->mailer->send($email);
+                }
+            }
 
             return true;
+        } catch (\Exception $e) {
+            return false;
         }
-
-        return false;
     }
 }

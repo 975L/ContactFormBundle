@@ -11,150 +11,82 @@ namespace c975L\ContactFormBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Entity ContactForm (not linked to a DB)
- * @author Laurent Marquet <laurent.marquet@laposte.net>
- * @copyright 2017 975L <contact@975l.com>
- */
 class ContactForm
 {
-    /**
-     * Stores the email address provided in ContactForm
-     * @var string
-     */
     #[Assert\NotBlank]
     #[Assert\Email(message: "email.not_valid")]
-     protected $email;
+    protected $email;
 
-    /**
-     * Stores the name provided in ContactForm
-     * @var string
-     */
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 128)]
     protected $name;
 
-    /**
-     * Stores the message provided in ContactForm
-     * @var string
-     */
     #[Assert\NotBlank]
     #[Assert\Length(min: 20, max: 2000)]
     protected $message;
 
-    /**
-     * Stores the subject provided in ContactForm
-     * @var string
-     */
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 256)]
     protected $subject;
 
-    /**
-     * If user wants to receive a copy of the email sent by ContactForm
-     * @var bool
-     */
     protected $receiveCopy;
 
-    /**
-     * Set email
-     * @param string|null
-     * @return ContactForm
-     */
-    public function setEmail($email)
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
 
-    /**
-     * Get email
-     * @return string|null
-     */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    /**
-     * Set name
-     * @param string|null
-     * @return ContactForm
-     */
-    public function setName($name)
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get name
-     * @return string|null
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * Set message
-     * @param string|null
-     * @return ContactForm
-     */
-    public function setMessage($message)
+    public function setMessage(?string $message): self
     {
         $this->message = $message;
 
         return $this;
     }
 
-    /**
-     * Get message
-     * @return string|null
-     */
-    public function getMessage()
+    public function getMessage(): ?string
     {
         return $this->message;
     }
 
-    /**
-     * Set subject
-     * @param string|null
-     * @return ContactForm
-     */
-    public function setSubject($subject)
+    public function setSubject(?string $subject): self
     {
         $this->subject = $subject;
 
         return $this;
     }
 
-    /**
-     * Get subject
-     * @return string|null
-     */
-    public function getSubject()
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
 
-    /**
-     * Set receiveCopy
-     * @param bool
-     * @return ContactForm
-     */
-    public function setReceiveCopy($receiveCopy)
+    public function setReceiveCopy(?bool $receiveCopy): self
     {
         $this->receiveCopy = $receiveCopy;
+
+        return $this;
     }
 
-    /**
-     * Get receiveCopy
-     * @return bool
-     */
-    public function getReceiveCopy()
+    public function getReceiveCopy(): ?bool
     {
         return $this->receiveCopy;
     }

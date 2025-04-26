@@ -15,29 +15,15 @@ use c975L\ContactFormBundle\Event\ContactFormEvent;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\Form;
 
-/**
- * ContactFormFactory class
- * @author Laurent Marquet <laurent.marquet@laposte.net>
- * @copyright 2018 975L <contact@975l.com>
- */
 class ContactFormFactory implements ContactFormFactoryInterface
 {
     public function __construct(
-        /**
-         * Stores ConfigServiceInterface
-         */
         private readonly ConfigServiceInterface $configService,
-        /**
-         * Stores FormFactoryInterface
-         */
-        private readonly FormFactoryInterface $formFactory
+        private readonly FormFactoryInterface $formFactory,
     )
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function create(string $name, ContactForm $contactForm, ContactFormEvent $event): Form
     {
         switch ($name) {
