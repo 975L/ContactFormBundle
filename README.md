@@ -9,16 +9,10 @@ ContactFormBundle does the following:
 - Allows the possibility to send email to other user, related to your app specification, i.e. contact another user without giving its email. This is achieved via event dispatch (see below),
 - Provides honeypot and delay before real submission, to avoid spam and not need to request captcha (see below),
 
-[ContactFormBundle dedicated web page](https://975l.com/en/pages/contact-form-bundle).
-
-[ContactFormBundle API documentation](https://975l.com/apidoc/c975L/ContactFormBundle.html).
-
 ## Bundle installation
 
 ### Step 1: Download the Bundle
 
-v5.x works with Symfony 6.x. **Use v3|4.x for Symfony 4.x** **Use v2.x for Symfony 3.x**
-Use [Composer](https://getcomposer.org) to install the library
 
 ```bash
     composer require c975l/contactform-bundle
@@ -27,8 +21,6 @@ Use [Composer](https://getcomposer.org) to install the library
 ### Step 2: Configure the Bundle
 
 Check dependencies for their configuration:
-
-c975LContactFormBundle uses [c975L/ConfigBundle](https://github.com/975L/ConfigBundle) to manage configuration parameters. Use the Route "/contact/config" with the proper user role to modify them.
 
 ### Step 3: Declaration of Twig\Extensions\TextExtension
 
@@ -40,8 +32,8 @@ Then, enable the routes by adding them to the `/config/routes.yaml` file of your
 
 ```yml
 c975_l_contact_form:
-    resource: "@c975LContactFormBundle/Controller/"
-    type:     annotation
+    resource: "@c975LContactFormBundle/"
+    type:     attribute
     prefix:   /
     #Multilingual website use the following
     #prefix: /{_locale}
@@ -70,7 +62,7 @@ In `layout.html.twig`, it will mainly consist to extend your layout and define s
 {% endblock %}
 ```
 
-The template used for sending emails is the one of c975LSiteBundle. Override it in `/templates/c975LSiteBundle/emails/layout.html.twig`.
+The templates used for sending emails are the ones of c975LSiteBundle. Override them in `/templates/c975LSiteBundle/emails/`.
 
 ### How to use
 
@@ -92,7 +84,7 @@ To avoid ContactFormBundle serving as an entry point to send spam, the field `us
 
 For both cases, ContactFormBundle will act as if the mail was sent, but it will not be the case.
 
-**Please note** that if you have disabled `unsafe-inline` for `style-src` in your Content Security Policy, you have to add the following code in your stylesheet css file. If you use [SiteBundle](https://github.com/975L/SiteBundle), it's already included.
+**Please note** that if you have disabled `unsafe-inline` for `style-src` in your Content Security Policy, you have to add the following code in your stylesheet css file, otherwise the honeypot will be displayed anf the contact form will not send anything.
 
 ```css
 label[for=contact_form_username],

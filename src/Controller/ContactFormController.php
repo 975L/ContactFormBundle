@@ -9,65 +9,30 @@
 
 namespace c975L\ContactFormBundle\Controller;
 
-use c975L\ConfigBundle\Service\ConfigServiceInterface;
-use c975L\ContactFormBundle\Event\ContactFormEvent;
-use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use c975L\ContactFormBundle\Event\ContactFormEvent;
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-/**
- * Main Controller class
- * @author Laurent Marquet <laurent.marquet@laposte.net>
- * @copyright 2017 975L <contact@975l.com>
- */
 class ContactFormController extends AbstractController
 {
     public function __construct(
-        /**
-         * Stores EventDispatcherInterface
-         */
         private readonly EventDispatcherInterface $dispatcher,
-        /**
-         * Stores ContactFormServiceInterface
-         */
-        private readonly ContactFormServiceInterface $contactFormService
-    )
-    {
+        private readonly ContactFormServiceInterface $contactFormService,
+    ) {
     }
 
-//DASHBOARD
-    /**
-     * Displays the dashboard
-     * @return Response
-     * @throws AccessDeniedException
-     */
-    #[Route(
-        '/contact/dashboard',
-        name: 'contactform_dashboard',
-        methods: ['GET', 'POST']
-    )]
-    public function dashboard()
-    {
-        $this->denyAccessUnlessGranted('c975lContactForm-dashboard');
-
-        //Renders the dashboard
-        return $this->render('@c975LContactForm/pages/dashboard.html.twig')->setMaxAge(3600);
-    }
-
-//DISPLAY
-    /**
-     * Displays ContactForm and handles its submission
-     * @return Response
-     */
+    //DISPLAY
     #[Route(
         '/contact',
         name: 'contactform_display',
         methods: ['GET', 'POST']
     )]
-    public function display(Request $request, ConfigServiceInterface $configService)
+    public function display(Request $request, ConfigServiceInterface $configService): Response
     {
         //Creates ContactForm
         $contactForm = $this->contactFormService->create();
@@ -90,6 +55,7 @@ class ContactFormController extends AbstractController
             if (null !== $redirectUrl) {
                 return $this->redirect($redirectUrl);
             }
+
         }
 
         //Renders the form
@@ -97,40 +63,6 @@ class ContactFormController extends AbstractController
             'form' => $form->createView(),
             'site' => $configService->getParameter('c975LCommon.site'),
             'subject' => $contactForm->getSubject()
-        ])->setMaxAge(3600);
-    }
-
-//CONFIG
-    /**
-     * Displays the configuration
-     * @return Response
-     * @throws AccessDeniedException
-     */
-    #[Route(
-        '/contact/config',
-        name: 'contactform_config',
-        methods: ['GET', 'POST']
-    )]
-    public function config(Request $request, ConfigServiceInterface $configService)
-    {
-        $this->denyAccessUnlessGranted('c975lContactForm-config', null);
-
-        //Defines form
-        $form = $configService->createForm('c975l/contactform-bundle');
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            //Validates config
-            $configService->setConfig($form);
-
-            //Redirects
-            return $this->redirectToRoute('contactform_dashboard');
-        }
-
-        //Renders the config form
-        return $this->render('@c975LConfig/forms/config.html.twig', [
-            'form' => $form->createView(),
-            'toolbar' => '@c975LContactForm'
         ])->setMaxAge(3600);
     }
 }

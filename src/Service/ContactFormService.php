@@ -12,55 +12,30 @@ namespace c975L\ContactFormBundle\Service;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use c975L\ContactFormBundle\Entity\ContactForm;
+use c975L\SiteBundle\Service\ServiceUserInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
-use c975L\ConfigBundle\Service\ConfigServiceInterface;
-use c975L\SiteBundle\Service\ServiceUserInterface;
 use c975L\SiteBundle\Service\ServiceToolsInterface;
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
+use c975L\ContactFormBundle\Service\EmailServiceInterface;
 use c975L\ContactFormBundle\Form\ContactFormFactoryInterface;
-use c975L\ContactFormBundle\Service\Email\ContactFormEmailInterface;
 
-/**
- * Main services related to ContactForm
- * @author Laurent Marquet <laurent.marquet@laposte.net>
- * @copyright 2018 975L <contact@975l.com>
- */
 class ContactFormService implements ContactFormServiceInterface
 {
-    /**
-     * Stores current Request
-     */
     private readonly ?Request $request;
 
     public function __construct(
         private readonly RequestStack $requestStack,
-        /**
-         * Stores ConfigServiceInterface
-         */
         private readonly ConfigServiceInterface $configService,
-        /**
-         * Stores ContactFormEmailInterface
-         */
-        private readonly ContactFormEmailInterface $contactFormEmail,
-        /**
-         * Stores ContactFormFactoryInterface
-         */
+        private readonly EmailServiceInterface $emailService,
         private readonly ContactFormFactoryInterface $contactFormFactory,
-        /**
-         * Stores ServiceToolsInterface
-         */
         private readonly ServiceToolsInterface $serviceTools,
-        /**
-         * Stores ServiceUserInterface
-         */
         private readonly ServiceUserInterface $serviceUser
     ) {
         $this->request = $requestStack->getCurrentRequest();
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    // Creates the contactForm
     public function create(): ContactForm
     {
         //Adds time to session to check if a robot has filled the form
@@ -80,28 +55,22 @@ class ContactFormService implements ContactFormServiceInterface
         return $contactForm;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    // Shortcut to call ContactFormFactory to create Form
     public function createForm(string $name, ContactForm $contactForm, ContactFormEvent $event): Form
     {
         return $this->contactFormFactory->create($name, $contactForm, $event);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getSubject()
+    // Gets subject if provided by url parameter "s"
+    public function getSubject(): ?string
     {
         $subject = filter_var($this->request->query->get('s'), FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_FLAG_NO_ENCODE_QUOTES);
 
         return empty($subject) ? null : $subject;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getReferer()
+    // Gets referer defined in session
+    public function getReferer(): ?string
     {
         //Redirects to url if defined in session
         $sessionRedirectUrl = $this->request->getSession()->get('redirectUrl');
@@ -114,10 +83,8 @@ class ContactFormService implements ContactFormServiceInterface
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function isNotBot($username)
+    // Tests if delay (defined in config) is not too short and if honeypot has not been filled, to avoid being used by bot
+    public function isNotBot($username): bool
     {
         $bot = null === $this->request->getSession()->get('time');
         $bot = $bot ? true : $this->request->getSession()->get('time') + $this->configService->getParameter('c975LContactForm.delay') > time();
@@ -126,32 +93,24 @@ class ContactFormService implements ContactFormServiceInterface
         return ! $bot;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setReferer()
+    // Defines the referer to redirect to after submission of form
+    public function setReferer(): void
     {
         $this->request->getSession()->set('redirectUrl', $this->request->headers->get('referer'));
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function sendEmail(Form $form, ContactFormEvent $event)
+    // Sends email resulting from submission of form if it's not a bot that has used the form
+    public function sendEmail(Form $form, ContactFormEvent $event): ?string
     {
-        //Sends email if it's not a bot that has used the form
         if ($this->isNotBot($form->get('username')->getData())) {
-            $emailSent = $this->contactFormEmail->send($event, $form->getData());
-
-            //Creates flash message
-            if ($emailSent) {
+            // Sedns email and Creates flash message
+            if ($this->emailService->send($event, $form->getData())) {
                 $this->serviceTools->createFlash('text.message_sent', 'contactForm');
             } else {
                 $this->serviceTools->createFlash('text.message_not_sent', 'contactForm', 'danger', ['%error%' => $event->getError()]);
             }
         }
 
-        //Returns defined referer
         return $this->getReferer();
     }
 }

@@ -4,16 +4,13 @@
 {% set infoText = 'text.contact_info'|trans({'%site%': site}) %}
 
 {% block contactform_content %}
-    <div>
-        {# Toolbar #}
-        {% if is_granted('ROLE_ADMIN') %}
-            {{ toolbar_display('@c975LContactForm/tools.html.twig', 'display', 'md') }}
-        {% endif %}
+    <section>
         <p class="text-center">
             {{ infoText|raw }}
         </p>
         {# Form #}
-        {{ form_start(form) }}
+        {{ form_start(form, {'attr': {'data-turbo': 'false'}}) }}
+        {# {{ form_start(form) }} #}
             {{ form_widget(form) }}
             {# Submit#}
             <div>
@@ -24,7 +21,7 @@
                 {{ 'label.mandatory_field'|trans({}, 'site') }}
             </p>
         {{ form_end(form) }}
-    </div>
+    </section>
     {# Moves the label out of view for user as it acts as an honeypot for robots and should not be filled #}
     <style>label[for=contact_form_username],#contact_form_username {position:absolute;top:-1000px;left:-1000px;display:none}</style>
 {% endblock %}

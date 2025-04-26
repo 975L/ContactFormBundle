@@ -13,51 +13,19 @@ use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use Symfony\Component\Form\Form;
 
-/**
- * Interface to be called for DI for ContactFormServiceInterface related services
- * @author Laurent Marquet <laurent.marquet@laposte.net>
- * @copyright 2018 975L <contact@975l.com>
- */
 interface ContactFormServiceInterface
 {
-    /**
-     * Creates the contactForm
-     * @return ContactForm
-     */
     public function create(): ContactForm;
 
-    /**
-     * Shortcut to call ContactFormFactory to create Form
-     * @return Form
-     */
     public function createForm(string $name, ContactForm $contactForm, ContactFormEvent $event): Form;
 
-    /**
-     * Gets subject if provided by url parameter "s"
-     * @return string|null
-     */
-    public function getSubject();
+    public function getSubject(): ?string;
 
-    /**
-     * Gets referer defined in session
-     * @return string|null
-     */
-    public function getReferer();
+    public function getReferer(): ?string;
 
-    /**
-     * Tests if delay (defined in config) is not too short and if honeypot has not been filled, to avoid being used by bot
-     * @return bool
-     */
-    public function isNotBot($username);
+    public function isNotBot(string $username): bool;
 
-    /**
-     * Defines the referer to redirect to after submission of form
-     */
-    public function setReferer();
+    public function setReferer(): void;
 
-    /**
-     * Sends email resulting from submission of form
-     * @return string|null
-     */
-    public function sendEmail(Form $form, ContactFormEvent $event);
+    public function sendEmail(Form $form, ContactFormEvent $event): ?string;
 }

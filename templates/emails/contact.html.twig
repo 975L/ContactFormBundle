@@ -8,44 +8,33 @@
             {{ 'text.mail_following_sent'|trans }} <strong>{{ site }}</strong>
         </p>
     {% endif %}
-    {# Datetime #}
-    <p>
-        <strong>{{ 'label.date_time'|trans }}</strong>
-        <br />
-        <blockquote>
-            {{ 'now'|format_datetime('medium', 'medium') }}
-        </blockquote>
-    </p>
-    {# Sender name #}
-    <p>
-        <strong>{{ 'label.sender_name'|trans }}</strong>
-        <br />
-        <blockquote>
-            {{ form.name }}
-        </blockquote>
-    </p>
-    {# Sender email #}
-    <p>
-        <strong>{{ 'label.sender_email'|trans }}</strong>
-        <br />
-        <blockquote>
-            <a href="mailto:{{ form.email }}">{{ form.email }}</a>
-        </blockquote>
-    </p>
-    {# Subject #}
-    <p>
-        <strong>{{ 'label.subject'|trans }}</strong>
-        <br />
-        <blockquote>
-            {{ form.subject }}
-        </blockquote>
-    </p>
-    {# Message #}
-    <p>
-        <strong>{{ 'label.message_sent'|trans }}</strong>
-        <br />
-        <blockquote>
-            {{ form.message|nl2br|raw }}
-        </blockquote>
-    </p>
+    <table class="border">
+        <tbody>
+            {# Datetime #}
+            <tr>
+                <td class="text-left">{{ 'label.date_time'|trans }}</td>
+                <td class="text-left">{{ 'now'|format_datetime('medium', 'medium') }}</td>
+            </tr>
+            {# Sender name #}
+            <tr>
+                <td class="text-left">{{ 'label.sender_name'|trans }}</td>
+                <td class="text-left">{{ form.name }}</td>
+            </tr>
+            {# Sender email #}
+            <tr>
+                <td class="text-left">{{ 'label.sender_email'|trans }}</td>
+                <td class="text-left"><a href="mailto:{{ form.email }}">{{ form.email }}</a></td>
+            </tr>
+            {# Subject #}
+            <tr>
+                <td class="text-left">{{ 'label.subject'|trans }}</td>
+                <td class="text-left">{{ form.subject }}</td>
+            </tr>
+            {# Message #}
+            <tr>
+                <td class="text-left">{{ 'label.message_sent'|trans }}</td>
+                <td class="text-left">{{ form.message|nl2br|raw }}</td>
+            </tr>
+        </tbody>
+    </table>
 {% endblock %}

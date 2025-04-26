@@ -17,16 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * ContactForm FormType
- * @author Laurent Marquet <laurent.marquet@laposte.net>
- * @copyright 2018 975L <contact@975l.com>
- */
 class ContactFormType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $subjectReadonly = null !== $options['data']->getSubject() ? true : false;
@@ -91,7 +83,7 @@ class ContactFormType extends AbstractType
                     ]
                 ]
             );
-        //Receive copy
+        // Receive copy
         if ($options['config']['receiveCopy']) {
             $builder
                 ->add(
@@ -104,7 +96,7 @@ class ContactFormType extends AbstractType
                     ]
                 );
         }
-        //GDPR
+        // GDPR
         if ($options['config']['gdpr']) {
             $builder
                 ->add(

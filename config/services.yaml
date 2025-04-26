@@ -10,8 +10,5 @@ services:
     c975L\ContactFormBundle\Form\:
         resource: '../src/Form/*'
 
-    c975L\ContactFormBundle\Security\:
-        resource: '../src/Security/*'
-
     c975L\ContactFormBundle\Service\:
         resource: '../src/Service/*'
