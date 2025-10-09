@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.10
+
+- Replaced Symfony\Component\Routing\Annotation\Route by Symfony\Component\Routing\Attribute\Route (09/10/2025)
+
 ## v7.9
 
 - Removed dashoard Route (26/04/2025)
