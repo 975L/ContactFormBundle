@@ -1,12 +1,16 @@
 # Changelog
 
+## v7.11
+
+- Removed use of c975L/ToolbarBundle (03/11/2025)
+
 ## v7.10
 
 - Replaced Symfony\Component\Routing\Annotation\Route by Symfony\Component\Routing\Attribute\Route (09/10/2025)
 
 ## v7.9
 
-- Removed dashoard Route (26/04/2025)
+- Removed dashboard Route (26/04/2025)
 - Added return types (26/04/2025)
 - Suppressed comments (26/04/2025)
 - Changed behavior for copy email, and send a separate email to avoid providing the email address of the receiver (26/04/2025)
