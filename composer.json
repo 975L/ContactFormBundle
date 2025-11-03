@@ -21,7 +21,6 @@
         "php": ">=8.0",
         "c975l/config-bundle": "*",
         "c975l/site-bundle": "*",
-        "c975l/toolbar-bundle": "*",
         "symfony/form": "*",
         "symfony/security-bundle": "*",
         "twig/intl-extra": "*"
