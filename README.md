@@ -80,19 +80,20 @@ You can set the subject by using the url parameter `s` i.e. `http://example.com/
 
 ### HoneyPot and delay to avoid spam
 
-To avoid ContactFormBundle serving as an entry point to send spam, the field `username` is a honeypot. It's only displayed to robots and is hidden via css to normal users. If it's filled, then it's not a user, but a bot. There is also a test for the delay used to submit the form. If the form is submitted before the defined delay then it may has not been filled by a human.
+To avoid ContactFormBundle serving as an entry point to send spam, a dynamic honeypot field is used. The field name and label are randomly generated for each session (e.g., `account_data`, `client_info`, `person_field` with labels like "Company website", "Job title", "Phone number"). This field is only displayed to robots and is hidden via CSS to normal users. If it's filled, then it's not a user, but a bot. There is also a test for the delay used to submit the form. If the form is submitted before the defined delay then it may have not been filled by a human.
 
 For both cases, ContactFormBundle will act as if the mail was sent, but it will not be the case.
 
-**Please note** that if you have disabled `unsafe-inline` for `style-src` in your Content Security Policy, you have to add the following code in your stylesheet css file, otherwise the honeypot will be displayed anf the contact form will not send anything.
+**Please note** that if you have disabled `unsafe-inline` for `style-src` in your Content Security Policy, you have to add the following code in your stylesheet CSS file, otherwise the honeypot will be displayed and the contact form will not send anything.
 
 ```css
-label[for=contact_form_username],
-#contact_form_username {
-    position:absolute;
-    top:-1000px;
-    left:-1000px;
-    display:none
+.sr-only {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
 }
 ```
 

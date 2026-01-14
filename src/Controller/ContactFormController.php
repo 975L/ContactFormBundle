@@ -63,6 +63,7 @@ class ContactFormController extends AbstractController
             'form' => $form->createView(),
             'site' => $configService->getParameter('c975LCommon.site'),
             'subject' => $contactForm->getSubject()
-        ])->setMaxAge(3600);
+        ]);
+        //->setMaxAge(3600);
     }
 }

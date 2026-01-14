@@ -14,12 +14,14 @@ use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ContactFormFactory implements ContactFormFactoryInterface
 {
     public function __construct(
         private readonly ConfigServiceInterface $configService,
         private readonly FormFactoryInterface $formFactory,
+        private readonly RequestStack $requestStack,
     )
     {
     }
@@ -38,6 +40,15 @@ class ContactFormFactory implements ContactFormFactoryInterface
                 break;
         }
 
-        return $this->formFactory->create(ContactFormType::class, $contactForm, ['config' => $config]);
+        // Get honeypot field name from session
+        $request = $this->requestStack->getCurrentRequest();
+        $honeypotFieldName = $request?->getSession()->get('honeypotField', 'username') ?? 'username';
+        $honeypotLabel = $request?->getSession()->get('honeypotLabel', 'Username') ?? 'Username';
+
+        return $this->formFactory->create(ContactFormType::class, $contactForm, [
+            'config' => $config,
+            'honeypot_field_name' => $honeypotFieldName,
+            'honeypot_label' => $honeypotLabel
+        ]);
     }
 }
