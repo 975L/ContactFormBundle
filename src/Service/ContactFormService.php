@@ -35,12 +35,63 @@ class ContactFormService implements ContactFormServiceInterface
         $this->request = $requestStack->getCurrentRequest();
     }
 
+    // Generates a random honeypot field name
+    private function generateHoneypotFieldName(): string
+    {
+        $prefixes = ['user', 'account', 'client', 'contact', 'person', 'profile'];
+        $suffixes = ['name', 'info', 'data', 'field', 'input', 'details'];
+
+        return $prefixes[array_rand($prefixes)] . '_' . $suffixes[array_rand($suffixes)];
+    }
+
+    // Generates a random honeypot label
+    private function generateHoneypotLabel(): string
+    {
+        $labels = [
+            'Company website',
+            'Your website',
+            'Organization',
+            'Department',
+            'Job title',
+            'Phone number',
+            'Address',
+            'City',
+            'Postal code',
+            'Country',
+            'Fax number'
+        ];
+
+        return $labels[array_rand($labels)];
+    }
+
+    // Gets the honeypot field name from session
+    public function getHoneypotFieldName(): string
+    {
+        return $this->request->getSession()->get('honeypotField', 'username');
+    }
+
+    // Gets the honeypot label from session
+    public function getHoneypotLabel(): string
+    {
+        return $this->request->getSession()->get('honeypotLabel', 'Username');
+    }
+
     // Creates the contactForm
     public function create(): ContactForm
     {
         //Adds time to session to check if a robot has filled the form
         if (null === $this->request->getSession()->get('time')) {
             $this->request->getSession()->set('time', time());
+        }
+
+        //Generates random honeypot field name for this session
+        if (null === $this->request->getSession()->get('honeypotField')) {
+            $this->request->getSession()->set('honeypotField', $this->generateHoneypotFieldName());
+        }
+
+        //Generates random honeypot label for this session
+        if (null === $this->request->getSession()->get('honeypotLabel')) {
+            $this->request->getSession()->set('honeypotLabel', $this->generateHoneypotLabel());
         }
 
         //Defines the referer
@@ -84,11 +135,11 @@ class ContactFormService implements ContactFormServiceInterface
     }
 
     // Tests if delay (defined in config) is not too short and if honeypot has not been filled, to avoid being used by bot
-    public function isNotBot($username): bool
+    public function isNotBot($honeypotValue): bool
     {
         $bot = null === $this->request->getSession()->get('time');
         $bot = $bot ? true : $this->request->getSession()->get('time') + $this->configService->getParameter('c975LContactForm.delay') > time();
-        $bot = $bot ? true : null !== $username;
+        $bot = $bot ? true : !empty($honeypotValue);
 
         return ! $bot;
     }
@@ -102,14 +153,21 @@ class ContactFormService implements ContactFormServiceInterface
     // Sends email resulting from submission of form if it's not a bot that has used the form
     public function sendEmail(Form $form, ContactFormEvent $event): ?string
     {
-        if ($this->isNotBot($form->get('username')->getData())) {
-            // Sedns email and Creates flash message
+        $honeypotFieldName = $this->getHoneypotFieldName();
+        $honeypotValue = $form->has($honeypotFieldName) ? $form->get($honeypotFieldName)->getData() : null;
+
+        if ($this->isNotBot($honeypotValue)) {
+            // Sends email and creates flash message
             if ($this->emailService->send($event, $form->getData())) {
                 $this->serviceTools->createFlash('text.message_sent', 'contactForm');
             } else {
                 $this->serviceTools->createFlash('text.message_not_sent', 'contactForm', 'danger', ['%error%' => $event->getError()]);
             }
         }
+
+        // Clean honeypot field name from session after use
+        $this->request->getSession()->remove('honeypotField');
+        $this->request->getSession()->remove('honeypotLabel');
 
         return $this->getReferer();
     }

@@ -22,18 +22,26 @@ class ContactFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $subjectReadonly = null !== $options['data']->getSubject() ? true : false;
+        $honeypotFieldName = $options['honeypot_field_name'] ?? 'username';
+        $honeypotLabel = $options['honeypot_label'] ?? 'Username';
 
         $builder
             ->add(
-                'username',
+                $honeypotFieldName,
                 TextType::class,
                 [
-                    'label' => 'label.username',
+                    'label' => $honeypotLabel,
+                    'label_attr' => [
+                        'class' => 'sr-only'
+                    ],
                     'required' => false,
                     'mapped' => false,
-                    'data' => null,
+                    'data' => '',
                     'attr' => [
-                        'placeholder' => 'label.username',
+                        'placeholder' => $honeypotLabel,
+                        'autocomplete' => 'new-password',
+                        'aria-hidden' => 'true',
+                        'class' => 'sr-only'
                     ]
                 ]
             )
@@ -117,7 +125,9 @@ class ContactFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => \c975L\ContactFormBundle\Entity\ContactForm::class,
             'intention' => 'contactForm',
-            'translation_domain' => 'contactForm'
+            'translation_domain' => 'contactForm',
+            'honeypot_field_name' => 'username',
+            'honeypot_label' => 'Username'
         ]);
 
         $resolver->setRequired('config');

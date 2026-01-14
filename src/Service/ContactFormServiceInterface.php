@@ -19,6 +19,10 @@ interface ContactFormServiceInterface
 
     public function createForm(string $name, ContactForm $contactForm, ContactFormEvent $event): Form;
 
+    public function getHoneypotFieldName(): string;
+
+    public function getHoneypotLabel(): string;
+
     public function getSubject(): ?string;
 
     public function getReferer(): ?string;

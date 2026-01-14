@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.12
+
+- Made the honeypot random (14/01/2026)
+
 ## v7.11
 
 - Removed use of c975L/ToolbarBundle (03/11/2025)
