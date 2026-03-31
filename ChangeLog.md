@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.12.2
+
+- Added section title for form (31/03/2026)
+
 ## v7.12.1
 
 - Suppressed style not used anymore (31/03/2026)

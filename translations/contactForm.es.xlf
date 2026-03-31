@@ -104,6 +104,10 @@
                 <source>label.username</source>
                 <target>Nombre de usuario</target>
             </trans-unit>
+            <trans-unit id="28">
+                <source>label.form_title</source>
+                <target>Formulario de contacto</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

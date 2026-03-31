@@ -5,6 +5,9 @@
 
 {% block contactform_content %}
     <section>
+        <h2>
+            {{ 'label.form_title'|trans }}
+        </h2>
         <p class="text-center">
             {{ infoText|raw }}
         </p>
@@ -12,7 +15,7 @@
         {{ form_start(form, {'attr': {'data-turbo': 'false'}}) }}
         {# {{ form_start(form) }} #}
             {{ form_widget(form) }}
-            {# Submit#}
+            {# Submit #}
             <div>
                 <input type="submit" name="submit" title="{{ 'label.send'|trans }}" class="btn btn-primary" value="{{ 'label.send'|trans }}">
             </div>
