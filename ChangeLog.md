@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.12.1
+
+- Suppressed style not used anymore (31/03/2026)
+
 ## v7.12
 
 - Made the honeypot random (14/01/2026)
