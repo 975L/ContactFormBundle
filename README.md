@@ -97,6 +97,15 @@ For both cases, ContactFormBundle will act as if the mail was sent, but it will 
 }
 ```
 
+### ReCpatcha v3 is used to protect the form
+
+The Bundle [karser/KarserRecaptcha3Bundle](https://github.com/karser/KarserRecaptcha3Bundle) is used to manage ReCaptcha v3. You just need to create keys on [Google ReCaptcha](https://www.google.com/recaptcha) and set them in your `.env.local`.
+
+```env
+RECAPTCHA3_KEY=my_key
+RECAPTCHA3_SECRET=my_secret
+```
+
 ### Changing infoText
 
 You can change the text displayed at the top of the Contact Form with the following code in your overriding template `/templates/c975LContactFormBundle/layout.html.twig`:

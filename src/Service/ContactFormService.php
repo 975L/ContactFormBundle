@@ -9,16 +9,17 @@
 
 namespace c975L\ContactFormBundle\Service;
 
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
+use c975L\ContactFormBundle\Entity\ContactForm;
+use c975L\ContactFormBundle\Event\ContactFormEvent;
+use c975L\ContactFormBundle\Form\ContactFormFactoryInterface;
+use c975L\ContactFormBundle\Service\EmailServiceInterface;
+use c975L\SiteBundle\Service\ServiceToolsInterface;
+use c975L\SiteBundle\Service\ServiceUserInterface;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3Validator;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use c975L\ContactFormBundle\Entity\ContactForm;
-use c975L\SiteBundle\Service\ServiceUserInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use c975L\ContactFormBundle\Event\ContactFormEvent;
-use c975L\SiteBundle\Service\ServiceToolsInterface;
-use c975L\ConfigBundle\Service\ConfigServiceInterface;
-use c975L\ContactFormBundle\Service\EmailServiceInterface;
-use c975L\ContactFormBundle\Form\ContactFormFactoryInterface;
 
 class ContactFormService implements ContactFormServiceInterface
 {
@@ -30,7 +31,8 @@ class ContactFormService implements ContactFormServiceInterface
         private readonly EmailServiceInterface $emailService,
         private readonly ContactFormFactoryInterface $contactFormFactory,
         private readonly ServiceToolsInterface $serviceTools,
-        private readonly ServiceUserInterface $serviceUser
+        private readonly ServiceUserInterface $serviceUser,
+        private readonly Recaptcha3Validator $recaptcha3Validator,
     ) {
         $this->request = $requestStack->getCurrentRequest();
     }
@@ -153,6 +155,11 @@ class ContactFormService implements ContactFormServiceInterface
     // Sends email resulting from submission of form if it's not a bot that has used the form
     public function sendEmail(Form $form, ContactFormEvent $event): ?string
     {
+        // reCaptcha v3 is not valid
+        if ('contactForm' !== $this->recaptcha3Validator->getLastResponse()->getAction() || $this->recaptcha3Validator->getLastResponse()->getScore() < $this->configService->getParameter('karser_recaptcha3.score_threshold')) {
+            return $this->getReferer();
+        }
+
         $honeypotFieldName = $this->getHoneypotFieldName();
         $honeypotValue = $form->has($honeypotFieldName) ? $form->get($honeypotFieldName)->getData() : null;
 
