@@ -9,6 +9,8 @@
 
 namespace c975L\ContactFormBundle\Form;
 
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -90,7 +92,16 @@ class ContactFormType extends AbstractType
                         'placeholder' => 'placeholder.message'
                     ]
                 ]
-            );
+            )
+        ;
+        // ReCaptcha
+        if ($options['config']['recaptcha3SiteKey'] && $options['config']['recaptcha3SecretKey']) {
+            $builder
+                ->add('captcha', Recaptcha3Type::class, [
+                    'constraints' => new Recaptcha3(),
+                    'action_name' => 'contactForm',
+            ]);
+        }
         // Receive copy
         if ($options['config']['receiveCopy']) {
             $builder
@@ -119,6 +130,7 @@ class ContactFormType extends AbstractType
                 );
         }
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

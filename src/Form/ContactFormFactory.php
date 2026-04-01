@@ -32,7 +32,9 @@ class ContactFormFactory implements ContactFormFactoryInterface
             case 'display':
                 $config = [
                     'receiveCopy' => $event->getReceiveCopy(),
-                    'gdpr' => $this->configService->getParameter('c975LContactForm.gdpr')
+                    'gdpr' => $this->configService->getParameter('c975LContactForm.gdpr'),
+                    'recaptcha3SiteKey' => $this->configService->getContainerParameter('karser_recaptcha3.site_key') !== 'my_site_key' ? $this->configService->getContainerParameter('karser_recaptcha3.site_key') : null,
+                    'recaptcha3SecretKey' => $this->configService->getContainerParameter('karser_recaptcha3.secret_key') !== 'my_secret' ? $this->configService->getContainerParameter('karser_recaptcha3.secret_key') : null,
                 ];
                 break;
             default:

@@ -23,7 +23,8 @@
         "c975l/site-bundle": "*",
         "symfony/form": "*",
         "symfony/security-bundle": "*",
-        "twig/intl-extra": "*"
+        "twig/intl-extra": "*",
+        "karser/karser-recaptcha3-bundle": "*"
     },
     "require-dev": {
     },
