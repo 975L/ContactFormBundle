@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.13.2
+
+- Tried to correct reCaptcha v3 issue (18/05/2026)
+
 ## v7.13.1
 
 - Added nonce value to form (18/05/2026)

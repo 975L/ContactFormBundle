@@ -155,11 +155,6 @@ class ContactFormService implements ContactFormServiceInterface
     // Sends email resulting from submission of form if it's not a bot that has used the form
     public function sendEmail(Form $form, ContactFormEvent $event): ?string
     {
-        // reCaptcha v3 is not valid
-        if ('contactForm' !== $this->recaptcha3Validator->getLastResponse()->getAction() || $this->recaptcha3Validator->getLastResponse()->getScore() < $this->configService->getParameter('karser_recaptcha3.score_threshold')) {
-            return $this->getReferer();
-        }
-
         $honeypotFieldName = $this->getHoneypotFieldName();
         $honeypotValue = $form->has($honeypotFieldName) ? $form->get($honeypotFieldName)->getData() : null;
 
