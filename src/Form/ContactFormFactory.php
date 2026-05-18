@@ -16,12 +16,15 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+use Nelmio\SecurityBundle\EventListener\ContentSecurityPolicyListener;
+
 class ContactFormFactory implements ContactFormFactoryInterface
 {
     public function __construct(
         private readonly ConfigServiceInterface $configService,
         private readonly FormFactoryInterface $formFactory,
         private readonly RequestStack $requestStack,
+        private readonly ?ContentSecurityPolicyListener $cspListener = null,
     )
     {
     }
@@ -50,7 +53,8 @@ class ContactFormFactory implements ContactFormFactoryInterface
         return $this->formFactory->create(ContactFormType::class, $contactForm, [
             'config' => $config,
             'honeypot_field_name' => $honeypotFieldName,
-            'honeypot_label' => $honeypotLabel
+            'honeypot_label' => $honeypotLabel,
+            'csp_nonce' => $this->cspListener?->getNonce('script'),
         ]);
     }
 }

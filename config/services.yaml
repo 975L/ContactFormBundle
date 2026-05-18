@@ -10,5 +10,9 @@ services:
     c975L\ContactFormBundle\Form\:
         resource: '../src/Form/*'
 
+    c975L\ContactFormBundle\Form\ContactFormFactory:
+        arguments:
+            $cspListener: '@?nelmio_security.csp_listener'
+
     c975L\ContactFormBundle\Service\:
         resource: '../src/Service/*'
