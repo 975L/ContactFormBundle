@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.13.1
+
+- Added nonce value to form (18/05/2026)
+
 ## v7.13
 
 - Made use of karser/karser-recaptcha3-bundle (01/04/2026)

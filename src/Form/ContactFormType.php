@@ -98,8 +98,11 @@ class ContactFormType extends AbstractType
         if ($options['config']['recaptcha3SiteKey'] && $options['config']['recaptcha3SecretKey']) {
             $builder
                 ->add('captcha', Recaptcha3Type::class, [
-                    'constraints' => new Recaptcha3(),
+                    'constraints' => new Recaptcha3([
+                        'score' => 0.5,
+                    ]),
                     'action_name' => 'contactForm',
+                    'script_nonce_csp' => $options['csp_nonce'],
             ]);
         }
         // Receive copy
@@ -131,15 +134,15 @@ class ContactFormType extends AbstractType
         }
     }
 
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => \c975L\ContactFormBundle\Entity\ContactForm::class,
             'intention' => 'contactForm',
             'translation_domain' => 'contactForm',
-            'honeypot_field_name' => 'username',
-            'honeypot_label' => 'Username'
+            'honeypot_field_name' => $options['honeypot_field_name'] ?? 'username',
+            'honeypot_label' => $options['honeypot_label'] ?? 'Username',
+            'csp_nonce' => $options['csp_nonce'] ?? null,
         ]);
 
         $resolver->setRequired('config');
