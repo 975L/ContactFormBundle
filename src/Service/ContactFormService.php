@@ -16,7 +16,6 @@ use c975L\ContactFormBundle\Form\ContactFormFactoryInterface;
 use c975L\ContactFormBundle\Service\EmailServiceInterface;
 use c975L\SiteBundle\Service\ServiceToolsInterface;
 use c975L\SiteBundle\Service\ServiceUserInterface;
-use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3Validator;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -32,9 +31,49 @@ class ContactFormService implements ContactFormServiceInterface
         private readonly ContactFormFactoryInterface $contactFormFactory,
         private readonly ServiceToolsInterface $serviceTools,
         private readonly ServiceUserInterface $serviceUser,
-        private readonly Recaptcha3Validator $recaptcha3Validator,
+        private readonly ?object $contactFormByIpLimiterFactory = null,
+        private readonly ?object $contactFormByEmailLimiterFactory = null,
     ) {
         $this->request = $requestStack->getCurrentRequest();
+    }
+
+    private function consumeRateLimiter(?object $limiterFactory, string $key): bool
+    {
+        if (null === $limiterFactory || !method_exists($limiterFactory, 'create')) {
+            return true;
+        }
+
+        $limiter = $limiterFactory->create($key);
+        if (!is_object($limiter) || !method_exists($limiter, 'consume')) {
+            return true;
+        }
+
+        $limit = $limiter->consume(1);
+        if (!is_object($limit) || !method_exists($limit, 'isAccepted')) {
+            return true;
+        }
+
+        return $limit->isAccepted();
+    }
+
+    private function isRateLimitAccepted(ContactForm $contactForm): bool
+    {
+        if (null === $this->contactFormByIpLimiterFactory && null === $this->contactFormByEmailLimiterFactory) {
+            return true;
+        }
+
+        $ipKey = $this->request?->getClientIp() ?? 'unknown';
+        $emailKey = strtolower(trim((string) $contactForm->getEmail()));
+
+        if (!$this->consumeRateLimiter($this->contactFormByIpLimiterFactory, $ipKey)) {
+            return false;
+        }
+
+        if ('' !== $emailKey && !$this->consumeRateLimiter($this->contactFormByEmailLimiterFactory, $emailKey)) {
+            return false;
+        }
+
+        return true;
     }
 
     // Generates a random honeypot field name
@@ -157,10 +196,17 @@ class ContactFormService implements ContactFormServiceInterface
     {
         $honeypotFieldName = $this->getHoneypotFieldName();
         $honeypotValue = $form->has($honeypotFieldName) ? $form->get($honeypotFieldName)->getData() : null;
+        $formData = $form->getData();
 
         if ($this->isNotBot($honeypotValue)) {
+            if ($formData instanceof ContactForm && !$this->isRateLimitAccepted($formData)) {
+                $this->serviceTools->createFlash('text.too_many_attempts', 'contactForm', 'warning');
+
+                return $this->getReferer();
+            }
+
             // Sends email and creates flash message
-            if ($this->emailService->send($event, $form->getData())) {
+            if ($this->emailService->send($event, $formData)) {
                 $this->serviceTools->createFlash('text.message_sent', 'contactForm');
             } else {
                 $this->serviceTools->createFlash('text.message_not_sent', 'contactForm', 'danger', ['%error%' => $event->getError()]);
