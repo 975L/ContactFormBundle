@@ -91,6 +91,7 @@ class EmailService implements EmailServiceInterface
 
             return true;
         } catch (\Exception $e) {
+            $event->setError($e->getMessage());
             return false;
         }
     }
