@@ -108,6 +108,10 @@
                 <source>label.form_title</source>
                 <target>Contact Form</target>
             </trans-unit>
+            <trans-unit id="29">
+                <source>text.too_many_attempts</source>
+                <target>Too many attempts in a short time. Please wait a few minutes before trying again.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

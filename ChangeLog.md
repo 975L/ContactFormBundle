@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.14
+
+- Added rate limiting for contact form submission (25/05/2026)
+- Updated README.md (25/05/2026)
+
 ## v7.13.2
 
 - Tried to correct reCaptcha v3 issue (18/05/2026)

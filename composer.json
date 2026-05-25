@@ -21,12 +21,13 @@
         "php": ">=8.0",
         "c975l/config-bundle": "*",
         "c975l/site-bundle": "*",
+        "karser/karser-recaptcha3-bundle": "*",
         "symfony/form": "*",
         "symfony/security-bundle": "*",
-        "twig/intl-extra": "*",
-        "karser/karser-recaptcha3-bundle": "*"
+        "twig/intl-extra": "*"
     },
-    "require-dev": {
+    "suggest": {
+        "symfony/rate-limiter": "Enable server-side contact form rate limiting (IP and email)."
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

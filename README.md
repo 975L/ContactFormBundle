@@ -106,6 +106,32 @@ RECAPTCHA3_KEY=my_key
 RECAPTCHA3_SECRET=my_secret
 ```
 
+### Optional server-side rate limiting (IP + email)
+
+ContactFormBundle can use Symfony RateLimiter services when they are available.
+If the following two limiters exist in your app, they are automatically applied before sending emails:
+
+- `limiter.contact_form_by_ip`
+- `limiter.contact_form_by_email`
+
+Example configuration in your application (`config/packages/rate_limiter.yaml`):
+
+```yaml
+framework:
+    rate_limiter:
+        contact_form_by_ip:
+            policy: 'sliding_window'
+            limit: 5
+            interval: '10 minutes'
+
+        contact_form_by_email:
+            policy: 'sliding_window'
+            limit: 3
+            interval: '10 minutes'
+```
+
+When a limit is reached, the form is not sent and a flash message is displayed.
+
 ### Changing infoText
 
 You can change the text displayed at the top of the Contact Form with the following code in your overriding template `/templates/c975LContactFormBundle/layout.html.twig`:
