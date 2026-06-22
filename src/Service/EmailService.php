@@ -38,14 +38,22 @@ class EmailService implements EmailServiceInterface
         $emailData = $event->getEmailData();
 
         // Defines adresses and names
-        $from = is_array($emailData) && array_key_exists('sentFrom', $emailData) ? $emailData['sentFrom'] : $this->configService->getParameter('c975LContactForm.from');
-        $fromName = $this->configService->hasParameter('c975LContactForm.sentToName') ? $this->configService->getParameter('c975LContactForm.fromName') : '';
+        $from = $this->getDataParameter('email-from', $emailData);
+        $fromName = $this->getDataParameter('email-from-name', $emailData);
+        $fromName = (null === $fromName) ? $from : $fromName;
 
-        $to = is_array($emailData) && array_key_exists('sentTo', $emailData) ? $emailData['sentTo'] : $this->configService->getParameter('c975LContactForm.sentTo');
-        $toName = $this->configService->hasParameter('c975LContactForm.sentToName') ? $this->configService->getParameter('c975LContactForm.sentToName') : '';
+        $to = $this->getDataParameter('email-to', $emailData);
+        $toName = $this->getDataParameter('email-to-name', $emailData);
+        $toName = (null === $toName) ? $to : $toName;
 
-        $replyTo = is_array($emailData) && array_key_exists('replyTo', $emailData) ? $emailData['replyTo'] : $formData->getEmail();
-        $replyToName = is_array($emailData) && array_key_exists('replyToName', $emailData) ? $emailData['replyToName'] : $formData->getName();
+        $replyTo = $this->getDataParameter('email-reply-to', $emailData);
+        $replyToName = $this->getDataParameter('email-reply-to-name', $emailData);
+        $replyToName = (null === $replyToName) ? $replyTo : $replyToName;
+
+        // Lauches error if any of the parameters is missing
+        if (null === $from || null === $to) {
+            throw new \Exception('Missing email parameter(s)');
+        }
 
         $emails = [];
         // Creates email for sending to the defined receiver
@@ -53,7 +61,9 @@ class EmailService implements EmailServiceInterface
         $email->subject($formData->getSubject());
         $email->from(new Address($from, $fromName));
         $email->to(new Address($to, $toName));
-        $email->replyTo(new Address($replyTo, $replyToName));
+        if (null !== $replyTo) {
+            $email->replyTo(new Address($replyTo, $replyToName));
+        }
         $email->htmlTemplate('@c975LContactForm/emails/contact.html.twig');
         $email->context([
             'locale' => $this->request->getLocale(),
@@ -73,6 +83,18 @@ class EmailService implements EmailServiceInterface
         return $emails;
     }
 
+    // Gets data for parameter
+    public function getDataParameter(string $parameter, array $emailData): ?string
+    {
+        if (isset($emailData[$parameter]) && '' !== $emailData[$parameter]) {
+            return $emailData[$parameter];
+        }
+
+        return ($this->configService->hasParameter($parameter))
+            ? ($this->configService->get($parameter) ?: null)
+            : null;
+    }
+
     // Sends email
     public function send(ContactFormEvent $event, ContactForm $formData): bool
     {
@@ -84,7 +106,7 @@ class EmailService implements EmailServiceInterface
         try {
             foreach ($emails as $email) {
                 if ($email instanceof TemplatedEmail) {
-                    // echo $this->twig->render($email->getHtmlTemplate(), ['form' => $email->getContext()['form']]); dd(); // for debug
+                    // echo $this->twig->render($email->getHtmlTemplate(), ['form' => $email->getContext()['form']]); dd(); // For debug
                     $this->mailer->send($email);
                 }
             }

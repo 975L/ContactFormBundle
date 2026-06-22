@@ -11,22 +11,13 @@ ContactFormBundle does the following:
 
 ## Bundle installation
 
-### Step 1: Download the Bundle
-
+### Download the Bundle
 
 ```bash
     composer require c975l/contactform-bundle
 ```
 
-### Step 2: Configure the Bundle
-
-Check dependencies for their configuration:
-
-### Step 3: Declaration of Twig\Extensions\TextExtension
-
-You have to allow `Twig\Extensions\TextExtension` in your `/config/pacakes/twig_extensions.yaml`.
-
-### Step 4: Enable the Routes
+### Enable the Routes
 
 Then, enable the routes by adding them to the `/config/routes.yaml` file of your project:
 
@@ -42,7 +33,11 @@ c975_l_contact_form:
     #    _locale: en|fr|es
 ```
 
-### Step 5: Override templates
+### Install config values
+
+This bundles relies on [c975L/ConfigBundle](https://github.com/975L/ConfigBundle) to manage its configuration values. So, you have to install it and then load the fixtures by running the command `php bin/console doctrine:fixtures:load --append` to add data in the database, then use the dashboard route of ConfigBundle to set values for the keys.
+
+### Override templates
 
 It is strongly recommended to use the [Override Templates from Third-Party Bundles feature](http://symfony.com/doc/current/templating/overriding.html) to integrate fully with your site.
 
@@ -63,20 +58,6 @@ In `layout.html.twig`, it will mainly consist to extend your layout and define s
 ```
 
 The templates used for sending emails are the ones of c975LSiteBundle. Override them in `/templates/c975LSiteBundle/emails/`.
-
-### How to use
-
-The Route name is `contactform_display` so you can add link in Twig via ̀`{{ path('contactform_display') }}`.
-
-The url path is `/contact` or `/{_locale}/contact`, so simply access to `http://example.com/contact` or `http://example.com/en/contact` to display the form.
-
-You can set the subject by using the url parameter `s` i.e. `http://example.com/contact?s=Subject`, the field will be readonly in the form, **but, of course it can be changed via the url**. The value is sanitized and given (as `subject`) to the form in order to be able to change title and/or info text based on this value, i.e.
-
-```twig
-{% if 'Subject' in subject %}
-    {# Do some stuff #}
-{% endif %}
-```
 
 ### HoneyPot and delay to avoid spam
 
@@ -99,7 +80,7 @@ For both cases, ContactFormBundle will act as if the mail was sent, but it will 
 
 ### ReCpatcha v3 is used to protect the form
 
-The Bundle [karser/KarserRecaptcha3Bundle](https://github.com/karser/KarserRecaptcha3Bundle) is used to manage ReCaptcha v3. You just need to create keys on [Google ReCaptcha](https://www.google.com/recaptcha) and set them in your `.env.local`.
+The Bundle [karser/KarserRecaptcha3Bundle](https://github.com/karser/KarserRecaptcha3Bundle) is used to manage ReCaptcha v3. You just need to create keys on [Google ReCaptcha](https://www.google.com/recaptcha), set them in your `.env.local` or use the Config Params from [c975L/ConfigBundle](https://github.com/c975L/ConfigBundle) (database).
 
 ```env
 RECAPTCHA3_KEY=my_key
@@ -149,6 +130,20 @@ You can change the text displayed at the top of the Contact Form with the follow
     {% block contactform_content %}
     {% endblock %}
 {% endblock %}
+```
+
+### How to use
+
+The Route name is `contactform_display` so you can add link in Twig via ̀`{{ path('contactform_display') }}`.
+
+The url path is `/contact` or `/{_locale}/contact`, so simply access to `http://example.com/contact` or `http://example.com/en/contact` to display the form.
+
+You can set the subject by using the url parameter `s` i.e. `http://example.com/contact?s=Subject`, the field will be readonly in the form, **but, of course it can be changed via the url**. The value is sanitized and given (as `subject`) to the form in order to be able to change title and/or info text based on this value, i.e.
+
+```twig
+{% if 'Subject' in subject %}
+    {# Do some stuff #}
+{% endif %}
 ```
 
 ## Events dispatch

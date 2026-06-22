@@ -2,11 +2,11 @@
 
 ## v5.x > v6.x
 
-Changed compatibility so PHP 8
+Changed compatibility to PHP 8
 
 ## v4.x > v5.x
 
-Changed compatibility so Symfony 6
+Changed compatibility to Symfony 6
 
 ## v3.x > v4.x
 
