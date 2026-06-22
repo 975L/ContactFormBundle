@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.15.1
+
+- Removed use of Fixtures to load default values and made use of ConfigBundle Command (22/06/2026)
+
 ## v7.15
 
 - Made use of new naming for ConfigServicesBundle (22/06/2026) [BC-Break]

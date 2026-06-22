@@ -35,7 +35,7 @@ c975_l_contact_form:
 
 ### Install config values
 
-This bundles relies on [c975L/ConfigBundle](https://github.com/975L/ConfigBundle) to manage its configuration values. So, you have to install it and then load the fixtures by running the command `php bin/console doctrine:fixtures:load --append` to add data in the database, then use the dashboard route of ConfigBundle to set values for the keys.
+This bundles relies on [c975L/ConfigBundle](https://github.com/975L/ConfigBundle) to manage its configuration values. So, you have to install it and then load the default data using `php bin/console c975l:config:load 'vendor/c975l/contactform-bundle/config/configs.json'` to add data in the database, then use the dashboard route of ConfigBundle to set values for the keys.
 
 ### Override templates
 
