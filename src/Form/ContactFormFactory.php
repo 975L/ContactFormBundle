@@ -12,21 +12,23 @@ namespace c975L\ContactFormBundle\Form;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\RequestStack;
-
 use Nelmio\SecurityBundle\EventListener\ContentSecurityPolicyListener;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ContactFormFactory implements ContactFormFactoryInterface
 {
+    private readonly ?Request $request;
+
     public function __construct(
         private readonly ConfigServiceInterface $configService,
         private readonly FormFactoryInterface $formFactory,
         private readonly RequestStack $requestStack,
         private readonly ?ContentSecurityPolicyListener $cspListener = null,
-    )
-    {
+    ) {
+        $this->request = $this->requestStack->getCurrentRequest();
     }
 
     public function create(string $name, ContactForm $contactForm, ContactFormEvent $event): Form
@@ -35,9 +37,9 @@ class ContactFormFactory implements ContactFormFactoryInterface
             case 'display':
                 $config = [
                     'receiveCopy' => $event->getReceiveCopy(),
-                    'gdpr' => $this->configService->getParameter('c975LContactForm.gdpr'),
-                    'recaptcha3SiteKey' => $this->configService->getContainerParameter('karser_recaptcha3.site_key') !== 'my_site_key' ? $this->configService->getContainerParameter('karser_recaptcha3.site_key') : null,
-                    'recaptcha3SecretKey' => $this->configService->getContainerParameter('karser_recaptcha3.secret_key') !== 'my_secret' ? $this->configService->getContainerParameter('karser_recaptcha3.secret_key') : null,
+                    'gdpr' => $this->configService->get('contact-form-gdpr'),
+                    'recaptcha3SiteKey' => $this->configService->hasParameter('recaptcha3-site-key') ? $this->configService->get('recaptcha3-site-key') : $this->configService->getContainerParameter('karser_recaptcha3.site_key'),
+                    'recaptcha3SecretKey' => $this->configService->hasParameter('recaptcha3-secret-key') ? $this->configService->get('recaptcha3-secret-key') : $this->configService->getContainerParameter('karser_recaptcha3.secret_key'),
                 ];
                 break;
             default:
@@ -46,9 +48,8 @@ class ContactFormFactory implements ContactFormFactoryInterface
         }
 
         // Get honeypot field name from session
-        $request = $this->requestStack->getCurrentRequest();
-        $honeypotFieldName = $request?->getSession()->get('honeypotField', 'username') ?? 'username';
-        $honeypotLabel = $request?->getSession()->get('honeypotLabel', 'Username') ?? 'Username';
+        $honeypotFieldName = $this->request?->getSession()->get('honeypotField', 'username') ?? 'username';
+        $honeypotLabel = $this->request?->getSession()->get('honeypotLabel', 'Username') ?? 'Username';
 
         return $this->formFactory->create(ContactFormType::class, $contactForm, [
             'config' => $config,

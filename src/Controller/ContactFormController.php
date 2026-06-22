@@ -61,7 +61,7 @@ class ContactFormController extends AbstractController
         //Renders the form
         return $this->render('@c975LContactForm/forms/contact.html.twig', [
             'form' => $form->createView(),
-            'site' => $configService->getParameter('c975LCommon.site'),
+            'site' => $configService->get('site-name'),
             'subject' => $contactForm->getSubject()
         ]);
         //->setMaxAge(3600);

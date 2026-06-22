@@ -1,0 +1,82 @@
+[
+    {
+        "label": "Email (from)",
+        "slug": "email-from",
+        "sensitive": false,
+        "value": null,
+        "kind": "text",
+        "description": "Email address used to send the emails: i.e. contact@example.com"
+    },
+    {
+        "label": "Email (from) Name",
+        "slug": "email-from-name",
+        "sensitive": false,
+        "value": null,
+        "kind": "text",
+        "description": "Name used to send the notifications from the site."
+    },
+    {
+        "label": "Email (to)",
+        "slug": "email-to",
+        "sensitive": false,
+        "value": null,
+        "kind": "text",
+        "description": "Email address used to receive the emails: i.e. contact@example.com"
+    },
+    {
+        "label": "Email (to) Name",
+        "slug": "email-to-name",
+        "sensitive": false,
+        "value": null,
+        "kind": "text",
+        "description": "Name used to receive the notifications from the site."
+    },
+    {
+        "label": "Email (reply to)",
+        "slug": "email-reply-to",
+        "sensitive": false,
+        "value": null,
+        "kind": "text",
+        "description": "Email address used to reply to the emails: i.e. contact@example.com"
+    },
+    {
+        "label": "Email (reply to) Name",
+        "slug": "email-reply-to-name",
+        "sensitive": false,
+        "value": null,
+        "kind": "text",
+        "description": "Name used to reply to the emails."
+    },
+    {
+        "label": "Contact Form Delay",
+        "slug": "contact-form-delay",
+        "sensitive": true,
+        "value": 7,
+        "kind": "text",
+        "description": "Below this delay (seconds) the contact form is supposed to be filled by a robot and will not be sent, to avoid spam"
+    },
+    {
+        "label": "Contact GDPR",
+        "slug": "contact-form-gdpr",
+        "sensitive": true,
+        "value": "true",
+        "kind": "bool",
+        "description": "Indicates whether the contact form complies with GDPR regulations."
+    },
+    {
+        "label": "Re-Captcha3 Site Key",
+        "slug": "recaptcha3-site-key",
+        "sensitive": true,
+        "value": null,
+        "kind": "text",
+        "description": "Site key for ReCaptcha v3"
+    },
+    {
+        "label": "Re-Captcha3 Secret Key",
+        "slug": "recaptcha3-secret-key",
+        "sensitive": true,
+        "value": null,
+        "kind": "text",
+        "description": "Secret key for ReCaptcha v3"
+    }
+]

@@ -7,6 +7,9 @@ services:
     c975L\ContactFormBundle\Controller\:
         resource: '../src/Controller/*'
 
+    c975L\ContactFormBundle\DataFixtures\:
+        resource: '../src/DataFixtures/*'
+
     c975L\ContactFormBundle\Form\:
         resource: '../src/Form/*'
 

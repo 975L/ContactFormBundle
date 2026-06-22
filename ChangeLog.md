@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.15
+
+- Made use of new naming for ConfigServicesBundle (22/06/2026) [BC-Break]
+- Added config values needed (22/06/2026)
+
 ## v7.14.1
 
 - Added error display (25/05/2026)
