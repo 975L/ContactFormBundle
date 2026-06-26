@@ -1,0 +1,23 @@
+{# Static usage  : render(controller('c975L\ContactFormBundle\Controller\ContactFormController::fragment')) #}
+{# Dynamic usage : {{ render_block(block) }}  — via ContactFormBlock.html.twig #}
+{% trans_default_domain 'contactForm' %}
+
+{% set infoText = 'text.contact_info'|trans({'%site%': site|default('')}) %}
+
+<section>
+    <h2>
+        {{ 'label.form_title'|trans }}
+    </h2>
+    <p class="text-center">
+        {{ infoText|raw }}
+    </p>
+    {{ form_start(form, {'action': path('contactform_display'), 'attr': {'data-turbo': 'false'}}) }}
+        {{ form_widget(form) }}
+        <div>
+            <input type="submit" name="submit" title="{{ 'label.send'|trans }}" class="btn btn-primary" value="{{ 'label.send'|trans }}">
+        </div>
+        <p class="text-muted">
+            {{ 'label.mandatory_field'|trans({}, 'site') }}
+        </p>
+    {{ form_end(form) }}
+</section>

@@ -16,5 +16,7 @@ interface EmailServiceInterface
 {
     public function defineData(ContactFormEvent $event, ContactForm $formData): array;
 
+    public function getDataParameter(string $parameter, array $emailData): ?string;
+
     public function send(ContactFormEvent $event, ContactForm $formData): bool;
 }

@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.15.2
+
+- Removed dependency on external deleted services (26/06/2026)
+- Converted ContactForm in a component that can be used as a c975L/UiBundle Block (26/06/2026)
+
 ## v7.15.1
 
 - Removed use of Fixtures to load default values and made use of ConfigBundle Command (22/06/2026)

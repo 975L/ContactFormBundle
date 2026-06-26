@@ -1,54 +1,102 @@
 # ContactFormBundle
 
-ContactFormBundle does the following:
+A Symfony bundle that provides a fully-featured contact form with built-in spam protection, reCaptcha v3, rate limiting, event-driven customization, and multilingual support.
 
-- Display a form to contact a website,
-- Pre-fills data if user is logged in,
-- Dispatch events to modify form/email,
-- Sends the email via mailer,
-- Allows the possibility to send email to other user, related to your app specification, i.e. contact another user without giving its email. This is achieved via event dispatch (see below),
-- Provides honeypot and delay before real submission, to avoid spam and not need to request captcha (see below),
+[![GitHub](https://img.shields.io/github/license/975L/ContactFormBundle)](https://github.com/975L/ContactFormBundle/blob/master/LICENSE)
+[![Packagist Version](https://img.shields.io/packagist/v/c975l/contactform-bundle)](https://packagist.org/packages/c975l/contactform-bundle)
+[![PHP Version](https://img.shields.io/packagist/php-v/c975l/contactform-bundle)](https://packagist.org/packages/c975l/contactform-bundle)
 
-## Bundle installation
+## Features
 
-### Download the Bundle
+- Displays a contact form at `/contact` (or `/{_locale}/contact` for multilingual apps)
+- Pre-fills name and email when a user is logged in
+- Sends emails via Symfony Mailer (`TemplatedEmail`)
+- Dispatches events to customize form behavior and email content
+- Supports sending emails to other users without exposing their address (via event)
+- **Anti-spam:** dynamic honeypot with randomized field names and labels per session
+- **Anti-spam:** minimum submission delay check to reject bot submissions
+- **Anti-spam:** reCaptcha v3 via [`karser/KarserRecaptcha3Bundle`](https://github.com/karser/KarserRecaptcha3Bundle)
+- **Rate limiting:** optional server-side limits by IP and by email address
+- GDPR consent checkbox (configurable)
+- Optional "receive a copy" checkbox for the sender
+- Subject pre-fill via URL parameter (`?s=My+Subject`)
+- Configuration managed via [`c975L/ConfigBundle`](https://github.com/975L/ConfigBundle)
+
+## Requirements
+
+- PHP >= 8.0
+- Symfony >= 7.0
+- [`c975l/config-bundle`](https://github.com/975L/ConfigBundle)
+- [`c975l/site-bundle`](https://github.com/975L/SiteBundle)
+- [`karser/karser-recaptcha3-bundle`](https://github.com/karser/KarserRecaptcha3Bundle)
+
+## Installation
+
+### 1. Download the bundle
 
 ```bash
-    composer require c975l/contactform-bundle
+composer require c975l/contactform-bundle
 ```
 
-### Enable the Routes
+### 2. Enable the routes
 
-Then, enable the routes by adding them to the `/config/routes.yaml` file of your project:
+Add the following to your `/config/routes.yaml`:
 
-```yml
+```yaml
 c975_l_contact_form:
     resource: "@c975LContactFormBundle/"
-    type:     attribute
-    prefix:   /
-    #Multilingual website use the following
-    #prefix: /{_locale}
-    #defaults:   { _locale: '%locale%' }
-    #requirements:
-    #    _locale: en|fr|es
+    type: attribute
+    prefix: /
+    # For multilingual websites:
+    # prefix: /{_locale}
+    # defaults: { _locale: '%locale%' }
+    # requirements:
+    #     _locale: en|fr|es
 ```
 
-### Install config values
+### 3. Load configuration values
 
-This bundles relies on [c975L/ConfigBundle](https://github.com/975L/ConfigBundle) to manage its configuration values. So, you have to install it and then load the default data using `php bin/console c975l:config:load 'vendor/c975l/contactform-bundle/config/configs.json'` to add data in the database, then use the dashboard route of ConfigBundle to set values for the keys.
+This bundle uses [`c975L/ConfigBundle`](https://github.com/975L/ConfigBundle) to store its settings in the database. After installing it, run:
 
-### Override templates
+```bash
+php bin/console c975l:config:load 'vendor/c975l/contactform-bundle/config/configs.json'
+```
 
-It is strongly recommended to use the [Override Templates from Third-Party Bundles feature](http://symfony.com/doc/current/templating/overriding.html) to integrate fully with your site.
+Then use the ConfigBundle dashboard to set the values for each key.
 
-For this, simply, create the following structure `/templates/bundles/c975LContactFormBundle/` in your app and then duplicate the file `layout.html.twig` in it, to override the existing Bundle file.
+| Key | Description | Default |
+| --- | --- | --- |
+| `email-from` | Sender email address (e.g. `contact@example.com`) | — |
+| `email-from-name` | Sender display name | — |
+| `email-to` | Recipient email address | — |
+| `email-to-name` | Recipient display name | — |
+| `email-reply-to` | Reply-to email address | — |
+| `email-reply-to-name` | Reply-to display name | — |
+| `contact-form-delay` | Minimum seconds before a submission is accepted (bot check) | `7` |
+| `contact-form-gdpr` | Show GDPR consent checkbox | `true` |
+| `recaptcha3-site-key` | Google reCaptcha v3 site key | — |
+| `recaptcha3-secret-key` | Google reCaptcha v3 secret key | — |
 
-In `layout.html.twig`, it will mainly consist to extend your layout and define specific variables, i.e. :
+### 4. Configure reCaptcha v3
+
+Create your keys on [Google reCaptcha](https://www.google.com/recaptcha) and set them either in your `.env.local`:
+
+```env
+RECAPTCHA3_KEY=your_site_key
+RECAPTCHA3_SECRET=your_secret_key
+```
+
+Or store them via the ConfigBundle dashboard (the `recaptcha3-site-key` and `recaptcha3-secret-key` config keys above).
+
+### 5. Override the layout template
+
+It is strongly recommended to use [Symfony's template override feature](https://symfony.com/doc/current/bundles/override.html) to integrate the bundle with your application's design.
+
+Create `/templates/bundles/c975LContactFormBundle/layout.html.twig` and extend your own layout:
 
 ```twig
 {% extends 'layout.html.twig' %}
 
-{# Defines specific variables #}
 {% set title = 'Contact' %}
 
 {% block content %}
@@ -57,73 +105,93 @@ In `layout.html.twig`, it will mainly consist to extend your layout and define s
 {% endblock %}
 ```
 
-The templates used for sending emails are the ones of c975LSiteBundle. Override them in `/templates/c975LSiteBundle/emails/`.
+The email templates are loaded from `c975LSiteBundle`. Override them in `/templates/c975LSiteBundle/emails/`.
 
-### HoneyPot and delay to avoid spam
+## Spam Protection
 
-To avoid ContactFormBundle serving as an entry point to send spam, a dynamic honeypot field is used. The field name and label are randomly generated for each session (e.g., `account_data`, `client_info`, `person_field` with labels like "Company website", "Job title", "Phone number"). This field is only displayed to robots and is hidden via CSS to normal users. If it's filled, then it's not a user, but a bot. There is also a test for the delay used to submit the form. If the form is submitted before the defined delay then it may have not been filled by a human.
+### Dynamic honeypot
 
-For both cases, ContactFormBundle will act as if the mail was sent, but it will not be the case.
+A hidden field is injected into the form on each session. Its name and label are randomly generated (e.g. `account_data` labeled "Job title", `person_field` labeled "Phone number"). The field is hidden from real users via CSS. If it is filled, the request is silently discarded — the form appears to succeed, but no email is sent.
 
-**Please note** that if you have disabled `unsafe-inline` for `style-src` in your Content Security Policy, you have to add the following code in your stylesheet CSS file, otherwise the honeypot will be displayed and the contact form will not send anything.
+> **Note:** If you have disabled `unsafe-inline` for `style-src` in your Content Security Policy, add the following rule to your stylesheet to keep the honeypot hidden:
+>
+> ```css
+> .sr-only {
+>     position: absolute;
+>     left: -9999px;
+>     width: 1px;
+>     height: 1px;
+>     opacity: 0;
+>     pointer-events: none;
+> }
+> ```
 
-```css
-.sr-only {
-    position: absolute;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none;
-}
-```
+### Submission delay
 
-### ReCpatcha v3 is used to protect the form
+If the form is submitted in less than `contact-form-delay` seconds (default: 7 s), it is treated as a bot submission and silently discarded.
 
-The Bundle [karser/KarserRecaptcha3Bundle](https://github.com/karser/KarserRecaptcha3Bundle) is used to manage ReCaptcha v3. You just need to create keys on [Google ReCaptcha](https://www.google.com/recaptcha), set them in your `.env.local` or use the Config Params from [c975L/ConfigBundle](https://github.com/c975L/ConfigBundle) (database).
+### Rate limiting (optional)
 
-```env
-RECAPTCHA3_KEY=my_key
-RECAPTCHA3_SECRET=my_secret
-```
-
-### Optional server-side rate limiting (IP + email)
-
-ContactFormBundle can use Symfony RateLimiter services when they are available.
-If the following two limiters exist in your app, they are automatically applied before sending emails:
+If the following Symfony RateLimiter services are defined in your application, they are automatically applied before any email is sent:
 
 - `limiter.contact_form_by_ip`
 - `limiter.contact_form_by_email`
 
-Example configuration in your application (`config/packages/rate_limiter.yaml`):
+Example configuration (`config/packages/rate_limiter.yaml`):
 
 ```yaml
 framework:
     rate_limiter:
         contact_form_by_ip:
-            policy: 'sliding_window'
+            policy: sliding_window
             limit: 5
             interval: '10 minutes'
 
         contact_form_by_email:
-            policy: 'sliding_window'
+            policy: sliding_window
             limit: 3
             interval: '10 minutes'
 ```
 
-When a limit is reached, the form is not sent and a flash message is displayed.
+When a limit is exceeded, the email is not sent and a warning flash message is displayed. The `symfony/rate-limiter` package is optional — if the services are absent, no limiting is applied.
 
-### Changing infoText
+## Usage
 
-You can change the text displayed at the top of the Contact Form with the following code in your overriding template `/templates/c975LContactFormBundle/layout.html.twig`:
+The route name is `contactform_display`. Link to it from Twig with:
+
+```twig
+{{ path('contactform_display') }}
+```
+
+The form is available at `http://example.com/contact` (or `http://example.com/en/contact` for localized routes).
+
+### Pre-filling the subject
+
+Pass the `s` query parameter to pre-fill the subject field (the field is rendered as read-only):
+
+```text
+http://example.com/contact?s=My+Subject
+```
+
+The sanitized value is also available in your overriding template as the `subject` variable, so you can conditionally change the displayed text:
+
+```twig
+{% if 'My+Subject' in subject %}
+    {# Adjust title or info text #}
+{% endif %}
+```
+
+### Changing the info text
+
+Override `infoText` in your layout template:
 
 ```twig
 {% extends 'layout.html.twig' %}
 
 {% set infoText = 'text.contact_info'|trans({'%site%': site}, 'contactForm') %}
 
-{% if YOUR_CONDITION_IS_MET %}
-    {% set infoText = 'YOUR_TEXT_TO_DISPLAY' %}
+{% if your_condition %}
+    {% set infoText = 'Custom text to display above the form' %}
 {% endif %}
 
 {% block content %}
@@ -132,135 +200,98 @@ You can change the text displayed at the top of the Contact Form with the follow
 {% endblock %}
 ```
 
-### How to use
+## Events
 
-The Route name is `contactform_display` so you can add link in Twig via ̀`{{ path('contactform_display') }}`.
+ContactFormBundle dispatches two events that allow you to customize its behavior without modifying the bundle itself.
 
-The url path is `/contact` or `/{_locale}/contact`, so simply access to `http://example.com/contact` or `http://example.com/en/contact` to display the form.
+| Constant | Event name | Fired when |
+| --- | --- | --- |
+| `ContactFormEvent::CREATE_FORM` | `c975l_contactform.create.form` | The form is being built |
+| `ContactFormEvent::SEND_FORM` | `c975l_contactform.send.form` | The form has been submitted and validated |
 
-You can set the subject by using the url parameter `s` i.e. `http://example.com/contact?s=Subject`, the field will be readonly in the form, **but, of course it can be changed via the url**. The value is sanitized and given (as `subject`) to the form in order to be able to change title and/or info text based on this value, i.e.
-
-```twig
-{% if 'Subject' in subject %}
-    {# Do some stuff #}
-{% endif %}
-```
-
-## Events dispatch
-
-### Disable "Receive copy" checkbox
-
-You can disable the checkbox to allow user receiving a copy of the email sent, by catching the event `CREATE_FORM` with the following code. It's useful, for example if the contact form is used to contact another user and you want to preserve its email address.
+### Disable the "Receive a copy" checkbox
 
 ```php
-namespace AppBundle\EventSubscriber;
+namespace App\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 
 class ContactFormSubscriber implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
-        return array(
-            ContactFormEvent::CREATE_FORM => 'createForm',
-        );
+        return [
+            ContactFormEvent::CREATE_FORM => 'onCreateForm',
+        ];
     }
 
-    public function createForm($event)
+    public function onCreateForm(ContactFormEvent $event): void
     {
-        //Gets data
-        $formData = $event->getFormData();
-        $subject = $formData->getSubject();
+        $subject = $event->getFormData()->getSubject();
 
-        //For example, you can check if a string is present in the subject
-        if (stripos($subject, 'THE_STRING_YOU_WANT_TO_MATCH_IN_THE_SUBJECT') === 0) {
+        if (str_contains((string) $subject, 'some-keyword')) {
             $event->setReceiveCopy(false);
         }
     }
 }
 ```
 
-### Set specific data in email sent
+### Customize email data on submission
 
-In relation with your app specification, it is possible to set specific email data (body, subject, etc.) based on the data sent in form. For this you have to create a listener with the following code:
+Use the `SEND_FORM` event to override the email subject, body template, or any other data. You can also set an error code to abort sending:
 
 ```php
-namespace AppBundle\EventSubscriber;
+namespace App\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 
 class ContactFormSubscriber implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
-        return array(
-            ContactFormEvent::SEND_FORM => 'sendForm',
-        );
+        return [
+            ContactFormEvent::SEND_FORM => 'onSendForm',
+        ];
     }
 
-    public function sendForm($event)
+    public function onSendForm(ContactFormEvent $event): void
     {
-        //Gets data
-        $formData = $event->getFormData();
-        $subject = $formData->getSubject();
+        $subject = $event->getFormData()->getSubject();
 
-        //For example, you can check if a string is present in the subject
-        if (stripos($subject, 'THE_STRING_YOU_WANT_TO_MATCH_IN_THE_SUBJECT') === 0) {
-            //Do the stuff...
+        if (str_contains((string) $subject, 'some-keyword')) {
+            // Conditions are met — override email data
+            $event->setEmailData([
+                'subject'   => 'Custom email subject',
+                'bodyEmail' => 'emails/custom_contact.html.twig',
+                'bodyData'  => [
+                    // Any data your template needs
+                ],
+            ]);
 
-            //Conditions to send email are met
-            if (1 == 1) {
-                //Defines data for email
-                $bodyEmail = 'YOUR_EMAIL_TEMPLATE.html.twig';
-                $bodyData = array(
-                     //Any needed data for your template
-                );
-                //The following array keys are mandatory, but you can set the other keys defined in c975L\EmailBundle
-                $emailData = array(
-                    'subject' => 'YOUR_EMAIL_SUBJECT',
-                    'bodyData' => $bodyData,
-                    'bodyEmail' => $bodyEmail,
-                );
-
-                //Updates event
-                $event->setEmailData($emailData);
-            //Stop sending by setting an error code, it will create a flash including your error code
-            } else {
-                $event->setError('YOUR_ERROR_CODE');
-            }
+            // Or abort sending with an error code:
+            // $event->setError('error.user_not_found');
         }
     }
 }
-
 ```
 
-### Update redirect url
+### Override the redirect URL after submission
 
-You can update the url to be redirected to, after submission of the form, with the following code:
+Set `redirectUrl` on the session inside the `CREATE_FORM` listener:
 
 ```php
-namespace AppBundle\EventSubscriber;
-
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use c975L\ContactFormBundle\Event\ContactFormEvent;
-
-class ContactFormSubscriber implements EventSubscriberInterface
+public function onCreateForm(ContactFormEvent $event): void
 {
-    public static function getSubscribedEvents()
-    {
-        return array(
-            ContactFormEvent::CREATE_FORM => 'createForm',
-        );
-    }
-
-    public function createForm($event)
-    {
-        //Updates url to redirect
-        $event->getRequest()->getSession()->set('redirectUrl', 'https://example.com');
-    }
+    $event->getRequest()->getSession()->set('redirectUrl', 'https://example.com/thank-you');
 }
 ```
 
-If this project **help you to reduce time to develop**, you can sponsor me via the "Sponsor" button at the top :)
+## License
+
+MIT — see the [LICENSE](LICENSE) file for details.
+
+---
+
+If this bundle **saves you development time**, consider sponsoring via the **Sponsor** button at the top of the repository.

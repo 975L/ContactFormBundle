@@ -14,11 +14,11 @@ use c975L\ContactFormBundle\Entity\ContactForm;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ContactFormBundle\Form\ContactFormFactoryInterface;
 use c975L\ContactFormBundle\Service\EmailServiceInterface;
-use c975L\SiteBundle\Service\ServiceToolsInterface;
-use c975L\SiteBundle\Service\ServiceUserInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContactFormService implements ContactFormServiceInterface
 {
@@ -29,8 +29,8 @@ class ContactFormService implements ContactFormServiceInterface
         private readonly ConfigServiceInterface $configService,
         private readonly EmailServiceInterface $emailService,
         private readonly ContactFormFactoryInterface $contactFormFactory,
-        private readonly ServiceToolsInterface $serviceTools,
-        private readonly ServiceUserInterface $serviceUser,
+        private readonly TranslatorInterface $translator,
+        private readonly Security $security,
         private readonly ?object $contactFormByIpLimiterFactory = null,
         private readonly ?object $contactFormByEmailLimiterFactory = null,
     ) {
@@ -140,8 +140,9 @@ class ContactFormService implements ContactFormServiceInterface
 
         //Defines the ContactForm
         $contactForm = new ContactForm();
-        $contactForm->setName($this->serviceUser->getName());
-        $contactForm->setEmail($this->serviceUser->getEmail());
+        $user = $this->security->getUser();
+        $contactForm->setName($user !== null && method_exists($user, 'getName') ? $user->getName() : null);
+        $contactForm->setEmail($user !== null ? (method_exists($user, 'getEmail') ? $user->getEmail() : $user->getUserIdentifier()) : null);
         $contactForm->setSubject($this->getSubject());
 
         return $contactForm;
@@ -200,16 +201,16 @@ class ContactFormService implements ContactFormServiceInterface
 
         if ($this->isNotBot($honeypotValue)) {
             if ($formData instanceof ContactForm && !$this->isRateLimitAccepted($formData)) {
-                $this->serviceTools->createFlash('text.too_many_attempts', 'contactForm', 'warning');
+                $this->request->getSession()->getFlashBag()->add('warning', $this->translator->trans('text.too_many_attempts', [], 'contactForm'));
 
                 return $this->getReferer();
             }
 
             // Sends email and creates flash message
             if ($this->emailService->send($event, $formData)) {
-                $this->serviceTools->createFlash('text.message_sent', 'contactForm');
+                $this->request->getSession()->getFlashBag()->add('success', $this->translator->trans('text.message_sent', [], 'contactForm'));
             } else {
-                $this->serviceTools->createFlash('text.message_not_sent', 'contactForm', 'danger', ['%error%' => $event->getError()]);
+                $this->request->getSession()->getFlashBag()->add('danger', $this->translator->trans('text.message_not_sent', ['%error%' => $event->getError()], 'contactForm'));
             }
         }
 

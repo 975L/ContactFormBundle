@@ -26,12 +26,24 @@ class ContactFormController extends AbstractController
     ) {
     }
 
-    //DISPLAY
-    #[Route(
-        '/contact',
-        name: 'contactform_display',
-        methods: ['GET', 'POST']
-    )]
+    #[Route('/contact/fragment', name: 'contactform_fragment', methods: ['GET'])]
+    public function fragment(Request $request, ConfigServiceInterface $configService): Response
+    {
+        $contactForm = $this->contactFormService->create();
+
+        $event = new ContactFormEvent($request, $contactForm);
+        $this->dispatcher->dispatch($event, ContactFormEvent::CREATE_FORM);
+
+        $form = $this->contactFormService->createForm('display', $contactForm, $event);
+
+        return $this->render('@c975LContactForm/components/ContactForm/ContactForm.html.twig', [
+            'form'    => $form->createView(),
+            'site'    => $configService->get('site-name'),
+            'subject' => $contactForm->getSubject(),
+        ]);
+    }
+
+    #[Route('/contact', name: 'contactform_display', methods: ['GET', 'POST'])]
     public function display(Request $request, ConfigServiceInterface $configService): Response
     {
         //Creates ContactForm
