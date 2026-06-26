@@ -4,11 +4,9 @@ services:
         autoconfigure: true
         public: true
 
-    c975L\ContactFormBundle\Controller\:
-        resource: '../src/Controller/*'
-
-    c975L\ContactFormBundle\Form\:
-        resource: '../src/Form/*'
+    c975L\ContactFormBundle\:
+        resource: '../src/'
+        exclude: '../src/{DependencyInjection,Entity,Event}'
 
     c975L\ContactFormBundle\Form\ContactFormFactory:
         arguments:
@@ -19,5 +17,13 @@ services:
             $contactFormByIpLimiterFactory: '@?limiter.contact_form_by_ip'
             $contactFormByEmailLimiterFactory: '@?limiter.contact_form_by_email'
 
-    c975L\ContactFormBundle\Service\:
-        resource: '../src/Service/*'
+    ui.block.contact_form:
+        class: stdClass
+        tags:
+            - name: ui.block
+              kind: contact_form
+              label: "Formulaire de contact"
+              form: c975L\ContactFormBundle\Form\Block\ContactFormType
+              template: '@c975LContactForm/components/ContactForm/ContactFormBlock.html.twig'
+              icon: '📬'
+              category: 'Forms'
