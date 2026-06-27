@@ -9,12 +9,19 @@
 
 namespace c975L\ContactFormBundle;
 
+use c975L\ContactFormBundle\DependencyInjection\CompilerPass\RecaptchaPass;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class c975LContactFormBundle extends AbstractBundle
 {
+    public function build(ContainerBuilder $container): void
+    {
+        parent::build($container);
+        $container->addCompilerPass(new RecaptchaPass());
+    }
+
     public function loadExtension(array $config, ContainerConfigurator $containerConfigurator, ContainerBuilder $containerBuilder): void
     {
         $containerConfigurator->import('../config/services.yaml');

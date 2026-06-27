@@ -1,6 +1,11 @@
 # Changelog
 
-## v7.15.2
+## v7.16.1
+
+- Fixed the ReCaptcha key problem (27/06/2026)
+- Updated Readme (27/06/2026)
+
+## v7.16
 
 - Removed dependency on external deleted services (26/06/2026)
 - Converted ContactForm in a component that can be used as a c975L/UiBundle Block (26/06/2026)
