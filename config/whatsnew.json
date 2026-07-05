@@ -1,0 +1,24 @@
+[
+    {
+        "version": "7.16.2",
+        "date": "2026-07-05",
+        "description": [
+            {
+                "en": "The contact page can now be added as a menu item in the navbar or footer",
+                "fr": "La page de contact peut désormais être ajoutée comme élément de menu dans la barre de navigation ou le pied de page",
+                "es": "La página de contacto ahora se puede añadir como elemento de menú en la barra de navegación o en el pie de página"
+            }
+        ]
+    },
+    {
+        "version": "7.16.1",
+        "date": "2026-06-27",
+        "description": [
+            {
+                "en": "Fixed the ReCaptcha key problem",
+                "fr": "Correction du problème de clé ReCaptcha",
+                "es": "Corregido el problema de la clave de ReCaptcha"
+            }
+        ]
+    }
+]

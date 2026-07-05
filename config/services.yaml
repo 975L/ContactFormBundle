@@ -22,8 +22,10 @@ services:
         tags:
             - name: ui.block
               kind: contact_form
-              label: "Formulaire de contact"
+              label: "label.block_contact_form"
+              description: "label.block_contact_form_description"
+              translation_domain: 'contactForm'
               form: c975L\ContactFormBundle\Form\Block\ContactFormType
               template: '@c975LContactForm/components/ContactForm/ContactFormBlock.html.twig'
               icon: '📬'
-              category: 'Forms'
+              category: 'label.category_forms'

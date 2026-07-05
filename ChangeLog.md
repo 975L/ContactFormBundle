@@ -1,5 +1,12 @@
 # Changelog
 
+## v7.16.2
+
+- Added `LinkableRouteProvider` so the contact page can be selected as a SiteBundle navbar/footer menu item, without ContactFormBundle depending on SiteBundle (05/07/2026)
+- Added `WhatsNewProvider` and `config/whatsnew.json` to contribute release notes to the ConfigBundle dashboard (05/07/2026)
+- Added `group` and `severity` to config values for dashboard display (05/07/2026)
+- Translated the UiBundle block label, description and category (05/07/2026)
+
 ## v7.16.1
 
 - Fixed the ReCaptcha key problem (27/06/2026)

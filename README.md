@@ -22,6 +22,7 @@ Symfony bundle that provides a fully-featured contact form with built-in spam pr
 - Optional "receive a copy" checkbox for the sender
 - Subject pre-fill via URL parameter (`?s=My+Subject`)
 - Configuration managed via [c975L/ConfigBundle](https://github.com/975L/ConfigBundle)
+- Selectable as a navbar/footer menu item in [c975L/SiteBundle](https://github.com/975L/SiteBundle) (via `LinkableRouteProvider`), with no dependency on SiteBundle itself
 
 ---
 

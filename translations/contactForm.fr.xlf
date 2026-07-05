@@ -112,6 +112,18 @@
                 <source>text.too_many_attempts</source>
                 <target>Trop de tentatives en peu de temps. Merci de patienter quelques minutes avant de recommencer.</target>
             </trans-unit>
+            <trans-unit id="30">
+                <source>label.block_contact_form_description</source>
+                <target>Insère le formulaire de contact du site (protégé anti-spam par IP et email)</target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>label.block_contact_form</source>
+                <target>Formulaire de contact</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>label.category_forms</source>
+                <target>Formulaires</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

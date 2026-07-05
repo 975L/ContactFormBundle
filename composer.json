@@ -1,7 +1,7 @@
 {
     "name": "c975l/contactform-bundle",
     "type": "symfony-bundle",
-    "description": "Bundle to manage simple contact form",
+    "description": "Symfony bundle that provides a fully-featured contact form with built-in spam protection, reCaptcha v3, rate limiting, event-driven customization, and multilingual support.",
     "keywords": ["symfony", "bundle", "contact"],
     "homepage": "https://github.com/975L/ContactFormBundle",
     "license": "MIT",

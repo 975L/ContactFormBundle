@@ -5,6 +5,8 @@
         "sensitive": false,
         "value": null,
         "kind": "text",
+        "group": "email",
+        "severity": "danger",
         "description": "Email address used to send the emails: i.e. contact@example.com"
     },
     {
@@ -13,6 +15,8 @@
         "sensitive": false,
         "value": null,
         "kind": "text",
+        "group": "email",
+        "severity": null,
         "description": "Name used to send the notifications from the site."
     },
     {
@@ -21,6 +25,8 @@
         "sensitive": false,
         "value": null,
         "kind": "text",
+        "group": "email",
+        "severity": "danger",
         "description": "Email address used to receive the emails: i.e. contact@example.com"
     },
     {
@@ -29,6 +35,8 @@
         "sensitive": false,
         "value": null,
         "kind": "text",
+        "group": "email",
+        "severity": null,
         "description": "Name used to receive the notifications from the site."
     },
     {
@@ -37,6 +45,8 @@
         "sensitive": false,
         "value": null,
         "kind": "text",
+        "group": "email",
+        "severity": null,
         "description": "Email address used to reply to the emails: i.e. contact@example.com"
     },
     {
@@ -45,6 +55,8 @@
         "sensitive": false,
         "value": null,
         "kind": "text",
+        "group": "email",
+        "severity": null,
         "description": "Name used to reply to the emails."
     },
     {
@@ -53,6 +65,8 @@
         "sensitive": true,
         "value": 7,
         "kind": "text",
+        "group": "form",
+        "severity": "warning",
         "description": "Below this delay (seconds) the contact form is supposed to be filled by a robot and will not be sent, to avoid spam"
     },
     {
@@ -61,6 +75,8 @@
         "sensitive": true,
         "value": "true",
         "kind": "bool",
+        "group": "form",
+        "severity": "warning",
         "description": "Indicates whether the contact form complies with GDPR regulations."
     },
     {
@@ -69,6 +85,8 @@
         "sensitive": true,
         "value": null,
         "kind": "text",
+        "group": "security",
+        "severity": "warning",
         "description": "Site key for ReCaptcha v3"
     },
     {
@@ -77,6 +95,8 @@
         "sensitive": true,
         "value": null,
         "kind": "text",
+        "group": "security",
+        "severity": "warning",
         "description": "Secret key for ReCaptcha v3"
     }
 ]
