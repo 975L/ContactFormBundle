@@ -13,10 +13,8 @@ use c975L\ConfigBundle\Management\WhatsNewProviderInterface;
 
 class WhatsNewProvider implements WhatsNewProviderInterface
 {
-    private const BUNDLE_NAME = 'ContactFormBundle';
-
     public function getEntries(): array
     {
-        return WhatsNewJsonReader::read(\dirname(__DIR__, 2) . '/config/whatsnew.json', self::BUNDLE_NAME);
+        return WhatsNewJsonReader::read(\dirname(__DIR__, 2) . '/config/whatsnew.json');
     }
 }

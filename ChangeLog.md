@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.17.1
+
+- Updated What's new (11/07/2026)
+
 ## v7.17
 
 - Modified configs values (11/07/2026)

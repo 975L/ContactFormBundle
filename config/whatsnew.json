@@ -1,23 +1,36 @@
 [
     {
-        "version": "7.16.2",
+        "date": "2026-07-11",
+        "description": [
+            {
+                "en": "You can now add custom fields to the contact form from the back office",
+                "fr": "Vous pouvez désormais ajouter des champs personnalisés au formulaire de contact depuis le back-office",
+                "es": "Ahora puede añadir campos personalizados al formulario de contacto desde el back-office"
+            },
+            {
+                "en": "Added a setting to fine-tune how strict the spam protection (reCAPTCHA) is",
+                "fr": "Ajout d'un réglage pour ajuster la sensibilité de la protection anti-spam (reCAPTCHA)",
+                "es": "Añadido un ajuste para afinar la sensibilidad de la protección antispam (reCAPTCHA)"
+            }
+        ]
+    },
+    {
         "date": "2026-07-05",
         "description": [
             {
-                "en": "The contact page can now be added as a menu item in the navbar or footer",
+                "en": "The contact page can now be added as a menu item in the navigation bar or footer",
                 "fr": "La page de contact peut désormais être ajoutée comme élément de menu dans la barre de navigation ou le pied de page",
                 "es": "La página de contacto ahora se puede añadir como elemento de menú en la barra de navegación o en el pie de página"
             }
         ]
     },
     {
-        "version": "7.16.1",
         "date": "2026-06-27",
         "description": [
             {
-                "en": "Fixed the ReCaptcha key problem",
-                "fr": "Correction du problème de clé ReCaptcha",
-                "es": "Corregido el problema de la clave de ReCaptcha"
+                "en": "Fixed an issue preventing the contact form's spam protection (ReCaptcha) from working",
+                "fr": "Correction d'un problème empêchant la protection anti-spam (ReCaptcha) du formulaire de fonctionner",
+                "es": "Corregido un problema que impedía el funcionamiento de la protección antispam (ReCaptcha) del formulario"
             }
         ]
     }
