@@ -21,6 +21,8 @@
         "php": ">=8.0",
         "c975l/config-bundle": "*",
         "c975l/ui-bundle": "*",
+        "doctrine/orm": "*",
+        "easycorp/easyadmin-bundle": "*",
         "karser/karser-recaptcha3-bundle": "*",
         "symfony/form": "*",
         "symfony/rate-limiter": "*",

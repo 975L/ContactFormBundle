@@ -1,5 +1,11 @@
 # Changelog
 
+## v7.17
+
+- Modified configs values (11/07/2026)
+- Added Crudcontroller to allow user to add custom fields (11/07/2026) [DB-Migration]
+- Added config recaptcha3-score-threshold (11/07/2026)
+
 ## v7.16.2
 
 - Added `LinkableRouteProvider` so the contact page can be selected as a SiteBundle navbar/footer menu item, without ContactFormBundle depending on SiteBundle (05/07/2026)

@@ -11,7 +11,9 @@ namespace c975L\ContactFormBundle\Form;
 
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\ContactFormBundle\Entity\ContactForm;
+use c975L\ContactFormBundle\Entity\ContactFormField;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
+use c975L\ContactFormBundle\Repository\ContactFormFieldRepository;
 use Nelmio\SecurityBundle\EventListener\ContentSecurityPolicyListener;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -26,9 +28,25 @@ class ContactFormFactory implements ContactFormFactoryInterface
         private readonly ConfigServiceInterface $configService,
         private readonly FormFactoryInterface $formFactory,
         private readonly RequestStack $requestStack,
+        private readonly ContactFormFieldRepository $contactFormFieldRepository,
         private readonly ?ContentSecurityPolicyListener $cspListener = null,
     ) {
         $this->request = $this->requestStack->getCurrentRequest();
+    }
+
+    // Builds the "customFields" config array (name/label/type/required) from the admin-managed ContactFormField entities
+    private function getCustomFields(): array
+    {
+        return array_map(
+            static fn (ContactFormField $field): array => [
+                'name' => $field->getName(),
+                'label' => $field->getLabel(),
+                'type' => $field->getType(),
+                'placeholder' => $field->getPlaceholder(),
+                'required' => $field->isRequired(),
+            ],
+            $this->contactFormFieldRepository->findAllOrdered()
+        );
     }
 
     public function create(string $name, ContactForm $contactForm, ContactFormEvent $event): Form
@@ -40,6 +58,7 @@ class ContactFormFactory implements ContactFormFactoryInterface
                     'gdpr' => $this->configService->get('contact-form-gdpr'),
                     'recaptcha3SiteKey' => $this->configService->hasParameter('recaptcha3-site-key') ? $this->configService->get('recaptcha3-site-key') : $this->configService->getContainerParameter('karser_recaptcha3.site_key'),
                     'recaptcha3SecretKey' => $this->configService->hasParameter('recaptcha3-secret-key') ? $this->configService->get('recaptcha3-secret-key') : $this->configService->getContainerParameter('karser_recaptcha3.secret_key'),
+                    'customFields' => $this->getCustomFields(),
                 ];
                 break;
             default:

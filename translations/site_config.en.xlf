@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="site_config.en.xlf">
+        <body>
+            <trans-unit id="1">
+                <source>label.email_from</source>
+                <target>Email address used to send the emails: i.e. contact@example.com</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>label.email_from_name</source>
+                <target>Name used to send the notifications from the site.</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>label.email_to</source>
+                <target>Email address used to receive the emails: i.e. contact@example.com</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>label.email_to_name</source>
+                <target>Name used to receive the notifications from the site.</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>label.email_reply_to</source>
+                <target>Email address used to reply to the emails: i.e. contact@example.com</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>label.email_reply_to_name</source>
+                <target>Name used to reply to the emails.</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>label.contact_form_delay</source>
+                <target>Below this delay (seconds) the contact form is supposed to be filled by a robot and will not be sent, to avoid spam</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>label.contact_form_gdpr</source>
+                <target>Indicates whether the contact form complies with GDPR regulations.</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>label.recaptcha3_site_key</source>
+                <target>Site key for ReCaptcha v3</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>label.recaptcha3_secret_key</source>
+                <target>Secret key for ReCaptcha v3</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>label.recaptcha3_score_threshold</source>
+                <target>Score threshold (between 0 and 1) below which ReCaptcha v3 considers the submission suspicious</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -31,6 +31,8 @@ class ContactForm
 
     protected $receiveCopy;
 
+    protected array $extraFields = [];
+
     public function setEmail(?string $email): self
     {
         $this->email = $email;
@@ -89,5 +91,17 @@ class ContactForm
     public function getReceiveCopy(): ?bool
     {
         return $this->receiveCopy;
+    }
+
+    public function setExtraFields(array $extraFields): self
+    {
+        $this->extraFields = $extraFields;
+
+        return $this;
+    }
+
+    public function getExtraFields(): array
+    {
+        return $this->extraFields;
     }
 }

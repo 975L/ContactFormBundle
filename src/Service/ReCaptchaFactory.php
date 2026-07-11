@@ -17,7 +17,7 @@ class ReCaptchaFactory
 {
     public function __construct(private readonly ConfigServiceInterface $configService) {}
 
-    public function create(string $fallbackSecret, RequestMethod $requestMethod): ReCaptcha
+    public function create(string $fallbackSecret, RequestMethod $requestMethod, float $fallbackScoreThreshold): ReCaptcha
     {
         $secret = $fallbackSecret;
         if ($this->configService->hasParameter('recaptcha3-secret-key')) {
@@ -27,6 +27,14 @@ class ReCaptchaFactory
             }
         }
 
-        return new ReCaptcha($secret, $requestMethod);
+        $scoreThreshold = $fallbackScoreThreshold;
+        if ($this->configService->hasParameter('recaptcha3-score-threshold')) {
+            $configScoreThreshold = $this->configService->get('recaptcha3-score-threshold');
+            if ($configScoreThreshold) {
+                $scoreThreshold = (float) $configScoreThreshold;
+            }
+        }
+
+        return (new ReCaptcha($secret, $requestMethod))->setScoreThreshold($scoreThreshold);
     }
 }

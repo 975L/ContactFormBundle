@@ -35,6 +35,13 @@
                 <td class="text-left">{{ 'label.message_sent'|trans }}</td>
                 <td class="text-left">{{ form.message|nl2br|raw }}</td>
             </tr>
+            {# Custom fields #}
+            {% for label, value in form.extraFields %}
+                <tr>
+                    <td class="text-left">{{ label|trans }}</td>
+                    <td class="text-left">{{ value }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 {% endblock %}

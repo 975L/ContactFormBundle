@@ -14,10 +14,12 @@ use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ContactFormType extends AbstractType
 {
@@ -94,6 +96,28 @@ class ContactFormType extends AbstractType
                 ]
             )
         ;
+        // Custom fields defined by the site config (label + type), collected unmapped under "custom"
+        $customFields = $options['config']['customFields'] ?? [];
+        if (!empty($customFields)) {
+            $builder->add('custom', FormType::class, [
+                'mapped' => false,
+                'label' => false,
+            ]);
+            $customFieldset = $builder->get('custom');
+            foreach ($customFields as $customField) {
+                if (empty($customField['name'])) {
+                    continue;
+                }
+                $required = $customField['required'] ?? false;
+                $attr = empty($customField['placeholder']) ? [] : ['placeholder' => $customField['placeholder']];
+                $customFieldset->add($customField['name'], $this->getCustomFieldType($customField['type'] ?? 'text'), [
+                    'label' => $customField['label'] ?? $customField['name'],
+                    'required' => $required,
+                    'constraints' => $required ? [new NotBlank()] : [],
+                    'attr' => $attr,
+                ]);
+            }
+        }
         // ReCaptcha
         if ($options['config']['recaptcha3SiteKey'] && $options['config']['recaptcha3SecretKey']) {
             $builder
@@ -129,6 +153,17 @@ class ContactFormType extends AbstractType
                     ]
                 );
         }
+    }
+
+    // Maps a custom field "type" defined in config to its Symfony FormType
+    private function getCustomFieldType(string $type): string
+    {
+        return match ($type) {
+            'textarea' => TextareaType::class,
+            'email' => EmailType::class,
+            'checkbox' => CheckboxType::class,
+            default => TextType::class,
+        };
     }
 
     public function configureOptions(OptionsResolver $resolver): void

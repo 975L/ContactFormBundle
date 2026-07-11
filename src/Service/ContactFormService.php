@@ -192,6 +192,21 @@ class ContactFormService implements ContactFormServiceInterface
         $this->request->getSession()->set('redirectUrl', $this->request->headers->get('referer'));
     }
 
+    // Collects submitted custom fields values, keyed by their label, from the unmapped "custom" subform
+    private function buildExtraFields(Form $form): array
+    {
+        if (!$form->has('custom')) {
+            return [];
+        }
+
+        $extraFields = [];
+        foreach ($form->get('custom')->all() as $name => $child) {
+            $extraFields[$child->getConfig()->getOption('label') ?: $name] = $child->getData();
+        }
+
+        return $extraFields;
+    }
+
     // Sends email resulting from submission of form if it's not a bot that has used the form
     public function sendEmail(Form $form, ContactFormEvent $event): ?string
     {
@@ -200,10 +215,14 @@ class ContactFormService implements ContactFormServiceInterface
         $formData = $form->getData();
 
         if ($this->isNotBot($honeypotValue)) {
-            if ($formData instanceof ContactForm && !$this->isRateLimitAccepted($formData)) {
-                $this->request->getSession()->getFlashBag()->add('warning', $this->translator->trans('text.too_many_attempts', [], 'contactForm'));
+            if ($formData instanceof ContactForm) {
+                $formData->setExtraFields($this->buildExtraFields($form));
 
-                return $this->getReferer();
+                if (!$this->isRateLimitAccepted($formData)) {
+                    $this->request->getSession()->getFlashBag()->add('warning', $this->translator->trans('text.too_many_attempts', [], 'contactForm'));
+
+                    return $this->getReferer();
+                }
             }
 
             // Sends email and creates flash message

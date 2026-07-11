@@ -24,6 +24,7 @@ class RecaptchaPass implements CompilerPassInterface
         }
 
         $fallbackSecret = $container->getParameter('karser_recaptcha3.secret_key');
+        $fallbackScoreThreshold = $container->getParameter('karser_recaptcha3.score_threshold');
 
         $container->register(ReCaptchaFactory::class, ReCaptchaFactory::class)
             ->setArguments([new Reference(ConfigServiceInterface::class)])
@@ -34,7 +35,9 @@ class RecaptchaPass implements CompilerPassInterface
         $definition->setArguments([
             $fallbackSecret,
             new Reference('karser_recaptcha3.google.request_method'),
+            $fallbackScoreThreshold,
         ]);
-        // setScoreThreshold call remains on the definition and will be applied to the returned ReCaptcha object
+        // Removed, as the threshold is now set by ReCaptchaFactory, allowing it to be overridden via ConfigService
+        $definition->removeMethodCall('setScoreThreshold');
     }
 }

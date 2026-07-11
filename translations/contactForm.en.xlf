@@ -124,6 +124,50 @@
                 <source>label.category_forms</source>
                 <target>Forms</target>
             </trans-unit>
+            <trans-unit id="33">
+                <source>label.custom_fields</source>
+                <target>Custom fields</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>label.field_label</source>
+                <target>Label</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>label.field_name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source>label.field_type</source>
+                <target>Type</target>
+            </trans-unit>
+            <trans-unit id="37">
+                <source>label.field_type_text</source>
+                <target>Text</target>
+            </trans-unit>
+            <trans-unit id="38">
+                <source>label.field_type_textarea</source>
+                <target>Long text</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>label.field_type_email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="40">
+                <source>label.field_type_checkbox</source>
+                <target>Checkbox</target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>label.field_required</source>
+                <target>Required</target>
+            </trans-unit>
+            <trans-unit id="42">
+                <source>label.position</source>
+                <target>Position</target>
+            </trans-unit>
+            <trans-unit id="43">
+                <source>label.field_placeholder</source>
+                <target>Placeholder</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
