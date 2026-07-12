@@ -1,6 +1,6 @@
 [
     {
-        "label": "Email (from)",
+        "label": "label.email_from",
         "slug": "email-from",
         "sensitive": false,
         "restricted": false,
@@ -8,10 +8,10 @@
         "kind": "text",
         "group": "email",
         "severity": "danger",
-        "description": "label.email_from"
+        "description": "description.email_from"
     },
     {
-        "label": "Email (from) Name",
+        "label": "label.email_from_name",
         "slug": "email-from-name",
         "sensitive": false,
         "restricted": false,
@@ -19,10 +19,10 @@
         "kind": "text",
         "group": "email",
         "severity": null,
-        "description": "label.email_from_name"
+        "description": "description.email_from_name"
     },
     {
-        "label": "Email (to)",
+        "label": "label.email_to",
         "slug": "email-to",
         "sensitive": false,
         "restricted": false,
@@ -30,10 +30,10 @@
         "kind": "text",
         "group": "email",
         "severity": "danger",
-        "description": "label.email_to"
+        "description": "description.email_to"
     },
     {
-        "label": "Email (to) Name",
+        "label": "label.email_to_name",
         "slug": "email-to-name",
         "sensitive": false,
         "restricted": false,
@@ -41,10 +41,10 @@
         "kind": "text",
         "group": "email",
         "severity": null,
-        "description": "label.email_to_name"
+        "description": "description.email_to_name"
     },
     {
-        "label": "Email (reply to)",
+        "label": "label.email_reply_to",
         "slug": "email-reply-to",
         "sensitive": false,
         "restricted": false,
@@ -52,10 +52,10 @@
         "kind": "text",
         "group": "email",
         "severity": null,
-        "description": "label.email_reply_to"
+        "description": "description.email_reply_to"
     },
     {
-        "label": "Email (reply to) Name",
+        "label": "label.email_reply_to_name",
         "slug": "email-reply-to-name",
         "sensitive": false,
         "restricted": false,
@@ -63,10 +63,10 @@
         "kind": "text",
         "group": "email",
         "severity": null,
-        "description": "label.email_reply_to_name"
+        "description": "description.email_reply_to_name"
     },
     {
-        "label": "Contact Form Delay",
+        "label": "label.contact_form_delay",
         "slug": "contact-form-delay",
         "sensitive": false,
         "restricted": true,
@@ -74,10 +74,10 @@
         "kind": "text",
         "group": "form",
         "severity": "warning",
-        "description": "label.contact_form_delay"
+        "description": "description.contact_form_delay"
     },
     {
-        "label": "Contact GDPR",
+        "label": "label.contact_form_gdpr",
         "slug": "contact-form-gdpr",
         "sensitive": false,
         "restricted": true,
@@ -85,10 +85,10 @@
         "kind": "bool",
         "group": "form",
         "severity": "warning",
-        "description": "label.contact_form_gdpr"
+        "description": "description.contact_form_gdpr"
     },
     {
-        "label": "Re-Captcha3 Site Key",
+        "label": "label.recaptcha3_site_key",
         "slug": "recaptcha3-site-key",
         "sensitive": true,
         "restricted": true,
@@ -96,10 +96,10 @@
         "kind": "text",
         "group": "security",
         "severity": "warning",
-        "description": "label.recaptcha3_site_key"
+        "description": "description.recaptcha3_site_key"
     },
     {
-        "label": "Re-Captcha3 Secret Key",
+        "label": "label.recaptcha3_secret_key",
         "slug": "recaptcha3-secret-key",
         "sensitive": true,
         "restricted": true,
@@ -107,10 +107,10 @@
         "kind": "text",
         "group": "security",
         "severity": "warning",
-        "description": "label.recaptcha3_secret_key"
+        "description": "description.recaptcha3_secret_key"
     },
     {
-        "label": "Re-Captcha3 Score Threshold",
+        "label": "label.recaptcha3_score_threshold",
         "slug": "recaptcha3-score-threshold",
         "sensitive": false,
         "restricted": true,
@@ -118,6 +118,6 @@
         "kind": "text",
         "group": "security",
         "severity": "warning",
-        "description": "label.recaptcha3_score_threshold"
+        "description": "description.recaptcha3_score_threshold"
     }
 ]

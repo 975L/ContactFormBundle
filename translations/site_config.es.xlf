@@ -3,48 +3,92 @@
     <file source-language="en" target-language="es" datatype="plaintext" original="site_config.es.xlf">
         <body>
             <trans-unit id="1">
-                <source>label.email_from</source>
+                <source>description.email_from</source>
                 <target>Dirección de correo utilizada para enviar los correos, ej. contact@example.com</target>
             </trans-unit>
             <trans-unit id="2">
-                <source>label.email_from_name</source>
+                <source>description.email_from_name</source>
                 <target>Nombre utilizado para enviar las notificaciones desde el sitio.</target>
             </trans-unit>
             <trans-unit id="3">
-                <source>label.email_to</source>
+                <source>description.email_to</source>
                 <target>Dirección de correo utilizada para recibir los correos, ej. contact@example.com</target>
             </trans-unit>
             <trans-unit id="4">
-                <source>label.email_to_name</source>
+                <source>description.email_to_name</source>
                 <target>Nombre utilizado para recibir las notificaciones desde el sitio.</target>
             </trans-unit>
             <trans-unit id="5">
-                <source>label.email_reply_to</source>
+                <source>description.email_reply_to</source>
                 <target>Dirección de correo utilizada para responder a los correos, ej. contact@example.com</target>
             </trans-unit>
             <trans-unit id="6">
-                <source>label.email_reply_to_name</source>
+                <source>description.email_reply_to_name</source>
                 <target>Nombre utilizado para responder a los correos.</target>
             </trans-unit>
             <trans-unit id="7">
-                <source>label.contact_form_delay</source>
+                <source>description.contact_form_delay</source>
                 <target>Por debajo de este retraso (segundos), se considera que el formulario de contacto ha sido rellenado por un robot y no se enviará, para evitar el spam</target>
             </trans-unit>
             <trans-unit id="8">
-                <source>label.contact_form_gdpr</source>
+                <source>description.contact_form_gdpr</source>
                 <target>Indica si el formulario de contacto cumple con el RGPD.</target>
             </trans-unit>
             <trans-unit id="9">
-                <source>label.recaptcha3_site_key</source>
+                <source>description.recaptcha3_site_key</source>
                 <target>Clave de sitio para ReCaptcha v3</target>
             </trans-unit>
             <trans-unit id="10">
-                <source>label.recaptcha3_secret_key</source>
+                <source>description.recaptcha3_secret_key</source>
                 <target>Clave secreta para ReCaptcha v3</target>
             </trans-unit>
             <trans-unit id="11">
-                <source>label.recaptcha3_score_threshold</source>
+                <source>description.recaptcha3_score_threshold</source>
                 <target>Umbral de puntuación (entre 0 y 1) por debajo del cual ReCaptcha v3 considera el envío sospechoso</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>label.email_from</source>
+                <target>Correo (remitente)</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>label.email_from_name</source>
+                <target>Nombre del correo (remitente)</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>label.email_to</source>
+                <target>Correo (destinatario)</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>label.email_to_name</source>
+                <target>Nombre del correo (destinatario)</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>label.email_reply_to</source>
+                <target>Correo (responder a)</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>label.email_reply_to_name</source>
+                <target>Nombre del correo (responder a)</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>label.contact_form_delay</source>
+                <target>Retraso del formulario de contacto</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>label.contact_form_gdpr</source>
+                <target>RGPD del formulario de contacto</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>label.recaptcha3_site_key</source>
+                <target>Clave de sitio Re-Captcha3</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>label.recaptcha3_secret_key</source>
+                <target>Clave secreta Re-Captcha3</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>label.recaptcha3_score_threshold</source>
+                <target>Umbral de puntuación Re-Captcha3</target>
             </trans-unit>
         </body>
     </file>

@@ -6,7 +6,7 @@ services:
 
     c975L\ContactFormBundle\:
         resource: '../src/'
-        exclude: '../src/{DependencyInjection,Entity,Event}'
+        exclude: '../src/{DependencyInjection,Entity,Event,Tests}'
 
     c975L\ContactFormBundle\Form\ContactFormFactory:
         arguments:
@@ -29,3 +29,6 @@ services:
               template: '@c975LContactForm/components/ContactForm/ContactFormBlock.html.twig'
               icon: '📬'
               category: 'label.category_forms'
+              pickable: true
+              # Embeds a Symfony form with its own CSRF token - never cache, every visitor needs a fresh one
+              cacheable: false

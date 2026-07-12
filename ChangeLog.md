@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.17.2
+
+- Added tests (12/07/2026)
+- Added label translations for configs (12/07/2026)
+
 ## v7.17.1
 
 - Updated What's new (11/07/2026)

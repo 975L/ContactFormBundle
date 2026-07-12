@@ -102,8 +102,8 @@ class EmailService implements EmailServiceInterface
         $this->request->getSession()->remove('time');
 
         // Defines data for email and sends it if TemplatedEmail
-        $emails = $this->defineData($event, $formData);
         try {
+            $emails = $this->defineData($event, $formData);
             foreach ($emails as $email) {
                 if ($email instanceof TemplatedEmail) {
                     // echo $this->twig->render($email->getHtmlTemplate(), ['form' => $email->getContext()['form']]); dd(); // For debug
