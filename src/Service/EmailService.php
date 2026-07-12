@@ -74,7 +74,7 @@ class EmailService implements EmailServiceInterface
         // Creates email for sending to sender if checkbox to receive copy has been checked. Do so to avoid providing the email address of the receiver
         if ($formData->getReceiveCopy()) {
             $emailSender = clone $email;
-            $emailSender->to(new Address($replyTo));
+            $emailSender->to(new Address($formData->getEmail()));
             $emailSender->getHeaders()->remove('Reply-To');
 
             $emails[] = $emailSender;

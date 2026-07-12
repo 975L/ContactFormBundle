@@ -123,11 +123,11 @@ class EmailServiceTest extends TestCase
         $mailer = $this->createRecordingMailer();
         $service = $this->createService($request, $mailer);
 
-        $formData = (new ContactForm())->setSubject('Hello')->setReceiveCopy(true);
+        $formData = (new ContactForm())->setSubject('Hello')->setReceiveCopy(true)->setEmail('visitor@example.com');
         $event = new ContactFormEvent($request, $formData, [
             'email-from' => 'from@example.com',
             'email-to' => 'to@example.com',
-            'email-reply-to' => 'visitor@example.com',
+            'email-reply-to' => 'siteowner@example.com',
         ]);
 
         $service->send($event, $formData);

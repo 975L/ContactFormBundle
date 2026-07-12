@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.17.3
+
+- Corrected bug of not sending email to user when asked for a copy (12/07/2026)
+- Added tests for ReCaptchaFactory (12/07/2026)
+
 ## v7.17.2
 
 - Added tests (12/07/2026)
