@@ -42,6 +42,11 @@
             "c975L\\ContactFormBundle\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "c975L\\ContactFormBundle\\Tests\\": "tests/"
+        }
+    },
     "config": {
         "sort-packages": true,
         "vendor-dir": ".vendor"

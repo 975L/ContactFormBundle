@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.17.4
+
+- Moved tests to the right place (13/07/2026)
+
 ## v7.17.3
 
 - Corrected bug of not sending email to user when asked for a copy (12/07/2026)

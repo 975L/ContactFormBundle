@@ -25,8 +25,6 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\RawMessage;
 use Twig\Environment;
 
-// Lives under src/Tests (not a sibling tests/ dir) so it stays autoloadable by consuming apps,
-// whose attribute route loader recursively reflects every class under the bundle root
 class EmailServiceTest extends TestCase
 {
     // Builds a fresh Request carrying its own session, as the RequestStack would provide at runtime

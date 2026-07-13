@@ -14,8 +14,6 @@ use c975L\ContactFormBundle\Service\ReCaptchaFactory;
 use Karser\Recaptcha3Bundle\ReCaptcha\RequestMethod\Post;
 use PHPUnit\Framework\TestCase;
 
-// Lives under src/Tests (not a sibling tests/ dir) so it stays autoloadable by consuming apps,
-// whose attribute route loader recursively reflects every class under the bundle root
 class ReCaptchaFactoryTest extends TestCase
 {
     // Reads a private property of ReCaptcha, as it exposes no getter for secret/threshold

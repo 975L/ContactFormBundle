@@ -6,7 +6,7 @@ services:
 
     c975L\ContactFormBundle\:
         resource: '../src/'
-        exclude: '../src/{DependencyInjection,Entity,Event,Tests}'
+        exclude: '../src/{DependencyInjection,Entity,Event}'
 
     c975L\ContactFormBundle\Form\ContactFormFactory:
         arguments:
