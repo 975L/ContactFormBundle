@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.17.5
+
+- Added help text to the contact form field CRUD index (13/07/2026)
+- Added config value to debug email inline (13/07/2026)
+
 ## v7.17.4
 
 - Moved tests to the right place (13/07/2026)

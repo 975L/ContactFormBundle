@@ -12,6 +12,7 @@ namespace c975L\ContactFormBundle\Service;
 use Twig\Environment;
 use Symfony\Component\Mime\Address;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use c975L\ContactFormBundle\Entity\ContactForm;
@@ -22,12 +23,15 @@ use c975L\ConfigBundle\Service\ConfigServiceInterface;
 class EmailService implements EmailServiceInterface
 {
     private readonly ?Request $request;
+    /** @var string[] */
+    private array $debugPreviews = [];
 
     public function __construct(
         private readonly RequestStack $requestStack,
         private readonly ConfigServiceInterface $configService,
         private readonly MailerInterface $mailer,
         private readonly Environment $twig,
+        private readonly Security $security,
     ) {
         $this->request = $requestStack->getCurrentRequest();
     }
@@ -106,7 +110,11 @@ class EmailService implements EmailServiceInterface
             $emails = $this->defineData($event, $formData);
             foreach ($emails as $email) {
                 if ($email instanceof TemplatedEmail) {
-                    // echo $this->twig->render($email->getHtmlTemplate(), ['form' => $email->getContext()['form']]); dd(); // For debug
+                    if ($this->security->isGranted('ROLE_SUPER_ADMIN') && $this->configService->getBool($this->configService->get('email-debug'))) {
+                        $renderedEmail = $this->twig->render($email->getHtmlTemplate(), ['form' => $email->getContext()['form']]);
+                        $this->debugPreviews[] = $this->wrapDebugEmail($email, $renderedEmail);
+                        continue;
+                    }
                     $this->mailer->send($email);
                 }
             }
@@ -116,5 +124,54 @@ class EmailService implements EmailServiceInterface
             $event->setError($e->getMessage());
             return false;
         }
+    }
+
+    // Returns and clears the stashed debug previews, one per email that was rendered instead of sent
+    public function consumeDebugPreview(): ?string
+    {
+        if ([] === $this->debugPreviews) {
+            return null;
+        }
+
+        $preview = implode('<hr style="margin:24px 0;border:none;border-top:2px dashed #999;">', $this->debugPreviews);
+        $this->debugPreviews = [];
+
+        return $preview;
+    }
+
+    // Inserts a debug banner with the subject and addresses right after <body>, keeping a single valid HTML document
+    private function wrapDebugEmail(TemplatedEmail $email, string $renderedEmail): string
+    {
+        $banner = sprintf(
+            '<div style="margin:0;padding:8px 16px;background:#e53e3e;color:#fff;font-family:sans-serif;font-weight:bold;">EMAIL DEBUG (not sent) — %s<br>%s</div>',
+            htmlspecialchars($email->getSubject() ?? ''),
+            $this->formatDebugAddresses($email)
+        );
+
+        if (1 === preg_match('/<body[^>]*>/i', $renderedEmail)) {
+            return preg_replace('/(<body[^>]*>)/i', '$1' . $banner, $renderedEmail, 1);
+        }
+
+        return $banner . $renderedEmail;
+    }
+
+    // Formats From/To/Cc/Bcc addresses for the debug banner
+    private function formatDebugAddresses(TemplatedEmail $email): string
+    {
+        $lines = [];
+        foreach (['From' => $email->getFrom(), 'To' => $email->getTo(), 'Cc' => $email->getCc(), 'Bcc' => $email->getBcc()] as $label => $addresses) {
+            if ([] === $addresses) {
+                continue;
+            }
+
+            $lines[] = htmlspecialchars(sprintf('%s: %s', $label, implode(', ', array_map(
+                static fn (Address $address) => '' !== $address->getName()
+                    ? sprintf('%s <%s>', $address->getName(), $address->getAddress())
+                    : $address->getAddress(),
+                $addresses
+            ))));
+        }
+
+        return implode('<br>', $lines);
     }
 }

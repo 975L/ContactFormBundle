@@ -90,6 +90,14 @@
                 <source>label.recaptcha3_score_threshold</source>
                 <target>Seuil de score Re-Captcha3</target>
             </trans-unit>
+            <trans-unit id="23">
+                <source>description.email_debug</source>
+                <target>Affiche le rendu HTML de l'email dans les logs sans bloquer l'envoi, réservé à ROLE_SUPER_ADMIN.</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>label.email_debug</source>
+                <target>Debug des emails</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

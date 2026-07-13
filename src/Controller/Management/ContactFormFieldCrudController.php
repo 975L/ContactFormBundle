@@ -86,6 +86,7 @@ class ContactFormFieldCrudController extends AbstractCrudController
     {
         return $crud
             ->showEntityActionsInlined()
+            ->overrideTemplate('crud/index', '@c975LContactForm/management/contact_form_field_crud_index.html.twig')
             ->setEntityPermission($this->configService->get('site-role-admin'))
             ->setDefaultSort(['position' => 'ASC'])
         ;

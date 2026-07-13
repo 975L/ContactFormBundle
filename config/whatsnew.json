@@ -1,5 +1,15 @@
 [
     {
+        "date": "2026-07-13",
+        "description": [
+            {
+                "en": "Added an option to preview contact form emails without actually sending them, useful for testing",
+                "fr": "Ajout d'une option pour prévisualiser les emails du formulaire de contact sans les envoyer réellement, utile pour les tests",
+                "es": "Añadida una opción para previsualizar los correos del formulario de contacto sin enviarlos realmente, útil para pruebas"
+            }
+        ]
+    },
+    {
         "date": "2026-07-11",
         "description": [
             {

@@ -168,6 +168,10 @@
                 <source>label.field_placeholder</source>
                 <target>Placeholder</target>
             </trans-unit>
+            <trans-unit id="44">
+                <source>label.info_contact_form_field</source>
+                <target>Fields displayed on the contact form, in the order below</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

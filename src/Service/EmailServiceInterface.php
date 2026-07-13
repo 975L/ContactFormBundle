@@ -19,4 +19,7 @@ interface EmailServiceInterface
     public function getDataParameter(string $parameter, array $emailData): ?string;
 
     public function send(ContactFormEvent $event, ContactForm $formData): bool;
+
+    // Returns and clears the stashed debug preview
+    public function consumeDebugPreview(): ?string;
 }

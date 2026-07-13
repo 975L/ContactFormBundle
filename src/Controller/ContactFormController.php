@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
+use c975L\ContactFormBundle\Service\EmailServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use c975L\ContactFormBundle\Service\ContactFormServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,6 +24,7 @@ class ContactFormController extends AbstractController
     public function __construct(
         private readonly EventDispatcherInterface $dispatcher,
         private readonly ContactFormServiceInterface $contactFormService,
+        private readonly EmailServiceInterface $emailService,
     ) {
     }
 
@@ -64,6 +66,13 @@ class ContactFormController extends AbstractController
 
             //Sends email and redirects to defined referer
             $redirectUrl = $this->contactFormService->sendEmail($form, $event);
+
+            //Returns debug preview standalone instead of redirecting
+            $debugPreview = $this->emailService->consumeDebugPreview();
+            if (null !== $debugPreview) {
+                return new Response($debugPreview);
+            }
+
             if (null !== $redirectUrl) {
                 return $this->redirect($redirectUrl);
             }

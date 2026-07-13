@@ -168,6 +168,10 @@
                 <source>label.field_placeholder</source>
                 <target>Marcador de posición</target>
             </trans-unit>
+            <trans-unit id="44">
+                <source>label.info_contact_form_field</source>
+                <target>Campos mostrados en el formulario de contacto, en el orden indicado a continuación</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

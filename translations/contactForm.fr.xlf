@@ -168,6 +168,10 @@
                 <source>label.field_placeholder</source>
                 <target>Texte indicatif</target>
             </trans-unit>
+            <trans-unit id="44">
+                <source>label.info_contact_form_field</source>
+                <target>Champs affichés sur le formulaire de contact, dans l'ordre ci-dessous</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

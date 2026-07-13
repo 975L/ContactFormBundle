@@ -66,6 +66,17 @@
         "description": "description.email_reply_to_name"
     },
     {
+        "label": "label.email_debug",
+        "slug": "email-debug",
+        "sensitive": false,
+        "restricted": true,
+        "value": "false",
+        "kind": "bool",
+        "group": "email",
+        "severity": "warning",
+        "description": "description.email_debug"
+    },
+    {
         "label": "label.contact_form_delay",
         "slug": "contact-form-delay",
         "sensitive": false,
