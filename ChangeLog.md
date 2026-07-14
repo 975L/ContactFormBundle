@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.17.6
+
+- Suppressed DependencyInjection/Configuration.php as not needed (14/07/2026)
+
 ## v7.17.5
 
 - Added help text to the contact form field CRUD index (13/07/2026)
