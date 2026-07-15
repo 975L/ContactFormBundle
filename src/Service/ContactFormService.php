@@ -180,7 +180,8 @@ class ContactFormService implements ContactFormServiceInterface
     public function isNotBot($honeypotValue): bool
     {
         $bot = null === $this->request->getSession()->get('time');
-        $bot = $bot ? true : $this->request->getSession()->get('time') + $this->configService->get('contact-form-delay') > time();
+        // Falls back to 7s if "site-form-delay" isn't seeded, e.g. SiteBundle isn't installed
+        $bot = $bot ? true : $this->request->getSession()->get('time') + ($this->configService->get('site-form-delay') ?? 7) > time();
         $bot = $bot ? true : !empty($honeypotValue);
 
         return ! $bot;

@@ -26,14 +26,6 @@
                 <source>description.email_reply_to_name</source>
                 <target>Nom utilisé pour répondre aux emails.</target>
             </trans-unit>
-            <trans-unit id="7">
-                <source>description.contact_form_delay</source>
-                <target>En dessous de ce délai (secondes), le formulaire de contact est considéré comme rempli par un robot et ne sera pas envoyé, afin d'éviter le spam</target>
-            </trans-unit>
-            <trans-unit id="8">
-                <source>description.contact_form_gdpr</source>
-                <target>Indique si le formulaire de contact est conforme au RGPD.</target>
-            </trans-unit>
             <trans-unit id="9">
                 <source>description.recaptcha3_site_key</source>
                 <target>Clé de site pour ReCaptcha v3</target>
@@ -70,14 +62,6 @@
                 <source>label.email_reply_to_name</source>
                 <target>Nom de l'email (réponse à)</target>
             </trans-unit>
-            <trans-unit id="18">
-                <source>label.contact_form_delay</source>
-                <target>Délai du formulaire de contact</target>
-            </trans-unit>
-            <trans-unit id="19">
-                <source>label.contact_form_gdpr</source>
-                <target>RGPD du formulaire de contact</target>
-            </trans-unit>
             <trans-unit id="20">
                 <source>label.recaptcha3_site_key</source>
                 <target>Clé de site Re-Captcha3</target>
@@ -97,6 +81,22 @@
             <trans-unit id="24">
                 <source>label.email_debug</source>
                 <target>Debug des emails</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>label.site_form_delay</source>
+                <target>Délai anti-bot des formulaires publics</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>description.site_form_delay</source>
+                <target>Temps minimum, en secondes, attendu entre l'affichage et la soumission d'un formulaire public (inscription, réinitialisation de mot de passe, contact...) avant de le considérer comme un bot</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>label.site_form_gdpr</source>
+                <target>Afficher la case à cocher RGPD sur les formulaires publics</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>description.site_form_gdpr</source>
+                <target>Ajoute une case à cocher de consentement obligatoire sur les formulaires publics (inscription, réinitialisation de mot de passe, contact...)</target>
             </trans-unit>
         </body>
     </file>

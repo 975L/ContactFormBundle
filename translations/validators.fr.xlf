@@ -30,6 +30,10 @@
         <source>subject.min_length</source>
         <target>Le sujet doit faire au moins {{ limit }} caractères</target>
       </trans-unit>
+      <trans-unit id="8">
+        <source>gdpr.required</source>
+        <target>Vous devez accepter le traitement de vos données.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

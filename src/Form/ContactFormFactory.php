@@ -55,7 +55,8 @@ class ContactFormFactory implements ContactFormFactoryInterface
             case 'display':
                 $config = [
                     'receiveCopy' => $event->getReceiveCopy(),
-                    'gdpr' => $this->configService->get('contact-form-gdpr'),
+                    // Falls back to true if "site-form-gdpr" isn't seeded, e.g. SiteBundle isn't installed
+                    'gdpr' => $this->configService->get('site-form-gdpr') ?? true,
                     'recaptcha3SiteKey' => $this->configService->hasParameter('recaptcha3-site-key') ? $this->configService->get('recaptcha3-site-key') : $this->configService->getContainerParameter('karser_recaptcha3.site_key'),
                     'recaptcha3SecretKey' => $this->configService->hasParameter('recaptcha3-secret-key') ? $this->configService->get('recaptcha3-secret-key') : $this->configService->getContainerParameter('karser_recaptcha3.secret_key'),
                     'customFields' => $this->getCustomFields(),

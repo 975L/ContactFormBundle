@@ -1,5 +1,13 @@
 # UPGRADE
 
+## v7.17.9
+
+`contact-form-delay` and `contact-form-gdpr` are replaced by the shared `site-form-delay` and `site-form-gdpr` config keys, so every public form across the c975L ecosystem (contact, registration, password reset...) shares one setting instead of one per bundle. Both keys are still seeded even if `c975l/site-bundle` isn't installed. The seeded default for the delay also changes from `7` to `3` seconds; the GDPR default stays `true`.
+
+If you had customized `contact-form-delay` or `contact-form-gdpr` in the dashboard, that value is no longer read - re-apply it to `site-form-delay`/`site-form-gdpr` after upgrading. The old rows are left untouched in the database (not deleted), you can remove them manually from the dashboard.
+
+The GDPR consent checkbox, when enabled, is now also enforced server-side (`Assert\IsTrue`) - `required => true` alone was HTML5-only and let an unchecked box through. If anything submits this form without checking it (a custom JS flow, an automated test), that submission is now rejected.
+
 ## v5.x > v6.x
 
 Changed compatibility to PHP 8

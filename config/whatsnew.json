@@ -1,5 +1,20 @@
 [
     {
+        "date": "2026-07-15",
+        "description": [
+            {
+                "en": "Fixed the GDPR consent checkbox: leaving it unchecked now correctly blocks the submission",
+                "fr": "Correction de la case à cocher RGPD : la laisser décochée bloque désormais correctement l'envoi",
+                "es": "Corregida la casilla de consentimiento RGPD: dejarla sin marcar ahora bloquea correctamente el envío"
+            },
+            {
+                "en": "The anti-spam delay and GDPR settings are now shared with other forms (registration, password reset...) so they only need to be set once",
+                "fr": "Le délai anti-spam et le réglage RGPD sont désormais partagés avec les autres formulaires (inscription, réinitialisation de mot de passe...) et ne se règlent donc plus qu'une seule fois",
+                "es": "El retraso antispam y el ajuste RGPD ahora se comparten con otros formularios (registro, restablecimiento de contraseña...), por lo que solo hay que configurarlos una vez"
+            }
+        ]
+    },
+    {
         "date": "2026-07-13",
         "description": [
             {

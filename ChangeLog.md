@@ -1,5 +1,10 @@
 # Changelog
 
+## v7.17.9
+
+- Replaced `contact-form-delay`/`contact-form-gdpr` config keys by the shared `site-form-delay`/`site-form-gdpr` keys (also seeded by c975l/site-bundle so both bundles agree on one setting) - see UPGRADE.md (15/07/2026)
+- The optional GDPR consent checkbox now actually rejects an unchecked submission server-side (`Assert\IsTrue`) - `required => true` alone was HTML5-only and enforced nothing - see UPGRADE.md (15/07/2026) [BC-Break]
+
 ## v7.17.8
 
 - Replaced .vendor by vendor (15/07/2026)

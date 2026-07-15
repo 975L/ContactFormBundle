@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ContactFormType extends AbstractType
@@ -149,7 +150,11 @@ class ContactFormType extends AbstractType
                         'label' => 'text.gdpr',
                         'translation_domain' => 'site',
                         'required' => true,
-                        'mapped' => false
+                        'mapped' => false,
+                        // 'required' alone is HTML5-only - this is what actually rejects an unchecked box server-side
+                        'constraints' => [
+                            new IsTrue(message: 'gdpr.required'),
+                        ],
                     ]
                 );
         }

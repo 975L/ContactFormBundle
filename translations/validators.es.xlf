@@ -30,6 +30,10 @@
         <source>subject.min_length</source>
         <target>El sujeto debe ser al menos {{ limit }} caracteres</target>
       </trans-unit>
+      <trans-unit id="8">
+        <source>gdpr.required</source>
+        <target>Debe aceptar el tratamiento de sus datos.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -77,26 +77,26 @@
         "description": "description.email_debug"
     },
     {
-        "label": "label.contact_form_delay",
-        "slug": "contact-form-delay",
+        "label": "label.site_form_delay",
+        "slug": "site-form-delay",
         "sensitive": false,
         "restricted": true,
-        "value": 7,
+        "value": 3,
         "kind": "text",
         "group": "form",
-        "severity": "warning",
-        "description": "description.contact_form_delay"
+        "severity": null,
+        "description": "description.site_form_delay"
     },
     {
-        "label": "label.contact_form_gdpr",
-        "slug": "contact-form-gdpr",
+        "label": "label.site_form_gdpr",
+        "slug": "site-form-gdpr",
         "sensitive": false,
         "restricted": true,
         "value": "true",
         "kind": "bool",
         "group": "form",
         "severity": "warning",
-        "description": "description.contact_form_gdpr"
+        "description": "description.site_form_gdpr"
     },
     {
         "label": "label.recaptcha3_site_key",

@@ -26,14 +26,6 @@
                 <source>description.email_reply_to_name</source>
                 <target>Name used to reply to the emails.</target>
             </trans-unit>
-            <trans-unit id="7">
-                <source>description.contact_form_delay</source>
-                <target>Below this delay (seconds) the contact form is supposed to be filled by a robot and will not be sent, to avoid spam</target>
-            </trans-unit>
-            <trans-unit id="8">
-                <source>description.contact_form_gdpr</source>
-                <target>Indicates whether the contact form complies with GDPR regulations.</target>
-            </trans-unit>
             <trans-unit id="9">
                 <source>description.recaptcha3_site_key</source>
                 <target>Site key for ReCaptcha v3</target>
@@ -70,14 +62,6 @@
                 <source>label.email_reply_to_name</source>
                 <target>Email (reply to) Name</target>
             </trans-unit>
-            <trans-unit id="18">
-                <source>label.contact_form_delay</source>
-                <target>Contact Form Delay</target>
-            </trans-unit>
-            <trans-unit id="19">
-                <source>label.contact_form_gdpr</source>
-                <target>Contact GDPR</target>
-            </trans-unit>
             <trans-unit id="20">
                 <source>label.recaptcha3_site_key</source>
                 <target>Re-Captcha3 Site Key</target>
@@ -97,6 +81,22 @@
             <trans-unit id="24">
                 <source>label.email_debug</source>
                 <target>Email debug</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>label.site_form_delay</source>
+                <target>Public forms anti-bot delay</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>description.site_form_delay</source>
+                <target>Minimum time, in seconds, expected between displaying and submitting a public form (registration, password reset, contact...) before treating it as a bot</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>label.site_form_gdpr</source>
+                <target>Show GDPR consent checkbox on public forms</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>description.site_form_gdpr</source>
+                <target>Adds a mandatory consent checkbox to public forms (registration, password reset, contact...)</target>
             </trans-unit>
         </body>
     </file>

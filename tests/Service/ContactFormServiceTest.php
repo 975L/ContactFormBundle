@@ -15,28 +15,20 @@ use c975L\ContactFormBundle\Event\ContactFormEvent;
 use c975L\ContactFormBundle\Form\ContactFormFactoryInterface;
 use c975L\ContactFormBundle\Service\ContactFormService;
 use c975L\ContactFormBundle\Service\EmailServiceInterface;
+use c975L\ContactFormBundle\Tests\RequestWithSessionTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContactFormServiceTest extends TestCase
 {
+    use RequestWithSessionTrait;
+
     private const DELAY = 5;
-
-    // Builds a fresh Request carrying its own session, as the RequestStack would provide at runtime
-    private function createRequest(): Request
-    {
-        $request = new Request();
-        $request->setSession(new Session(new MockArraySessionStorage()));
-
-        return $request;
-    }
 
     // Builds a ContactFormService bound to the given Request
     private function createService(
@@ -44,12 +36,13 @@ class ContactFormServiceTest extends TestCase
         ?bool $sendResult = true,
         ?object $ipLimiterFactory = null,
         ?object $emailLimiterFactory = null,
+        ?int $delayConfigValue = self::DELAY,
     ): ContactFormService {
         $requestStack = new RequestStack();
         $requestStack->push($request);
 
         $configService = $this->createStub(ConfigServiceInterface::class);
-        $configService->method('get')->willReturn(self::DELAY);
+        $configService->method('get')->willReturn($delayConfigValue);
 
         $emailService = $this->createStub(EmailServiceInterface::class);
         if (null !== $sendResult) {
@@ -81,7 +74,7 @@ class ContactFormServiceTest extends TestCase
         return $form;
     }
 
-    // Simulates a bot that submits immediately, before contact-form-delay has elapsed
+    // Simulates a bot that submits immediately, before site-form-delay has elapsed
     private function makeDelayElapsed(Request $request): void
     {
         $request->getSession()->set('time', time() - self::DELAY - 1);
@@ -112,6 +105,28 @@ class ContactFormServiceTest extends TestCase
         $this->makeDelayElapsed($request);
 
         $this->assertTrue($service->isNotBot(null));
+    }
+
+    // "site-form-delay" isn't seeded when c975l/site-bundle isn't installed - falls back to 7s
+    public function testIsNotBotFallsBackTo7SecondsWhenDelayNotSeeded(): void
+    {
+        $request = $this->createRequest();
+        $service = $this->createService($request, delayConfigValue: null);
+        $service->create();
+        $request->getSession()->set('time', time() - 7 - 1);
+
+        $this->assertTrue($service->isNotBot(null));
+    }
+
+    // Same fallback, but before the 7s window has elapsed - must still be rejected as a bot
+    public function testIsNotBotFallsBackTo7SecondsAndRejectsSubmissionBeforeElapsed(): void
+    {
+        $request = $this->createRequest();
+        $service = $this->createService($request, delayConfigValue: null);
+        $service->create();
+        $request->getSession()->set('time', time() - 3);
+
+        $this->assertFalse($service->isNotBot(null));
     }
 
     public function testSendEmailSendsMessageOnHumanSubmission(): void

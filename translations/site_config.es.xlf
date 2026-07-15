@@ -26,14 +26,6 @@
                 <source>description.email_reply_to_name</source>
                 <target>Nombre utilizado para responder a los correos.</target>
             </trans-unit>
-            <trans-unit id="7">
-                <source>description.contact_form_delay</source>
-                <target>Por debajo de este retraso (segundos), se considera que el formulario de contacto ha sido rellenado por un robot y no se enviará, para evitar el spam</target>
-            </trans-unit>
-            <trans-unit id="8">
-                <source>description.contact_form_gdpr</source>
-                <target>Indica si el formulario de contacto cumple con el RGPD.</target>
-            </trans-unit>
             <trans-unit id="9">
                 <source>description.recaptcha3_site_key</source>
                 <target>Clave de sitio para ReCaptcha v3</target>
@@ -70,14 +62,6 @@
                 <source>label.email_reply_to_name</source>
                 <target>Nombre del correo (responder a)</target>
             </trans-unit>
-            <trans-unit id="18">
-                <source>label.contact_form_delay</source>
-                <target>Retraso del formulario de contacto</target>
-            </trans-unit>
-            <trans-unit id="19">
-                <source>label.contact_form_gdpr</source>
-                <target>RGPD del formulario de contacto</target>
-            </trans-unit>
             <trans-unit id="20">
                 <source>label.recaptcha3_site_key</source>
                 <target>Clave de sitio Re-Captcha3</target>
@@ -97,6 +81,22 @@
             <trans-unit id="24">
                 <source>label.email_debug</source>
                 <target>Debug de correos</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>label.site_form_delay</source>
+                <target>Retraso anti-bot de los formularios públicos</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>description.site_form_delay</source>
+                <target>Tiempo mínimo, en segundos, esperado entre la visualización y el envío de un formulario público (registro, restablecimiento de contraseña, contacto...) antes de considerarlo un bot</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>label.site_form_gdpr</source>
+                <target>Mostrar casilla de consentimiento RGPD en los formularios públicos</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>description.site_form_gdpr</source>
+                <target>Añade una casilla de consentimiento obligatoria a los formularios públicos (registro, restablecimiento de contraseña, contacto...)</target>
             </trans-unit>
         </body>
     </file>

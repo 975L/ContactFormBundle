@@ -114,6 +114,15 @@ Pass the `s` query parameter to pre-fill the subject field (rendered as read-onl
 https://example.com/contact?s=My+Subject
 ```
 
+### Anti-bot delay and GDPR checkbox
+
+Both are driven by two config keys shared with the rest of the c975L ecosystem (e.g. c975l/site-bundle's scaffolded registration/reset-password forms), so every public form agrees on one setting instead of one per bundle. Seeded by this bundle's own `config/configs.json` too, so they exist even without c975l/site-bundle installed:
+
+- `site-form-delay` (int, seconds, default `3`) - below this delay between displaying and submitting the form, the submission is treated as a bot and silently dropped.
+- `site-form-gdpr` (bool, default `true`) - shows the mandatory GDPR consent checkbox.
+
+> Renamed from `contact-form-delay`/`contact-form-gdpr` - see UPGRADE.md if you had customized either.
+
 ### Rate limiting (optional)
 
 If the following Symfony RateLimiter services are defined, they are automatically applied before any email is sent:
