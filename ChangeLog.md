@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.17.8
+
+- Replaced .vendor by vendor (15/07/2026)
+
 ## v7.17.7
 
 - Added test to trigger deprecations (14/07/2026)

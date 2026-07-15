@@ -5,7 +5,6 @@
 coverage
 composer.lock
 vendor
-.vendor
 
 #Ignore vscode AI rules
 .github/instructions/codacy.instructions.md
