@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.17.10
+
+- Index-page Edit/Delete/Detail action buttons now show icon-only with the label as hover title (16/07/2026)
+
 ## v7.17.9
 
 - Replaced `contact-form-delay`/`contact-form-gdpr` config keys by the shared `site-form-delay`/`site-form-gdpr` keys (also seeded by c975l/site-bundle so both bundles agree on one setting) - see UPGRADE.md (15/07/2026)

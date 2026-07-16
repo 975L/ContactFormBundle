@@ -217,4 +217,10 @@ public function onCreateForm(ContactFormEvent $event): void
 
 ---
 
-If this bundle **saves you development time**, consider sponsoring via the **Sponsor** button at the top of the repository. Thank you!
+> [!TIP]
+> If this bundle **saves you development time**:
+>
+> - [**star** it on GitHub](https://github.com/975L/ContactFormBundle) — helps others find it
+> - [**open an issue**](https://github.com/975L/ContactFormBundle/issues/new) to share how you use it — genuinely useful feedback
+>
+> And if you'd like to support the work directly, the **Sponsor** button at the top of the repository is there for that. Thank you!
