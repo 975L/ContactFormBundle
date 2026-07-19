@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.17.11
+
+- Noted in README that this bundle is no longer maintained, superseded by c975l/ui-bundle's generic Form system (19/07/2026)
+
 ## v7.17.10
 
 - Index-page Edit/Delete/Detail action buttons now show icon-only with the label as hover title (16/07/2026)

@@ -8,6 +8,11 @@ Symfony bundle that provides a fully-featured contact form with built-in spam pr
 
 ---
 
+> [!WARNING]
+> **This bundle is no longer maintained.** Everything it provided - custom fields, honeypot/rate-limiting/reCaptcha anti-spam, GDPR consent, "receive a copy", and email sending - is now available generically in [c975L/UiBundle](https://github.com/975L/UiBundle) (`Form`/`FormField` entities, the `form` Block, `FormPrefillHelper` for subject-style pre-filling) together with [c975L/SiteBundle](https://github.com/975L/SiteBundle). It still works as-is and existing installs are unaffected, but no new features or fixes are planned - new projects should build their contact form with UiBundle's generic Form system instead.
+
+---
+
 ## Features
 
 - Contact form at `/contact` (or `/{_locale}/contact` for multilingual apps)
